@@ -46,16 +46,18 @@
 </head>
 <body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black">
 
-    <!-- Loading Screen (Shows first) -->
-    <div id="loading-screen" class="flex min-h-screen items-center justify-center">
+    <!-- Bulletproof Loading Screen -->
+    <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
         <div class="text-center animate-pulse">
             <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
             <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION...</span>
         </div>
+        <!-- If it fails, the error will print right here -->
+        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
     </div>
 
-    <!-- Main Dashboard (Hidden until verified) -->
-    <div id="dashboard-content" class="hidden flex-col justify-between min-h-screen w-full opacity-0 transition-opacity duration-700">
+    <!-- Main Dashboard (Forced hidden until JS clears it) -->
+    <div id="dashboard-content" style="display: none;" class="flex-col justify-between min-h-screen w-full">
         
         <!-- Navigation Bar -->
         <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
@@ -116,47 +118,41 @@
 
     </div> <!-- End of Dashboard Content -->
 
-    <!-- Security & Logic Scripts -->
     <script>
+        // Initialize Supabase
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        async function verifyAndLoadDashboard() {
+        // Run Verification when page loads
+        window.onload = async function() {
+            const debugDiv = document.getElementById('debug-error');
+            
             try {
-                // 1. Check for active session
-                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                // 1. Fetch Session
+                const { data, error } = await supabaseClient.auth.getSession();
                 
-                // 2. If no session (or an error occurred), kick them back to login
-                if (error || !session) {
-                    window.location.replace('login.html');
+                if (error) throw error;
+                
+                // 2. If NO Session, show error and return to login
+                if (!data.session) {
+                    debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
                     return;
                 }
+
+                // 3. Success! Set Email
+                document.getElementById('user-email').textContent = data.session.user.email;
                 
-                // 3. If verified, populate the email address
-                document.getElementById('user-email').textContent = session.user.email;
-                
-                // 4. Hide the loading screen
-                document.getElementById('loading-screen').classList.add('hidden');
-                
-                // 5. Reveal the dashboard with a smooth fade-in
-                const dashboard = document.getElementById('dashboard-content');
-                dashboard.classList.remove('hidden');
-                dashboard.classList.add('flex');
-                
-                // Small delay to allow CSS flex to apply before triggering fade-in
-                setTimeout(() => {
-                    dashboard.classList.remove('opacity-0');
-                }, 50);
+                // 4. Swap Visibility Safely
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('dashboard-content').style.display = 'flex';
 
             } catch (err) {
-                console.error("Security check failed:", err);
-                window.location.replace('login.html');
+                // 5. Catch crashes and print to screen
+                console.error("Dashboard Load Error:", err);
+                debugDiv.innerHTML = "System Error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Return to Login</a>";
             }
-        }
-
-        // Run the verification process immediately
-        verifyAndLoadDashboard();
+        };
 
         // Handle Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
