@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterMind Matrix & Crown Access | The Black Label Dispatch Academy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#080808',
+                        brandCard: '#121212',
+                        brandBorder: '#222222',
+                    },
+                    backgroundImage: {
+                        'metallic-gold': 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%)',
+                        'metallic-blue': 'linear-gradient(135deg, #1e3a8a 0%, #60a5fa 30%, #1d4ed8 50%, #93c5fd 75%, #1e40af 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .metallic-gold-text {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-blue-text {
+            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-card-gold {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+        }
+        .metallic-card-blue {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+        }
+        .shine-button-gold {
+            background: linear-gradient(135deg, #bf953f 0%, #e6ca65 50%, #aa771c 100%);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        .shine-button-gold:hover {
+            background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 50%, #d4af37 100%);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+        }
+        .shine-button-blue {
+            background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #1e40af 100%);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+        .shine-button-blue:hover {
+            background: linear-gradient(135deg, #60a5fa 0%, #1d4ed8 50%, #2563eb 100%);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.5);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-yellow-500 selection:text-black">
+
+    <!-- Header / Navigation -->
+    <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <!-- Larger Crown Access Monogram Icon -->
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+                    <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                        <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">MasterMind Matrix & Crown Access</span>
+                    <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">The Black Label Academy</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-300">
+                <a href="#programs" class="hover:text-yellow-400 transition">Programs</a>
+                <a href="#setup" class="hover:text-yellow-400 transition">Full Business Setup</a>
+                <a href="#contact" class="hover:text-yellow-400 transition">Contact</a>
+                <a href="#portal" class="shine-button-gold text-black px-6 py-3 rounded-lg font-bold transition">Student Portal</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-28 px-6 overflow-hidden">
+        <div class="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/3 translate-x-1/4 -translate-y-1/2 w-[500px] h-[300px] bg-yellow-600/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-block py-1.5 px-5 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-6 shadow-inner">
+                Crown Access • The Black Label Elite
+            </span>
+            <h1 class="text-4xl md:text-7xl font-black tracking-tight mb-6 text-white leading-tight">
+                Master the Art of <br class="hidden sm:inline"><span class="metallic-gold-text">Truck Dispatching</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+                Learn proven strategies to <strong class="text-white">attract and secure high-paying carriers</strong>, master operations through our 7-Day Live Masterclass or self-led tracks, and option for full business turn-key setup.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#programs" class="shine-button-gold text-black font-extrabold px-8 py-4 rounded-xl transition text-base">
+                    Explore Programs
+                </a>
+                <a href="#setup" class="border border-blue-500/40 hover:border-blue-400 text-white font-semibold px-8 py-4 rounded-xl transition bg-blue-950/20 backdrop-blur">
+                    Full Business Setup
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Programs & Course Offerings Section -->
+    <section id="programs" class="py-24 px-6 bg-black/60 border-t border-b border-gray-800/80 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase tracking-widest metallic-blue-text font-bold mb-2 block">Comprehensive Curriculum Breakdown</span>
+                <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-4 text-white">What is Offered in the Course</h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Engineered to give you absolute command over freight dispatching operations, carrier acquisition, and agency scaling.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
+                
+                <!-- Live Cohort Card (7 Days, Metallic Blue Theme) -->
+                <div class="metallic-card-blue rounded-3xl p-8 md:p-10 flex flex-col justify-between relative transition duration-300 hover:scale-[1.01]">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">7-Day Live Intensive</span>
+                            <span class="text-xs font-semibold text-blue-300">Live Virtual Cohort</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">7-Day Live Virtual Masterclass</h3>
+                        <p class="text-gray-300 text-sm mb-8 leading-relaxed">
+                            An intensive 7-day live boot camp focused heavily on teaching you how to proactively attract carriers, build long-term relationships, and close lucrative dispatch deals under direct instructor oversight.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <h4 class="text-xs font-bold uppercase tracking-widest text-blue-400">Included Core Features:</h4>
+                            <ul class="space-y-3.5 text-sm text-gray-200">
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Carrier Attraction Masterclass:</strong> Step-by-step methods to find, target, and attract independent truck drivers and motor carriers looking for top-tier dispatchers.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>7 Days of Direct Live Instruction:</strong> Immersive day-by-day training, real-time Q&A, and interactive brokerage booking workflows.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Simulated Load Booking & Negotiations:</strong> Mock phone sessions to master rate negotiations and handle carrier/broker objections with confidence.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Knowledge Checks & Quizzes:</strong> Milestone evaluations to ensure complete grasp of compliance and dispatch execution.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="border-t border-gray-800 pt-6 mb-6 flex items-center justify-between">
+                            <span class="text-xs text-gray-400">Duration: 7 Full Days</span>
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Cohort Access</span>
+                        </div>
+                        <button class="w-full shine-button-blue text-white font-extrabold py-4 rounded-xl transition text-base tracking-wide">
+                            Secure 7-Day Live Seat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Self-Led Card (Metallic Gold Theme) -->
+                <div class="metallic-card-gold rounded-3xl p-8 md:p-10 flex flex-col justify-between relative transition duration-300 hover:scale-[1.01]">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Self-Led Mastery</span>
+                            <span class="text-xs font-semibold text-yellow-300">Lifetime Access</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">On-Demand Dispatch Academy</h3>
+                        <p class="text-gray-300 text-sm mb-8 leading-relaxed">
+                            A complete, modularized video curriculum allowing you to learn at your own rhythm while mastering carrier acquisition channels, legal toolkits, and agency agreements.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <h4 class="text-xs font-bold uppercase tracking-widest metallic-gold-text">Included Core Features:</h4>
+                            <ul class="space-y-3.5 text-sm text-gray-200">
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Carrier Attraction Blueprint:</strong> Digital modules dedicated entirely to outreach strategies, cold-calling scripts, and inbound marketing for truck drivers.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>HD Video Lesson Library:</strong> Step-by-step training covering load boards, back-office management, and fleet coordination.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Plug-and-Play Power Packets:</strong> Ready-to-use carrier-dispatcher agreements, limited power of attorney forms, and rate sheets.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Automated Progress Dashboard:</strong> Track completed video modules and resume seamlessly across all devices.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="border-t border-gray-800 pt-6 mb-6 flex items-center justify-between">
+                            <span class="text-xs text-gray-400">Format: 24/7 Digital Portal</span>
+                            <span class="text-xs font-bold metallic-gold-text uppercase tracking-wider">Instant Access</span>
+                        </div>
+                        <button class="w-full shine-button-gold text-black font-extrabold py-4 rounded-xl transition text-base tracking-wide">
+                            Start Self-Led Track
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Business Setup Add-on Section -->
+    <section id="setup" class="py-24 px-6 bg-brandDark relative">
+        <div class="max-w-5xl mx-auto bg-gradient-to-br from-brandCard to-black border border-yellow-500/30 rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-yellow-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-4">
+                    Optional Turn-Key Upgrade
+                </span>
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Full Business Set Up Option</h2>
+                <p class="text-gray-300 text-sm md:text-base">
+                    Skip the tech hurdles and administrative setup. We build your entire dispatch enterprise from the ground up so you can launch instantly as a fully branded operation.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6 mb-10">
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex items-start space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shrink-0 metallic-gold-text font-bold text-lg">01</div>
+                    <div>
+                        <h4 class="font-bold text-white text-base mb-1">Custom Website</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">A professional, responsive website built to showcase your dispatching services and attract carriers online.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex items-start space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shrink-0 metallic-gold-text font-bold text-lg">02</div>
+                    <div>
+                        <h4 class="font-bold text-white text-base mb-1">Dedicated TMS System</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Integrated Transportation Management System to track loads, manage carrier documents, and streamline dispatching.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex items-start space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shrink-0 metallic-gold-text font-bold text-lg">03</div>
+                    <div>
+                        <h4 class="font-bold text-white text-base mb-1">Professional Documents</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Customized carrier agreements, onboarding packets, limited power of attorney, and operational invoices.</p>
+                    </div>
+                </div>
+
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex items-start space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shrink-0 metallic-gold-text font-bold text-lg">04</div>
+                    <div>
+                        <h4 class="font-bold text-white text-base mb-1">Branding Material</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Complete corporate identity elements, professional logos, and client-facing digital assets matching your brand.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="shine-button-gold text-black font-extrabold px-10 py-4 rounded-xl transition text-base tracking-wide">
+                    Add Full Business Setup to Your Enrollment
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-black border-t border-gray-800/80">
+        <div class="max-w-3xl mx-auto text-center">
+            <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Get In Touch</span>
+            <h2 class="text-3xl font-black text-white mb-4">Ready to Enroll or Have Questions?</h2>
+            <p class="text-gray-400 text-sm mb-8">Reach out to our administrative team to secure your spot in the upcoming 7-day live cohort or self-led academy.</p>
+            
+            <div class="inline-flex flex-col sm:flex-row items-center justify-center gap-6 bg-brandCard border border-gray-800 px-8 py-6 rounded-2xl">
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Direct Contact Email</span>
+                    <a href="mailto:admin@crownaccessdispatch.com" class="text-white font-bold hover:text-yellow-400 transition text-base">admin@crownaccessdispatch.com</a>
+                </div>
+                <div class="hidden sm:block h-10 w-px bg-gray-800"></div>
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Academy Support</span>
+                    <span class="text-white font-bold text-base">MasterMind Matrix & Crown Access</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
+        <p class="mb-2 font-medium">&copy; 2026 MasterMind Matrix: The Black Label & Crown Access: The Black Label. All rights reserved.</p>
+        <p class="text-xs text-gray-600">Engineered with metallic styling, Supabase-ready architecture, and GitHub deployment compatibility.</p>
+    </footer>
+
+</body>
+</html>
