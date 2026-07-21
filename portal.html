@@ -41,6 +41,11 @@
             background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
             border: 1px solid rgba(37, 99, 235, 0.3);
             box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metallic-card-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.3);
         }
     </style>
 </head>
@@ -91,14 +96,15 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
+                <!-- Clickable Live Cohort Card linked to live-cohort.html -->
+                <a href="live-cohort.html" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between cursor-pointer block">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Live Cohort / Core Module</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Carrier Attraction Masterclass</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Learn how to approach, pitch, and secure independent motor carriers under direct instruction.</p>
+                        <h3 class="text-2xl font-black text-white mb-2">Carrier Attraction Masterclass &rarr;</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Learn how to approach, pitch, and secure independent motor carriers under direct instruction in your live room.</p>
                     </div>
-                    <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Unlocked Access</span>
-                </div>
+                    <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Click to Join Live Room</span>
+                </a>
 
                 <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
                     <div>
