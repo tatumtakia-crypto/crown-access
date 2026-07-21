@@ -88,7 +88,7 @@
                 <a href="#programs" class="hover:text-yellow-400 transition">Programs ($175 / $150)</a>
                 <a href="#setup" class="hover:text-yellow-400 transition">Full Business Setup</a>
                 <a href="#contact" class="hover:text-yellow-400 transition">Contact</a>
-                <button onclick="openLoginModal()" class="shine-button-gold text-black px-6 py-3 rounded-lg font-bold transition cursor-pointer">Student Portal</button>
+                <a href="login.html" class="shine-button-gold text-black px-6 py-3 rounded-lg font-bold transition">Student Portal</a>
             </nav>
         </div>
     </header>
@@ -350,101 +350,5 @@
         <p class="text-xs text-gray-600">Engineered with metallic styling, Supabase-ready architecture, and GitHub deployment compatibility.</p>
     </footer>
 
-    <!-- STUDENT PORTAL LOGIN MODAL POPUP -->
-    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
-        <div class="metallic-card-gold rounded-3xl p-8 md:p-10 w-full max-w-md shadow-2xl relative overflow-hidden mx-4">
-            <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white font-bold text-lg px-3 py-1">✕</button>
-
-            <div class="text-center mb-6 relative z-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-2">
-                    Secure Access Required
-                </span>
-                <h3 class="text-2xl font-black text-white">Student Sign In</h3>
-                <p class="text-gray-400 text-xs mt-1">Enter your credentials to unlock your portal dashboard.</p>
-            </div>
-
-            <form id="modal-login-form" class="space-y-4 relative z-10">
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-yellow-400/90 mb-1.5">Email Address</label>
-                    <input type="email" id="modal-email" required placeholder="student@example.com" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-yellow-400/90 mb-1.5">Password</label>
-                    <input type="password" id="modal-password" required placeholder="••••••••" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition">
-                </div>
-
-                <div id="modal-error-message" class="text-xs text-red-400 text-center font-medium empty:hidden"></div>
-
-                <button type="submit" id="modal-submit-btn" class="w-full shine-button-gold text-black font-extrabold py-3.5 rounded-xl transition text-sm uppercase tracking-wide cursor-pointer">
-                    Login & Access Portal
-                </button>
-            </form>
-
-            <div class="mt-6 pt-4 border-t border-gray-800/80 text-center relative z-10 text-xs">
-                <span class="text-gray-500">Need support?</span> 
-                <a href="mailto:Dispatch@mmblacklabel.com" class="text-yellow-400 font-bold hover:underline ml-1">Dispatch@mmblacklabel.com</a>
-                <div class="text-gray-400 mt-1">205-383-6124 / 256-279-7975</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Supabase Authentication & Modal Script -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        const loginModal = document.getElementById('login-modal');
-        const modalLoginForm = document.getElementById('modal-login-form');
-        const modalEmail = document.getElementById('modal-email');
-        const modalPassword = document.getElementById('modal-password');
-        const modalErrorMessage = document.getElementById('modal-error-message');
-        const modalSubmitBtn = document.getElementById('modal-submit-btn');
-
-        function openLoginModal() {
-            loginModal.classList.remove('hidden');
-        }
-
-        function closeLoginModal() {
-            loginModal.classList.add('hidden');
-            modalErrorMessage.textContent = '';
-            modalLoginForm.reset();
-        }
-
-        // Close modal when clicking outside of the card
-        loginModal.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                closeLoginModal();
-            }
-        });
-
-        modalLoginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            modalErrorMessage.textContent = '';
-            modalSubmitBtn.textContent = 'Verifying...';
-            modalSubmitBtn.disabled = true;
-
-            try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: modalEmail.value.trim(),
-                    password: modalPassword.value,
-                });
-
-                if (error) throw error;
-
-                // Successful login: Redirect directly to the dashboard portal
-                window.location.href = 'portal.html';
-
-            } catch (error) {
-                modalErrorMessage.textContent = error.message || 'Invalid login credentials.';
-                modalSubmitBtn.textContent = 'Login & Access Portal';
-                modalSubmitBtn.disabled = false;
-            }
-        });
-    </script>
 </body>
 </html>
