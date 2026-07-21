@@ -107,19 +107,27 @@
     <script>
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        async function checkExistingSession() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) {
-                window.location.href = 'portal.html';
+        
+        // Initialize client with explicit persistence
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true
             }
-        }
-        checkExistingSession();
+        });
 
+        // Redirect if already logged in
+        window.onload = async function() {
+            const { data } = await supabaseClient.auth.getSession();
+            if (data && data.session) {
+                window.location.replace('portal.html');
+            }
+        };
+
+        // Handle Login Submission
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('error-msg');
             const submitBtn = document.getElementById('submit-btn');
@@ -136,7 +144,8 @@
                 submitBtn.textContent = 'Sign In to Portal';
                 submitBtn.disabled = false;
             } else {
-                window.location.href = 'portal.html';
+                // Smooth replacement to portal
+                window.location.replace('portal.html');
             }
         });
     </script>
