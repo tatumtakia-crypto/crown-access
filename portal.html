@@ -81,17 +81,17 @@
         </div>
     </header>
 
-    <!-- SECTION 1: LOGIN WALL (Shown by default until authenticated) -->
+    <!-- SECTION 1: LOGIN WALL (Strictly enforced until valid session is established) -->
     <div id="login-section" class="py-20 px-6 max-w-md mx-auto w-full flex-grow flex items-center justify-center">
         <div class="metallic-card-gold rounded-3xl p-8 md:p-10 w-full shadow-2xl relative overflow-hidden">
             <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
             <div class="text-center mb-8 relative z-10">
                 <span class="inline-block py-1 px-3 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-3">
-                    Secure Access Required
+                    Authentication Required
                 </span>
                 <h1 class="text-2xl md:text-3xl font-black text-white">Student Sign In</h1>
-                <p class="text-gray-400 text-xs mt-1">Enter your credentials to unlock your academy dashboard.</p>
+                <p class="text-gray-400 text-xs mt-1">Enter your correct credentials to unlock portal access.</p>
             </div>
 
             <!-- Login Form -->
@@ -108,8 +108,8 @@
 
                 <div id="error-message" class="text-xs text-red-400 text-center font-medium empty:hidden"></div>
 
-                <button type="submit" class="w-full shine-button-gold text-black font-extrabold py-3.5 rounded-xl transition text-sm uppercase tracking-wide">
-                    Login & Access Portal
+                <button type="submit" id="login-btn" class="w-full shine-button-gold text-black font-extrabold py-3.5 rounded-xl transition text-sm uppercase tracking-wide flex items-center justify-center">
+                    <span>Authenticate & Enter Portal</span>
                 </button>
             </form>
 
@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <!-- SECTION 2: PORTAL DASHBOARD (Hidden until logged in successfully) -->
+    <!-- SECTION 2: PORTAL DASHBOARD (Completely hidden unless authenticated via Supabase) -->
     <main id="dashboard-section" class="py-16 px-6 max-w-7xl mx-auto w-full flex-grow hidden">
         
         <!-- Welcome Banner -->
@@ -133,7 +133,7 @@
             <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <span class="inline-block py-1 px-3 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-3">
-                        Active Student Access
+                        Active Student Access Verified
                     </span>
                     <h1 class="text-3xl md:text-5xl font-black text-white mb-2">Welcome to Your Academy Dashboard</h1>
                     <p class="text-gray-300 text-sm md:text-base">Access your training modules, download professional agreement templates, and manage your dispatch materials.</p>
@@ -220,7 +220,7 @@
                     <div class="space-y-3 text-sm text-gray-300 border-b border-gray-800 pb-6 mb-6">
                         <div class="flex justify-between">
                             <span class="text-gray-500">Status:</span>
-                            <span class="text-green-400 font-bold">Active Enrolled</span>
+                            <span class="text-green-400 font-bold">Authenticated</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-500">Platform:</span>
@@ -262,7 +262,7 @@
         <p class="text-xs text-gray-600">Secure Student Portal • Supabase Authentication</p>
     </footer>
 
-    <!-- Supabase Authentication & View Toggle Script -->
+    <!-- Supabase Authentication & Access Enforcement Script -->
     <script>
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
@@ -275,9 +275,10 @@
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const errorMessage = document.getElementById('error-message');
+        const loginBtn = document.getElementById('login-btn');
         const logoutBtn = document.getElementById('logout-btn');
 
-        // Check active session on page load
+        // Check active session on initial page load
         async function checkSession() {
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
@@ -299,10 +300,12 @@
             logoutBtn.classList.add('hidden');
         }
 
-        // Handle Form Submission Login
+        // Handle Correct Login Attempt via Supabase
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             errorMessage.textContent = '';
+            loginBtn.textContent = 'Verifying Credentials...';
+            loginBtn.disabled = true;
             
             const email = emailInput.value.trim();
             const password = passwordInput.value;
@@ -315,21 +318,24 @@
 
                 if (error) throw error;
 
-                // On successful login, instantly reveal the student dashboard
+                // Valid credentials: Grant immediate access to portal dashboard
                 showDashboard();
 
             } catch (error) {
-                errorMessage.textContent = error.message;
+                errorMessage.textContent = error.message || 'Invalid login credentials. Please try again.';
+            } finally {
+                loginBtn.textContent = 'Authenticate & Enter Portal';
+                loginBtn.disabled = false;
             }
         });
 
-        // Handle Logout
+        // Handle Secure Sign Out
         logoutBtn.addEventListener('click', async () => {
             await supabase.auth.signOut();
             showLogin();
         });
 
-        // Run check on load
+        // Initialize state verification on load
         checkSession();
     </script>
 </body>
