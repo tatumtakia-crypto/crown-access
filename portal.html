@@ -6,6 +6,8 @@
     <title>Crown Access | Student Portal</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -74,12 +76,56 @@
                 <a href="index.html#programs" class="hover:text-yellow-400 transition">Programs ($175 / $150)</a>
                 <a href="index.html#setup" class="hover:text-yellow-400 transition">Business Setup</a>
                 <a href="#support" class="hover:text-yellow-400 transition">Support</a>
+                <button id="logout-btn" class="hidden text-xs text-red-400 hover:text-red-300 transition font-bold uppercase tracking-wider border border-red-500/30 px-3 py-1.5 rounded-lg">Sign Out</button>
             </nav>
         </div>
     </header>
 
-    <!-- Portal Dashboard Content -->
-    <main class="py-16 px-6 max-w-7xl mx-auto w-full flex-grow">
+    <!-- SECTION 1: LOGIN WALL (Shown by default until authenticated) -->
+    <div id="login-section" class="py-20 px-6 max-w-md mx-auto w-full flex-grow flex items-center justify-center">
+        <div class="metallic-card-gold rounded-3xl p-8 md:p-10 w-full shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="text-center mb-8 relative z-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-3">
+                    Secure Access Required
+                </span>
+                <h1 class="text-2xl md:text-3xl font-black text-white">Student Sign In</h1>
+                <p class="text-gray-400 text-xs mt-1">Enter your credentials to unlock your academy dashboard.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-5 relative z-10">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-yellow-400/90 mb-2">Email Address</label>
+                    <input type="email" id="email" required placeholder="student@example.com" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-yellow-400/90 mb-2">Password</label>
+                    <input type="password" id="password" required placeholder="••••••••" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition">
+                </div>
+
+                <div id="error-message" class="text-xs text-red-400 text-center font-medium empty:hidden"></div>
+
+                <button type="submit" class="w-full shine-button-gold text-black font-extrabold py-3.5 rounded-xl transition text-sm uppercase tracking-wide">
+                    Login & Access Portal
+                </button>
+            </form>
+
+            <div class="mt-8 pt-6 border-t border-gray-800/80 text-center relative z-10">
+                <p class="text-xs text-gray-500">Need account support or access credentials?</p>
+                <a href="mailto:Dispatch@mmblacklabel.com" class="text-yellow-400 font-bold text-xs hover:underline mt-1 inline-block">Dispatch@mmblacklabel.com</a>
+                <div class="text-xs text-gray-400 mt-1">205-383-6124 / 256-279-7975</div>
+                <div class="mt-4">
+                    <a href="index.html" class="text-gray-400 hover:text-white text-xs underline">&larr; Return to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: PORTAL DASHBOARD (Hidden until logged in successfully) -->
+    <main id="dashboard-section" class="py-16 px-6 max-w-7xl mx-auto w-full flex-grow hidden">
         
         <!-- Welcome Banner -->
         <div class="metallic-card-gold rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
@@ -213,8 +259,78 @@
     <!-- Footer -->
     <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
         <p class="mb-2 font-medium">&copy; 2026 Crown Access. All rights reserved.</p>
-        <p class="text-xs text-gray-600">Secure Student Portal • Supabase-Ready Architecture</p>
+        <p class="text-xs text-gray-600">Secure Student Portal • Supabase Authentication</p>
     </footer>
 
+    <!-- Supabase Authentication & View Toggle Script -->
+    <script>
+        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const loginSection = document.getElementById('login-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const loginForm = document.getElementById('login-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('error-message');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        // Check active session on page load
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                showDashboard();
+            } else {
+                showLogin();
+            }
+        }
+
+        function showDashboard() {
+            loginSection.classList.add('hidden');
+            dashboardSection.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden');
+        }
+
+        function showLogin() {
+            dashboardSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            logoutBtn.classList.add('hidden');
+        }
+
+        // Handle Form Submission Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.textContent = '';
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) throw error;
+
+                // On successful login, instantly reveal the student dashboard
+                showDashboard();
+
+            } catch (error) {
+                errorMessage.textContent = error.message;
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            showLogin();
+        });
+
+        // Run check on load
+        checkSession();
+    </script>
 </body>
 </html>
