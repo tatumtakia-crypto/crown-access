@@ -44,12 +44,12 @@
         }
     </style>
     <script>
-        // IMMEDIATE GUARD: Check session before rendering page content
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        async function protectPage() {
+        // Wait for the HTML elements to load before manipulating them
+        document.addEventListener('DOMContentLoaded', async () => {
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
                 window.location.replace('login.html');
@@ -57,8 +57,7 @@
                 document.getElementById('user-email').textContent = session.user.email;
                 document.body.style.visibility = 'visible';
             }
-        }
-        protectPage();
+        });
     </script>
 </head>
 <body class="bg-brandDark text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-yellow-500 selection:text-black" style="visibility: hidden;">
