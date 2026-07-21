@@ -155,8 +155,8 @@
 
                 if (error) throw error;
 
-                // Successful login: Redirect directly to the visible dashboard portal
-                window.location.href = 'portal-dashboard.html';
+                // Successful login: Redirect directly to portal.html since it handles both login and dashboard in one file
+                window.location.href = 'portal.html';
 
             } catch (error) {
                 errorMessage.textContent = error.message;
