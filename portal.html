@@ -43,83 +43,122 @@
             box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
         }
     </style>
+</head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black">
+
+    <!-- Loading Screen (Shows first) -->
+    <div id="loading-screen" class="flex min-h-screen items-center justify-center">
+        <div class="text-center animate-pulse">
+            <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION...</span>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (Hidden until verified) -->
+    <div id="dashboard-content" class="hidden flex-col justify-between min-h-screen w-full opacity-0 transition-opacity duration-700">
+        
+        <!-- Navigation Bar -->
+        <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+                        <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                            <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden sm:inline"></span>
+                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-4 py-2.5 rounded-lg transition">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
+            <div class="mb-12">
+                <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
+                <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
+                <p class="text-gray-400 text-sm md:text-base">Access your enrolled masterclasses, resource packets, and step-by-step guides below.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Live Cohort / Core Module</span>
+                        <h3 class="text-2xl font-black text-white mb-2">Carrier Attraction Masterclass</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Learn how to approach, pitch, and secure independent motor carriers under direct instruction.</p>
+                    </div>
+                    <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Unlocked Access</span>
+                </div>
+
+                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Self-Paced Module</span>
+                        <h3 class="text-2xl font-black text-white mb-2">Load Booking & Rate Negotiations</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Master mock phone flows, broker negotiations, and compliance frameworks at your own pace.</p>
+                    </div>
+                    <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Unlocked Access</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
+            <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
+        </footer>
+
+    </div> <!-- End of Dashboard Content -->
+
+    <!-- Security & Logic Scripts -->
     <script>
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Wait for the HTML elements to load before manipulating them
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                window.location.replace('login.html');
-            } else {
+        async function verifyAndLoadDashboard() {
+            try {
+                // 1. Check for active session
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                
+                // 2. If no session (or an error occurred), kick them back to login
+                if (error || !session) {
+                    window.location.replace('login.html');
+                    return;
+                }
+                
+                // 3. If verified, populate the email address
                 document.getElementById('user-email').textContent = session.user.email;
-                document.body.style.visibility = 'visible';
+                
+                // 4. Hide the loading screen
+                document.getElementById('loading-screen').classList.add('hidden');
+                
+                // 5. Reveal the dashboard with a smooth fade-in
+                const dashboard = document.getElementById('dashboard-content');
+                dashboard.classList.remove('hidden');
+                dashboard.classList.add('flex');
+                
+                // Small delay to allow CSS flex to apply before triggering fade-in
+                setTimeout(() => {
+                    dashboard.classList.remove('opacity-0');
+                }, 50);
+
+            } catch (err) {
+                console.error("Security check failed:", err);
+                window.location.replace('login.html');
             }
-        });
-    </script>
-</head>
-<body class="bg-brandDark text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-yellow-500 selection:text-black" style="visibility: hidden;">
+        }
 
-    <!-- Navigation Bar -->
-    <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
-                    <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
-                        <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
-                    </div>
-                </div>
-                <div>
-                    <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-                    <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
-                </div>
-            </div>
-            <div class="flex items-center space-x-6">
-                <span id="user-email" class="text-sm font-semibold text-gray-400 hidden sm:inline"></span>
-                <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-4 py-2.5 rounded-lg transition">
-                    Sign Out
-                </button>
-            </div>
-        </div>
-    </header>
+        // Run the verification process immediately
+        verifyAndLoadDashboard();
 
-    <!-- Main Dashboard Content -->
-    <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
-        <div class="mb-12">
-            <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
-            <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
-            <p class="text-gray-400 text-sm md:text-base">Access your enrolled masterclasses, resource packets, and step-by-step guides below.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
-                <div>
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Live Cohort / Core Module</span>
-                    <h3 class="text-2xl font-black text-white mb-2">Carrier Attraction Masterclass</h3>
-                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Learn how to approach, pitch, and secure independent motor carriers under direct instruction.</p>
-                </div>
-                <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Unlocked Access</span>
-            </div>
-
-            <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
-                <div>
-                    <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Self-Paced Module</span>
-                    <h3 class="text-2xl font-black text-white mb-2">Load Booking & Rate Negotiations</h3>
-                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Master mock phone flows, broker negotiations, and compliance frameworks at your own pace.</p>
-                </div>
-                <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Unlocked Access</span>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
-        <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
-    </footer>
-
-    <script>
+        // Handle Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await supabaseClient.auth.signOut();
             window.location.replace('login.html');
