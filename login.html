@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crown Access | Student Portal Login</title>
+    <title>MasterMind Matrix & Crown Access | The Black Label Dispatch Academy</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Supabase JS Client Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -43,6 +41,11 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
         }
+        .metallic-card-blue {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+        }
         .shine-button-gold {
             background: linear-gradient(135deg, #bf953f 0%, #e6ca65 50%, #aa771c 100%);
             box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
@@ -51,6 +54,16 @@
         .shine-button-gold:hover {
             background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 50%, #d4af37 100%);
             box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+        }
+        .shine-button-blue {
+            background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #1e40af 100%);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+        .shine-button-blue:hover {
+            background: linear-gradient(135deg, #60a5fa 0%, #1d4ed8 50%, #2563eb 100%);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.5);
             transform: translateY(-1px);
         }
     </style>
@@ -68,101 +81,274 @@
                 </div>
                 <div>
                     <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-                    <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Portal Login</span>
+                    <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">The Black Label Academy</span>
                 </div>
             </div>
             <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-300">
-                <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
-                <a href="index.html#programs" class="hover:text-yellow-400 transition">Programs</a>
-                <a href="index.html#contact" class="hover:text-yellow-400 transition">Contact</a>
+                <a href="#programs" class="hover:text-yellow-400 transition">Programs ($175 / $150)</a>
+                <a href="#setup" class="hover:text-yellow-400 transition">Full Business Setup</a>
+                <a href="#contact" class="hover:text-yellow-400 transition">Contact</a>
+                <a href="login.html" class="shine-button-gold text-black px-6 py-3 rounded-lg font-bold transition">Student Portal</a>
             </nav>
         </div>
     </header>
 
-    <!-- Login Form Section -->
-    <main class="py-20 px-6 max-w-md mx-auto w-full flex-grow flex items-center justify-center">
-        <div class="metallic-card-gold rounded-3xl p-8 md:p-10 w-full shadow-2xl relative overflow-hidden">
-            <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+    <!-- Hero Section -->
+    <section class="relative py-28 px-6 overflow-hidden">
+        <div class="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/3 translate-x-1/4 -translate-y-1/2 w-[500px] h-[300px] bg-yellow-600/10 blur-[130px] rounded-full pointer-events-none"></div>
 
-            <div class="text-center mb-8 relative z-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-3">
-                    Secure Access Required
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-block py-1.5 px-5 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-6 shadow-inner">
+                Crown Access • The Black Label Elite
+            </span>
+            <h1 class="text-4xl md:text-7xl font-black tracking-tight mb-6 text-white leading-tight">
+                Master the Art of <br class="hidden sm:inline"><span class="metallic-gold-text">Truck Dispatching</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+                Learn proven strategies to <strong class="text-white">attract and secure carriers</strong>, master operations through our 7-Day Live Masterclass or self-led tracks, and option for full business turn-key setup.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#programs" class="shine-button-gold text-black font-extrabold px-8 py-4 rounded-xl transition text-base">
+                    Explore Programs & Pricing
+                </a>
+                <a href="#setup" class="border border-blue-500/40 hover:border-blue-400 text-white font-semibold px-8 py-4 rounded-xl transition bg-blue-950/20 backdrop-blur">
+                    Full Business Setup
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Programs & Course Offerings Section with Pricing -->
+    <section id="programs" class="py-24 px-6 bg-black/60 border-t border-b border-gray-800/80 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase tracking-widest metallic-blue-text font-bold mb-2 block">Comprehensive Curriculum & Pricing</span>
+                <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-4 text-white">Academy Programs & Tuition</h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Engineered to give you absolute command over freight dispatching operations, carrier acquisition, and agency scaling.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
+                
+                <!-- Live Cohort Card (7 Days, Metallic Blue Theme) -->
+                <div class="metallic-card-blue rounded-3xl p-8 md:p-10 flex flex-col justify-between relative transition duration-300 hover:scale-[1.01]">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">7-Day Live Intensive</span>
+                            <span class="text-2xl font-black text-blue-400">$175</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">Virtual Class</h3>
+                        <p class="text-gray-300 text-sm mb-8 leading-relaxed">
+                            An intensive 7-day live boot camp focused heavily on teaching you how to proactively attract carriers, build long-term relationships, and close lucrative dispatch deals under direct instructor oversight.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <h4 class="text-xs font-bold uppercase tracking-widest text-blue-400">Included Core Features:</h4>
+                            <ul class="space-y-3.5 text-sm text-gray-200">
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Carrier Attraction Masterclass:</strong> Step-by-step methods to find, target, and attract independent truck drivers and motor carriers.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>7 Days of Direct Live Instruction:</strong> Immersive day-by-day training, real-time Q&A, and interactive brokerage booking workflows.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Simulated Load Booking & Negotiations:</strong> Mock phone sessions to master rate negotiations and handle carrier/broker objections.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Knowledge Checks & Quizzes:</strong> Milestone evaluations to ensure complete grasp of compliance and dispatch execution.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="border-t border-gray-800 pt-6 mb-6 flex items-center justify-between">
+                            <span class="text-xs text-gray-400">Duration: 7 Full Days</span>
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Cohort Access</span>
+                        </div>
+                        <button class="w-full shine-button-blue text-white font-extrabold py-4 rounded-xl transition text-base tracking-wide">
+                            Enroll in Virtual Class ($175)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Self-Led Card (Metallic Gold Theme) -->
+                <div class="metallic-card-gold rounded-3xl p-8 md:p-10 flex flex-col justify-between relative transition duration-300 hover:scale-[1.01]">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Self-Led Mastery</span>
+                            <span class="text-2xl font-black metallic-gold-text">$150</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">Self-Paced Course</h3>
+                        <p class="text-gray-300 text-sm mb-8 leading-relaxed">
+                            A complete, modularized video curriculum allowing you to learn at your own rhythm while mastering carrier acquisition channels, legal toolkits, and agency agreements.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <h4 class="text-xs font-bold uppercase tracking-widest metallic-gold-text">Included Core Features:</h4>
+                            <ul class="space-y-3.5 text-sm text-gray-200">
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Carrier Attraction Blueprint:</strong> Digital modules dedicated entirely to outreach strategies, cold-calling scripts, and inbound marketing.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>HD Video Lesson Library:</strong> Step-by-step training covering load boards, back-office management, and fleet coordination.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Plug-and-Play Power Packets:</strong> Ready-to-use carrier-dispatcher agreements, limited power of attorney forms, and rate sheets.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="metallic-gold-text font-bold mr-3 text-lg leading-none">✓</span>
+                                    <span><strong>Automated Progress Dashboard:</strong> Track completed video modules and resume seamlessly across all devices.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="border-t border-gray-800 pt-6 mb-6 flex items-center justify-between">
+                            <span class="text-xs text-gray-400">Format: 24/7 Digital Portal</span>
+                            <span class="text-xs font-bold metallic-gold-text uppercase tracking-wider">Instant Access</span>
+                        </div>
+                        <button class="w-full shine-button-gold text-black font-extrabold py-4 rounded-xl transition text-base tracking-wide">
+                            Start Self-Paced Course ($150)
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Business Setup & Individual Services Pricing Section -->
+    <section id="setup" class="py-24 px-6 bg-brandDark relative">
+        <div class="max-w-6xl mx-auto bg-gradient-to-br from-brandCard to-black border border-yellow-500/30 rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-yellow-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-4">
+                    Turn-Key Setup & Component Pricing
                 </span>
-                <h1 class="text-2xl md:text-3xl font-black text-white">Student Sign In</h1>
-                <p class="text-gray-400 text-xs mt-1">Enter your credentials to unlock your academy dashboard.</p>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-4">Business Setup & Individual Services</h2>
+                <p class="text-gray-300 text-sm md:text-base">
+                    Skip the tech hurdles and administrative setup. Choose our comprehensive turn-key package or mix-and-match individual components to launch your dispatch enterprise.
+                </p>
             </div>
 
-            <!-- Login Form -->
-            <form id="login-form" class="space-y-5 relative z-10">
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-yellow-400/90 mb-2">Email Address</label>
-                    <input type="email" id="email" required placeholder="student@example.com" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Website Tiers -->
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-white text-lg">3-Page Website</h4>
+                            <span class="text-xl font-black metallic-gold-text">$175</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Professional, mobile-responsive website tailored to establish your professional online presence.</p>
+                    </div>
+                    <button class="w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition">Select 3-Page ($175)</button>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-yellow-400/90 mb-2">Password</label>
-                    <input type="password" id="password" required placeholder="••••••••" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition">
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-white text-lg">5-Page Website</h4>
+                            <span class="text-xl font-black metallic-gold-text">$350</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Expanded multi-page layout optimized for service businesses and growing logistics operations.</p>
+                    </div>
+                    <button class="w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition">Select 5-Page ($350)</button>
                 </div>
 
-                <div id="error-message" class="text-xs text-red-400 text-center font-medium empty:hidden"></div>
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-white text-lg">7-Page Website</h4>
+                            <span class="text-xl font-black metallic-gold-text">$500</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Comprehensive professional web application with custom sections and detailed service breakdowns.</p>
+                    </div>
+                    <button class="w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition">Select 7-Page ($500)</button>
+                </div>
 
-                <button type="submit" id="login-btn" class="w-full shine-button-gold text-black font-extrabold py-3.5 rounded-xl transition text-sm uppercase tracking-wide cursor-pointer">
-                    Login & Access Portal
+                <!-- TMS System -->
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-white text-lg">TMS System</h4>
+                            <span class="text-xl font-black metallic-gold-text">$150</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Custom web-based Transportation Management System portal to manage administrative workflows, dispatching, and loads.</p>
+                    </div>
+                    <button class="w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition">Get TMS ($150)</button>
+                </div>
+
+                <!-- Professional Documents -->
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-white text-lg">Professional Docs</h4>
+                            <span class="text-xl font-black metallic-gold-text">$80</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Standardized agreements, rate confirmations, carrier packets, and essential business documentation.</p>
+                    </div>
+                    <button class="w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition">Order Docs ($80)</button>
+                </div>
+
+                <!-- Branding Package -->
+                <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-white text-lg">Branding Package</h4>
+                            <span class="text-xl font-black metallic-gold-text">$50</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Professional logo design, brand identity assets, and marketing visual materials for Crown Access.</p>
+                    </div>
+                    <button class="w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition">Get Branding ($50)</button>
+                </div>
+            </div>
+
+            <div class="text-center bg-black/40 border border-gray-800 rounded-2xl p-8">
+                <h3 class="text-xl font-black text-white mb-2">Ready for the Complete Turn-Key Enterprise Package?</h3>
+                <p class="text-gray-400 text-sm mb-6">Combine your choice of website, TMS portal, documents, and branding into a seamless agency buildout.</p>
+                <button class="shine-button-gold text-black font-extrabold px-10 py-4 rounded-xl transition text-base tracking-wide">
+                    Book Full Business Setup Bundle
                 </button>
-            </form>
+            </div>
+        </div>
+    </section>
 
-            <div class="mt-8 pt-6 border-t border-gray-800/80 text-center relative z-10">
-                <p class="text-xs text-gray-500">Need account support or access credentials?</p>
-                <a href="mailto:Dispatch@mmblacklabel.com" class="text-yellow-400 font-bold text-xs hover:underline mt-1 inline-block">Dispatch@mmblacklabel.com</a>
-                <div class="text-xs text-gray-400 mt-1">205-383-6124 / 256-279-7975</div>
-                <div class="mt-4">
-                    <a href="index.html" class="text-gray-400 hover:text-white text-xs underline">&larr; Return to Homepage</a>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-black border-t border-gray-800/80">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Get In Touch</span>
+            <h2 class="text-3xl font-black text-white mb-4">Ready to Enroll or Have Questions?</h2>
+            <p class="text-gray-400 text-sm mb-8">Reach out to our administrative team to secure your spot in the virtual class, self-paced course, or business setup package.</p>
+            
+            <div class="grid sm:grid-cols-2 gap-6 bg-brandCard border border-gray-800 px-8 py-6 rounded-2xl text-left">
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Direct Contact Email</span>
+                    <a href="mailto:Dispatch@mmblacklabel.com" class="text-white font-bold hover:text-yellow-400 transition text-base">Dispatch@mmblacklabel.com</a>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Direct Phone Lines</span>
+                    <div class="flex flex-col space-y-1">
+                        <a href="tel:2053836124" class="text-white font-bold hover:text-yellow-400 transition text-sm">205-383-6124</a>
+                        <a href="tel:2562797975" class="text-white font-bold hover:text-yellow-400 transition text-sm">256-279-7975</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Footer -->
-    <footer class="py-8 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
-        <p class="mb-1 font-medium">&copy; 2026 Crown Access. All rights reserved.</p>
-        <p class="text-xs text-gray-600">Secured via Supabase Authentication</p>
+    <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
+        <p class="mb-2 font-medium">&copy; 2026 Crown Access. All rights reserved.</p>
+        <p class="text-xs text-gray-600">Engineered with metallic styling, Supabase-ready architecture, and GitHub deployment compatibility.</p>
     </footer>
 
-    <!-- Supabase Authentication Script -->
-    <script>
-        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        const loginForm = document.getElementById('login-form');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const errorMessage = document.getElementById('error-message');
-        const loginBtn = document.getElementById('login-btn');
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorMessage.textContent = '';
-            loginBtn.textContent = 'Verifying...';
-            loginBtn.disabled = true;
-
-            try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: emailInput.value.trim(),
-                    password: passwordInput.value,
-                });
-
-                if (error) throw error;
-
-                // Successful login redirects to student portal dashboard
-                window.location.href = 'student-portal.html';
-
-            } catch (error) {
-                errorMessage.textContent = error.message || 'Invalid login credentials.';
-                loginBtn.textContent = 'Login & Access Portal';
-                loginBtn.disabled = false;
-            }
-        });
-    </script>
 </body>
 </html>
