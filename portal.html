@@ -116,17 +116,15 @@
 
             <div class="grid md:grid-cols-2 gap-8">
                 
-                <!-- Card 1: Course Material -->
-                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
+                <!-- Card 1: Self-Led Course / Masterclass Material -->
+                <a href="self.html" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group cursor-pointer">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
                         <h3 class="text-2xl font-black text-white mb-2">Masterclass Material</h3>
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your purchased masterclasses, video walk-throughs, and step-by-step training modules.</p>
                     </div>
-                    <div id="course-action-container">
-                        <span class="text-xs text-gray-500 italic">Verifying purchase status...</span>
-                    </div>
-                </div>
+                    <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/20 transition">Open Course &rarr;</span>
+                </a>
 
                 <!-- Card 2: Resources -->
                 <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
@@ -173,9 +171,6 @@
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const COURSE_SELF_ID = '21d4cd05-7960-4096-9485-7e964b4f7b06';
-        const COURSE_LIVE_ID = '42c3c928-d4ab-4c33-b350-96b8117a3e23';
-
         window.onload = async function() {
             const debugDiv = document.getElementById('debug-error');
             
@@ -189,59 +184,6 @@
                 }
 
                 document.getElementById('user-email').textContent = sessionData.session.user.email;
-                
-                const userId = sessionData.session.user.id;
-                
-                const { data: purchases, error: purchaseError } = await supabaseClient
-                    .from('purchases')
-                    .select('course_id')
-                    .eq('user_id', userId);
-
-                const courseActionContainer = document.getElementById('course-action-container');
-
-                let activeCourseIds = [];
-                if (!purchaseError && purchases && purchases.length > 0) {
-                    activeCourseIds = purchases.map(p => p.course_id);
-                } else {
-                    const { data: courses, error: coursesError } = await supabaseClient
-                        .from('courses')
-                        .select('id');
-                    if (!coursesError && courses) {
-                        activeCourseIds = courses.map(c => c.id);
-                    }
-                }
-
-                const hasSelfCourse = activeCourseIds.includes(COURSE_SELF_ID);
-                const hasLiveCourse = activeCourseIds.includes(COURSE_LIVE_ID);
-
-                let htmlOutput = '';
-
-                if (hasSelfCourse) {
-                    htmlOutput += `
-                        <a href="self.html?course_id=${COURSE_SELF_ID}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition mb-2">
-                            Access Self-Led Course &rarr;
-                        </a>
-                    `;
-                }
-
-                if (hasLiveCourse) {
-                    htmlOutput += `
-                        <a href="live-cohort.html?course_id=${COURSE_LIVE_ID}" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-purple-500/20 transition mb-2">
-                            Access Live Cohort &rarr;
-                        </a>
-                    `;
-                }
-
-                if (!hasSelfCourse && !hasLiveCourse) {
-                    htmlOutput = `
-                        <div class="bg-red-500/10 border border-red-500/30 text-red-400 text-xs p-3 rounded-xl mb-2 font-medium">
-                            No active course purchase found on your account.
-                        </div>
-                        <a href="checkout.html" class="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">Purchase Masterclass &rarr;</a>
-                    `;
-                }
-
-                courseActionContainer.innerHTML = htmlOutput;
                 
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('dashboard-content').style.display = 'flex';
