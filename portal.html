@@ -106,7 +106,7 @@
             </div>
         </header>
 
-        <!-- ================= STUDENT VIEW (Also rendered for Admins with Course Access Cards) ================= -->
+        <!-- ================= STUDENT VIEW (With Admin Override Access) ================= -->
         <main id="student-view" class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow" style="display: none;">
             <div id="view-header-msg" class="mb-12">
                 <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
@@ -116,7 +116,7 @@
 
             <!-- Admin Quick Switcher Banner (Only shown if user is admin) -->
             <div id="admin-switcher-banner" style="display: none;" class="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl flex items-center justify-between">
-                <span class="text-sm font-bold text-yellow-400">👑 Admin View Mode: You have full access to both courses and the Admin Command Center.</span>
+                <span class="text-sm font-bold text-yellow-400">👑 Admin Privilege Active: You have full access to both courses and the Admin Command Center.</span>
                 <button id="switch-to-admin-portal" class="text-xs bg-yellow-500 text-black px-4 py-2 rounded-xl font-extrabold hover:bg-yellow-400 transition cursor-pointer">
                     Switch to Admin Portal &rarr;
                 </button>
@@ -391,7 +391,6 @@
                     let foundPurchase = purchases && purchases.length > 0;
                     let purchaseDataString = foundPurchase ? JSON.stringify(purchases).toLowerCase() : "";
 
-                    // Regular students see specific purchased content or prompt to buy
                     const liveCard = document.getElementById('live-card-container');
                     const selfCard = document.getElementById('self-card-container');
 
@@ -403,6 +402,12 @@
                             liveCard.style.opacity = '0.4';
                             liveCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in Self-Paced Mastery. Upgrade to access the Live Intensive program.'); };
                         }
+                    } else {
+                        // If a regular student has no purchase, restrict both or show message
+                        liveCard.style.opacity = '0.4';
+                        liveCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access the Live Intensive portal.'); };
+                        selfCard.style.opacity = '0.4';
+                        selfCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access Self-Paced Mastery.'); };
                     }
                 }
                 
