@@ -368,9 +368,9 @@
 
     <!-- Cart & Checkout Logic Script -->
     <script>
-        // Replace with your actual Supabase URL and Anon Key when live
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        // Configured with your Supabase credentials
+        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let cart = [];
@@ -446,7 +446,7 @@
             checkoutBtn.disabled = true;
 
             try {
-                // Invokes the Supabase Edge Function you deployed earlier
+                // Invokes your Supabase Edge Function to generate the Square checkout link
                 const { data, error } = await supabaseClient.functions.invoke('create-checkout', {
                     body: { cartItems: cart }
                 });
@@ -455,7 +455,7 @@
                     throw new Error(error?.message || 'Failed to initialize checkout.');
                 }
 
-                // Instantly redirect customer to Square's hosted checkout page
+                // Redirect customer straight to Square's hosted checkout page
                 window.location.href = data.checkoutUrl;
 
             } catch (err) {
