@@ -60,7 +60,7 @@
     <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
         <div class="text-center animate-pulse">
             <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION...</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION & PURCHASES...</span>
         </div>
         <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
     </div>
@@ -116,19 +116,17 @@
 
             <div class="grid md:grid-cols-2 gap-8">
                 
-                <!-- Card 1: Course Material (Linked to self-paced course) -->
-                <a href="self.html" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
+                <!-- Card 1: Course Material (Dynamic based on purchases) -->
+                <div id="course-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
-                        <h3 class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Masterclass Material</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your purchased masterclasses, interactive slide decks, and step-by-step training modules.</p>
+                        <h3 id="course-title" class="text-2xl font-black text-white mb-2 transition">Masterclass Material</h3>
+                        <p id="course-desc" class="text-gray-300 text-sm mb-6 leading-relaxed">Verifying your active curriculum access...</p>
                     </div>
-                    <div>
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                            Access Self-Led Course &rarr;
-                        </span>
+                    <div id="course-action-wrapper">
+                        <!-- Dynamically populated button or upgrade state -->
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 2: Resources -->
                 <a href="resources.html" class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
@@ -187,7 +185,65 @@
                     return;
                 }
 
-                document.getElementById('user-email').textContent = sessionData.session.user.email;
+                const user = sessionData.session.user;
+                document.getElementById('user-email').textContent = user.email;
+                
+                // Fetch purchase or access status from Supabase table (assuming a table like 'profiles' or 'purchases' with a column like 'has_course' or 'course_tier')
+                // Adjust table/column names to match your precise Supabase DB architecture if needed (e.g. table 'profiles', column 'is_purchased' or 'product_access')
+                let hasActiveCourse = false;
+                
+                try {
+                    const { data: profileData, error: profileError } = await supabaseClient
+                        .from('profiles') // Change to your exact table name if different (e.g., 'subscriptions' or 'purchases')
+                        .select('*')
+                        .eq('id', user.id)
+                        .maybeSingle();
+
+                    if (!profileError && profileData) {
+                        // Check common fields that might signify purchase status
+                        hasActiveCourse = profileData.has_course || profileData.is_purchased || profileData.course_access || profileData.tier === 'pro' || profileData.status === 'active';
+                    } else {
+                        // Fallback check against a 'purchases' table if profiles doesn't contain it directly
+                        const { data: purchaseData } = await supabaseClient
+                            .from('purchases')
+                            .select('*')
+                            .eq('user_id', user.id);
+                        
+                        if (purchaseData && purchaseData.length > 0) {
+                            hasActiveCourse = true;
+                        }
+                    }
+                } catch (dbErr) {
+                    console.warn("Could not query extended profile attributes, defaulting to standard view or checking metadata:", dbErr);
+                    // Check user app_metadata or user_metadata as fallback
+                    if (user.user_metadata?.has_course || user.app_metadata?.has_course) {
+                        hasActiveCourse = true;
+                    }
+                }
+
+                // Render dynamic course card state
+                const courseDesc = document.getElementById('course-desc');
+                const actionWrapper = document.getElementById('course-action-wrapper');
+                const courseCardContainer = document.getElementById('course-card-container');
+
+                if (hasActiveCourse) {
+                    courseDesc.textContent = "Access your purchased masterclasses, interactive slide decks, and step-by-step training modules.";
+                    actionWrapper.innerHTML = `
+                        <a href="self.html" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                            Access Self-Led Course &rarr;
+                        </a>
+                    `;
+                    courseCardContainer.classList.add('cursor-pointer');
+                    courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+                } else {
+                    courseDesc.textContent = "You currently do not have an active enrollment for the masterclass curriculum. Upgrade your account to unlock full course material.";
+                    actionWrapper.innerHTML = `
+                        <a href="checkout.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">
+                            Unlock Course Material &rarr;
+                        </a>
+                    `;
+                    // Adjust card accent tone or styling for locked state if desired
+                }
                 
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('dashboard-content').style.display = 'flex';
