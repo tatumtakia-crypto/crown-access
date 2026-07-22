@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certified Brand Strategist: Instructor Presentation Deck</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --slide-bg: #111827;
+            --border-color: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #22c55e;
+            --error: #ef4444;
+            --accent: #8b5cf6;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .master-container {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Top Module Navigation Bar */
+        .module-nav {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            background: #111827;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .module-tab {
+            background: #1f2937;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .module-tab:hover {
+            color: var(--text-main);
+            background: #374151;
+        }
+
+        .module-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Presentation Deck Viewport - PowerPoint Style Aspect Ratio & Extra Height */
+        .deck-viewport {
+            background-color: var(--slide-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            min-height: 760px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Slide Layout */
+        .slide {
+            display: none;
+            flex-direction: column;
+            padding: 50px 60px;
+            flex-grow: 1;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+
+        .slide-header h2 {
+            margin: 0;
+            font-size: 1.9rem;
+            color: #60a5fa;
+            letter-spacing: -0.5px;
+        }
+
+        .duration-badge {
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .slide-content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .slide-text-side p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .slide-text-side ul {
+            padding-left: 22px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .slide-text-side li {
+            margin-bottom: 14px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .slide-text-side strong {
+            color: var(--text-main);
+        }
+
+        .slide-image-side {
+            background: #1f2937;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .slide-image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .image-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        /* Instructor Placeholder Slide Styling */
+        .instructor-placeholder-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-grow: 1;
+            padding: 60px;
+            background: radial-gradient(circle at center, #1e293b 0%, #111827 100%);
+            border-radius: 14px;
+            border: 2px dashed var(--accent);
+            box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.05);
+        }
+
+        .instructor-placeholder-slide h2 {
+            color: #c084fc;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .deck-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #0f172a;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        @media(max-width: 900px) {
+            .slide-content-grid {
+                grid-template-columns: 1fr;
+            }
+            .module-nav {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="master-container">
+
+    <!-- Top Module Navigation -->
+    <div class="module-nav">
+        <button class="module-tab active" onclick="switchModule(0)">Mod 1: Foundations</button>
+        <button class="module-tab" onclick="switchModule(1)">Mod 2: Verbal & IP</button>
+        <button class="module-tab" onclick="switchModule(2)">Mod 3: Visual Systems</button>
+        <button class="module-tab" onclick="switchModule(3)">Mod 4: Architecture</button>
+        <button class="module-tab" onclick="switchModule(4)">Mod 5: Experience</button>
+        <button class="module-tab" onclick="switchModule(5)">Mod 6: Growth & ROI</button>
+        <button class="module-tab" onclick="switchModule(6)">Mod 7: Master Exam</button>
+    </div>
+
+    <!-- Presentation Deck Viewport -->
+    <div class="deck-viewport" id="deckViewport">
+
+        <!-- ================= MODULE 1 ================= -->
+        <div class="module-deck" data-module="0">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>1.1 The Anatomy & Psychology of Modern Brands</h2>
+                    <span class="duration-badge">Module 1 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>A modern brand is not merely a visual asset package; it is a complex psychological construct living entirely within the consciousness of the consumer market.</p>
+                        <ul>
+                            <li><strong>Brand Identity vs. Brand Image:</strong> Identity is corporate output; Image is actual market reception.</li>
+                            <li><strong>Subconscious Heuristics:</strong> Strong brand signals bypass rational analysis to evoke immediate consumer trust.</li>
+                            <li><strong>The Perception Gap:</strong> Auditing and minimizing discrepancies between leadership intentions and user reality.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80" alt="Brand Strategy Psychology">
+                        <span class="image-caption">Mapping brand architecture against consumer mental models.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.2 Financial Valuation & Brand Equity</h2>
+                    <span class="duration-badge">Module 1 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Brand equity transforms abstract recognition into hard economic leverage on corporate balance sheets.</p>
+                        <ul>
+                            <li><strong>Price Elasticity:</strong> High brand equity allows enterprises to command significant price premiums.</li>
+                            <li><strong>Customer Lifetime Value (LTV):</strong> Trusted brands cultivate higher retention rates and lower acquisition costs.</li>
+                            <li><strong>Risk Mitigation:</strong> Resilient brand reputation cushions enterprises against sudden economic downturns.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" alt="Brand Equity Valuation">
+                        <span class="image-caption">Quantifying economic leverage and equity valuation drivers.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.3 Strategic Positioning & Perceptual Mapping</h2>
+                    <span class="duration-badge">Module 1 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Strategic positioning demands a rigorous operational understanding of competitive whitespace.</p>
+                        <ul>
+                            <li><strong>The Perceptual Map Matrix:</strong> Plotting direct competitors across analytical axes to isolate market gaps.</li>
+                            <li><strong>Defensibility Analysis:</strong> Ensuring selected positioning corridors cannot be easily copied by giants.</li>
+                            <li><strong>Category Creation:</strong> Designing entirely new market definitions where your brand acts as category king.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Perceptual Mapping Analysis">
+                        <span class="image-caption">Isolating unserved market whitespace through matrix mapping.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.4 Unique Value Propositions & Psychographics</h2>
+                    <span class="duration-badge">Module 1 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Generic marketing fails because it addresses superficial needs instead of deep psychological motivators.</p>
+                        <ul>
+                            <li><strong>The UVP Formula:</strong> Defining clear functional utility, target customer profiles, and competitive edges.</li>
+                            <li><strong>Psychographic Profiling:</strong> Moving beyond demographics to study internal values and daily aspirations.</li>
+                            <li><strong>Empathy Mapping:</strong> Documenting what target consumers see, hear, think, and feel.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Target Audience Psychographics">
+                        <span class="image-caption">Deep psychographic profiling and consumer empathy mapping.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.5 Module 1 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 1 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Before proceeding to the knowledge evaluation, review the core strategic synthesis points:</p>
+                        <ul>
+                            <li>Brand identity represents proactive design; brand image reflects reactive public interpretation.</li>
+                            <li>Equity drives margin expansion, pricing power, and long-term business resilience.</li>
+                            <li>Perceptual mapping protects brands from competing in crowded, commoditized red oceans.</li>
+                            <li>Psychographics unlock the true emotional engines governing modern consumer purchasing decisions.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80" alt="Strategic Synthesis Session">
+                        <span class="image-caption">Consolidating foundational strategy frameworks before testing.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="instructor-placeholder-slide">
+                    <h2>Knowledge Check</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 2 ================= -->
+        <div class="module-deck" data-module="1" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>2.1 Voice, Tone, & Linguistic Architecture</h2>
+                    <span class="duration-badge">Module 2 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Words establish the emotional frequency of your enterprise across all public touchpoints.</p>
+                        <ul>
+                            <li><strong>Brand Voice:</strong> Immutable, core personality characteristics that never alter.</li>
+                            <li><strong>Brand Tone:</strong> Dynamic, situational adjustments based on audience sentiment or channel.</li>
+                            <li><strong>Linguistic Guardrails:</strong> Establishing approved vocabulary libraries and banning weak buzzwords.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Copywriting and Voice">
+                        <span class="image-caption">Calibrating voice constancy against dynamic tonal shifts.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.2 Narrative Frameworks & The Story Loop</h2>
+                    <span class="duration-badge">Module 2 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Effective brand storytelling bypasses corporate self-absorption to center the consumer in a heroic journey.</p>
+                        <ul>
+                            <li><strong>The Customer as Hero:</strong> Positioning the buyer as the central protagonist facing conflict.</li>
+                            <li><strong>The Brand as Guide:</strong> Providing empathy and competence to show a proven solution.</li>
+                            <li><strong>The Stakes:</strong> Clearly contrasting successful outcomes against the consequences of inaction.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80" alt="Storytelling Framework">
+                        <span class="image-caption">Structuring customer-centric narrative loops and stakes.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.3 Naming Strategy & Semantic Architecture</h2>
+                    <span class="duration-badge">Module 2 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Choosing a corporate name requires balancing linguistic memorability with strict legal defensibility.</p>
+                        <ul>
+                            <li><strong>Naming Archetypes:</strong> Descriptive, evocative metaphors, acronyms, and neologisms.</li>
+                            <li><strong>Phonetic Memorability:</strong> Analyzing syllable structures for global recall.</li>
+                            <li><strong>Cultural Connotation Audits:</strong> Screening potential names across global languages.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="Naming Strategy">
+                        <span class="image-caption">Evaluating phonetic resonance and cross-cultural risks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.4 Intellectual Property & Trademark Risk Mitigation</h2>
+                    <span class="duration-badge">Module 2 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Failing to secure intellectual property rights early can destroy years of accumulated market equity overnight.</p>
+                        <ul>
+                            <li><strong>USPTO Database Searches:</strong> Conducting clearance filings prior to market entry.</li>
+                            <li><strong>International Madrid System:</strong> Securing multi-jurisdiction protection across economic zones.</li>
+                            <li><strong>Domain Real Estate:</strong> Acquiring clean top-level domains and exact-match handles.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80" alt="Trademark Protection">
+                        <span class="image-caption">Navigating international trademark filing and domain acquisition.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.5 Module 2 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 2 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Review these critical verbal identity tenets prior to initiating the evaluation quiz:</p>
+                        <ul>
+                            <li>Voice remains stable; tone shifts fluidly based on situational empathy.</li>
+                            <li>The customer is the hero; your brand acts as the wise guide.</li>
+                            <li>Invented neologisms offer superior trademark protection over literal words.</li>
+                            <li>Rigorous IP clearance prevents devastating rebranding lawsuits.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Synthesis">
+                        <span class="image-caption">Consolidating messaging and legal protection frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="instructor-placeholder-slide">
+                    <h2>Knowledge Check</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Presentation Deck Controls -->
+    <div class="deck-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous Slide</button>
+        <span class="slide-counter" id="slideCounter">Slide 1 of 6</span>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next Slide</button>
+    </div>
+
+</div>
+
+<script>
+    let currentModuleIndex = 0;
+    let currentSlideIndex = 0;
+
+    const moduleDecks = document.querySelectorAll('.module-deck');
+    const moduleTabs = document.querySelectorAll('.module-tab');
+    const slideCounter = document.getElementById('slideCounter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateView() {
+        moduleDecks.forEach((deck, mIdx) => {
+            const slides = deck.querySelectorAll('.slide');
+            if (mIdx === currentModuleIndex) {
+                deck.style.display = 'block';
+                slides.forEach((slide, sIdx) => {
+                    if (sIdx === currentSlideIndex) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            } else {
+                deck.style.display = 'none';
+            }
+        });
+
+        moduleTabs.forEach((tab, idx) => {
+            if (idx === currentModuleIndex) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
+
+        const activeDeck = moduleDecks[currentModuleIndex];
+        const totalSlides = activeDeck.querySelectorAll('.slide').length;
+        slideCounter.textContent = `Module ${currentModuleIndex + 1} • Slide ${currentSlideIndex + 1} of ${totalSlides}`;
+
+        prevBtn.disabled = (currentModuleIndex === 0 && currentSlideIndex === 0);
+        nextBtn.disabled = (currentModuleIndex === moduleDecks.length - 1 && currentSlideIndex === totalSlides - 1);
+    }
+
+    function switchModule(moduleIndex) {
+        currentModuleIndex = moduleIndex;
+        currentSlideIndex = 0;
+        updateView();
+    }
+
+    function changeSlide(direction) {
+        const activeDeck = moduleDecks[currentModuleIndex];
+        const totalSlides = activeDeck.querySelectorAll('.slide').length;
+
+        currentSlideIndex += direction;
+
+        if (currentSlideIndex >= totalSlides) {
+            if (currentModuleIndex < moduleDecks.length - 1) {
+                currentModuleIndex++;
+                currentSlideIndex = 0;
+            } else {
+                currentSlideIndex = totalSlides - 1;
+            }
+        } else if (currentSlideIndex < 0) {
+            if (currentModuleIndex > 0) {
+                currentModuleIndex--;
+                const prevDeck = moduleDecks[currentModuleIndex];
+                currentSlideIndex = prevDeck.querySelectorAll('.slide').length - 1;
+            } else {
+                currentSlideIndex = 0;
+            }
+        }
+
+        updateView();
+    }
+
+    updateView();
+</script>
+
+</body>
+</html>
