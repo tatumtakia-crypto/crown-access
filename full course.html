@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certified Brand Strategist: Instructor Presentation Deck</title>
+    <title>Certified Freight Dispatcher Professional Course | Crown Access</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -13,8 +13,6 @@
             --text-muted: #9ca3af;
             --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --success: #22c55e;
-            --error: #ef4444;
             --accent: #8b5cf6;
         }
 
@@ -23,7 +21,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 15px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -32,10 +30,10 @@
 
         .master-container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1050px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         /* Top Module Navigation Bar */
@@ -53,12 +51,12 @@
             background: #1f2937;
             border: none;
             color: var(--text-muted);
-            padding: 12px 6px;
+            padding: 10px 6px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             text-align: center;
         }
 
@@ -73,15 +71,15 @@
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* Presentation Deck Viewport - PowerPoint Style Aspect Ratio & Extra Height */
+        /* Presentation Deck Viewport */
         .deck-viewport {
             background-color: var(--slide-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            min-height: 760px;
+            min-height: 580px;
             position: relative;
             overflow: hidden;
         }
@@ -90,7 +88,7 @@
         .slide {
             display: none;
             flex-direction: column;
-            padding: 50px 60px;
+            padding: 40px;
             flex-grow: 1;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -108,53 +106,50 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 35px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
         }
 
         .slide-header h2 {
             margin: 0;
-            font-size: 1.9rem;
+            font-size: 1.3rem;
             color: #60a5fa;
-            letter-spacing: -0.5px;
         }
 
         .duration-badge {
             background: rgba(139, 92, 246, 0.15);
             color: #c084fc;
-            padding: 6px 16px;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             font-weight: 600;
             border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .slide-content-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 35px;
             align-items: center;
             flex-grow: 1;
         }
 
         .slide-text-side p {
             color: var(--text-muted);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 0.98rem;
+            margin-bottom: 14px;
         }
 
         .slide-text-side ul {
-            padding-left: 22px;
+            padding-left: 18px;
             color: var(--text-muted);
             margin: 0;
         }
 
         .slide-text-side li {
-            margin-bottom: 14px;
-            font-size: 1.1rem;
-            line-height: 1.5;
+            margin-bottom: 10px;
+            font-size: 0.92rem;
         }
 
         .slide-text-side strong {
@@ -163,9 +158,9 @@
 
         .slide-image-side {
             background: #1f2937;
-            border-radius: 14px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            height: 420px;
+            height: 310px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -174,43 +169,19 @@
             padding: 15px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
         .slide-image-side img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
         .image-caption {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-top: 12px;
-        }
-
-        /* Instructor Placeholder Slide Styling */
-        .instructor-placeholder-slide {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            flex-grow: 1;
-            padding: 60px;
-            background: radial-gradient(circle at center, #1e293b 0%, #111827 100%);
-            border-radius: 14px;
-            border: 2px dashed var(--accent);
-            box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.05);
-        }
-
-        .instructor-placeholder-slide h2 {
-            color: #c084fc;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            letter-spacing: -1px;
+            margin-top: 8px;
         }
 
         .deck-controls {
@@ -222,15 +193,26 @@
             border-top: 1px solid var(--border-color);
         }
 
+        .deck-controls-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .deck-controls-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .nav-btn {
             background: #374151;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 1rem;
             transition: background 0.2s;
         }
 
@@ -243,18 +225,47 @@
             cursor: not-allowed;
         }
 
+        .back-dashboard-btn {
+            background: #1f2937;
+            color: white;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .back-dashboard-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
         .slide-counter {
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             font-weight: 600;
         }
 
-        @media(max-width: 900px) {
+        @media(max-width: 768px) {
             .slide-content-grid {
                 grid-template-columns: 1fr;
             }
             .module-nav {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            .deck-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .deck-controls-right {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
@@ -266,12 +277,12 @@
     <!-- Top Module Navigation -->
     <div class="module-nav">
         <button class="module-tab active" onclick="switchModule(0)">Mod 1: Foundations</button>
-        <button class="module-tab" onclick="switchModule(1)">Mod 2: Verbal & IP</button>
-        <button class="module-tab" onclick="switchModule(2)">Mod 3: Visual Systems</button>
-        <button class="module-tab" onclick="switchModule(3)">Mod 4: Architecture</button>
-        <button class="module-tab" onclick="switchModule(4)">Mod 5: Experience</button>
-        <button class="module-tab" onclick="switchModule(5)">Mod 6: Growth & ROI</button>
-        <button class="module-tab" onclick="switchModule(6)">Mod 7: Master Exam</button>
+        <button class="module-tab" onclick="switchModule(1)">Mod 2: Marketing</button>
+        <button class="module-tab" onclick="switchModule(2)">Mod 3: Tech & Docs</button>
+        <button class="module-tab" onclick="switchModule(3)">Mod 4: Loadboards</button>
+        <button class="module-tab" onclick="switchModule(4)">Mod 5: Negotiation</button>
+        <button class="module-tab" onclick="switchModule(5)">Mod 6: Dispatching</button>
+        <button class="module-tab" onclick="switchModule(6)">Mod 7: Invoicing & Scaling</button>
     </div>
 
     <!-- Presentation Deck Viewport -->
@@ -281,113 +292,85 @@
         <div class="module-deck" data-module="0">
             <div class="slide active">
                 <div class="slide-header">
-                    <h2>1.1 The Anatomy & Psychology of Modern Brands</h2>
-                    <span class="duration-badge">Module 1 • Slide 1 of 6</span>
+                    <h2>1.1 Course Introduction & The Dispatching Landscape</h2>
+                    <span class="duration-badge">Module 1 • 45 Mins • Slide 1 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>A modern brand is not merely a visual asset package; it is a complex psychological construct living entirely within the consciousness of the consumer market.</p>
+                        <p>Welcome to Crown Access. Independent freight dispatching is one of the most profitable, low-overhead service businesses you can launch.</p>
                         <ul>
-                            <li><strong>Brand Identity vs. Brand Image:</strong> Identity is corporate output; Image is actual market reception.</li>
-                            <li><strong>Subconscious Heuristics:</strong> Strong brand signals bypass rational analysis to evoke immediate consumer trust.</li>
-                            <li><strong>The Perception Gap:</strong> Auditing and minimizing discrepancies between leadership intentions and user reality.</li>
+                            <li><strong>Dispatcher vs. Broker:</strong> Dispatchers represent carriers and negotiate on their behalf; brokers act as intermediaries between shippers and carriers.</li>
+                            <li><strong>Independence:</strong> Operate your agency from anywhere with complete schedule autonomy.</li>
+                            <li><strong>Revenue Model:</strong> Earn consistent weekly percentages (typically 5% to 10%) per loaded truck.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80" alt="Brand Strategy Psychology">
-                        <span class="image-caption">Mapping brand architecture against consumer mental models.</span>
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Freight Dispatching Overview">
+                        <span class="image-caption">Understanding the core mechanics of independent freight dispatching.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>1.2 Financial Valuation & Brand Equity</h2>
-                    <span class="duration-badge">Module 1 • Slide 2 of 6</span>
+                    <h2>1.2 Setting Up Your Business Entity</h2>
+                    <span class="duration-badge">Module 1 • Slide 2 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Brand equity transforms abstract recognition into hard economic leverage on corporate balance sheets.</p>
+                        <p>Legitimize your enterprise with clean corporate structuring from day one.</p>
                         <ul>
-                            <li><strong>Price Elasticity:</strong> High brand equity allows enterprises to command significant price premiums.</li>
-                            <li><strong>Customer Lifetime Value (LTV):</strong> Trusted brands cultivate higher retention rates and lower acquisition costs.</li>
-                            <li><strong>Risk Mitigation:</strong> Resilient brand reputation cushions enterprises against sudden economic downturns.</li>
+                            <li><strong>LLC Formation:</strong> Registering your business entity (e.g., in Alabama / Jefferson County).</li>
+                            <li><strong>EIN Acquisition:</strong> Securing your Federal Employer Identification Number through the IRS.</li>
+                            <li><strong>Business Banking:</strong> Opening dedicated commercial checking accounts to separate personal and business revenue.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" alt="Brand Equity Valuation">
-                        <span class="image-caption">Quantifying economic leverage and equity valuation drivers.</span>
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Business Setup">
+                        <span class="image-caption">Structuring business entities for asset protection and banking.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>1.3 Strategic Positioning & Perceptual Mapping</h2>
-                    <span class="duration-badge">Module 1 • Slide 3 of 6</span>
+                    <h2>1.3 Professional Branding & Market Positioning</h2>
+                    <span class="duration-badge">Module 1 • Slide 3 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Strategic positioning demands a rigorous operational understanding of competitive whitespace.</p>
+                        <p>Position Crown Access as an elite dispatching agency that carriers trust implicitly.</p>
                         <ul>
-                            <li><strong>The Perceptual Map Matrix:</strong> Plotting direct competitors across analytical axes to isolate market gaps.</li>
-                            <li><strong>Defensibility Analysis:</strong> Ensuring selected positioning corridors cannot be easily copied by giants.</li>
-                            <li><strong>Category Creation:</strong> Designing entirely new market definitions where your brand acts as category king.</li>
+                            <li><strong>Brand Identity:</strong> Establishing professional visual assets, logos, and communication standards.</li>
+                            <li><strong>Niche Selection:</strong> Identifying target carrier segments (Dry Van, Reefer, Flatbed, Box Trucks).</li>
+                            <li><strong>Value Proposition:</strong> Communicating clear operational reliability and high-paying lane mastery.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Perceptual Mapping Analysis">
-                        <span class="image-caption">Isolating unserved market whitespace through matrix mapping.</span>
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Branding">
+                        <span class="image-caption">Establishing professional agency branding and niche positioning.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>1.4 Unique Value Propositions & Psychographics</h2>
-                    <span class="duration-badge">Module 1 • Slide 4 of 6</span>
+                    <h2>1.4 Legal & Compliance Foundations</h2>
+                    <span class="duration-badge">Module 1 • Slide 4 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Generic marketing fails because it addresses superficial needs instead of deep psychological motivators.</p>
+                        <p>Master the regulatory boundaries governing motor carriers and dispatch services.</p>
                         <ul>
-                            <li><strong>The UVP Formula:</strong> Defining clear functional utility, target customer profiles, and competitive edges.</li>
-                            <li><strong>Psychographic Profiling:</strong> Moving beyond demographics to study internal values and daily aspirations.</li>
-                            <li><strong>Empathy Mapping:</strong> Documenting what target consumers see, hear, think, and feel.</li>
+                            <li><strong>MC & DOT Numbers:</strong> Understanding how carrier operating authorities function.</li>
+                            <li><strong>Dispatcher Authority:</strong> Clarifying that dispatchers do not require a broker bond ($75k) to operate.</li>
+                            <li><strong>State Compliance:</strong> Meeting local operational licensing requirements.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Target Audience Psychographics">
-                        <span class="image-caption">Deep psychographic profiling and consumer empathy mapping.</span>
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Compliance">
+                        <span class="image-caption">Navigating carrier authority, MC numbers, and compliance.</span>
                     </div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="slide-header">
-                    <h2>1.5 Module 1 Deep-Dive Synthesis</h2>
-                    <span class="duration-badge">Module 1 • Slide 5 of 6</span>
-                </div>
-                <div class="slide-content-grid">
-                    <div class="slide-text-side">
-                        <p>Before proceeding to the knowledge evaluation, review the core strategic synthesis points:</p>
-                        <ul>
-                            <li>Brand identity represents proactive design; brand image reflects reactive public interpretation.</li>
-                            <li>Equity drives margin expansion, pricing power, and long-term business resilience.</li>
-                            <li>Perceptual mapping protects brands from competing in crowded, commoditized red oceans.</li>
-                            <li>Psychographics unlock the true emotional engines governing modern consumer purchasing decisions.</li>
-                        </ul>
-                    </div>
-                    <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80" alt="Strategic Synthesis Session">
-                        <span class="image-caption">Consolidating foundational strategy frameworks before testing.</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="instructor-placeholder-slide">
-                    <h2>Knowledge Check</h2>
                 </div>
             </div>
         </div>
@@ -397,204 +380,607 @@
         <div class="module-deck" data-module="1" style="display: none;">
             <div class="slide active">
                 <div class="slide-header">
-                    <h2>2.1 Voice, Tone, & Linguistic Architecture</h2>
-                    <span class="duration-badge">Module 2 • Slide 1 of 6</span>
+                    <h2>2.1 Carrier Sourcing Strategies</h2>
+                    <span class="duration-badge">Module 2 • 45 Mins • Slide 1 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Words establish the emotional frequency of your enterprise across all public touchpoints.</p>
+                        <p>To build a thriving dispatching business, you must consistently attract owner-operators and small fleet carriers.</p>
                         <ul>
-                            <li><strong>Brand Voice:</strong> Immutable, core personality characteristics that never alter.</li>
-                            <li><strong>Brand Tone:</strong> Dynamic, situational adjustments based on audience sentiment or channel.</li>
-                            <li><strong>Linguistic Guardrails:</strong> Establishing approved vocabulary libraries and banning weak buzzwords.</li>
+                            <li><strong>Target Audience:</strong> Small fleets (1 to 5 trucks) who lack dedicated back-office dispatchers.</li>
+                            <li><strong>Sourcing Channels:</strong> FMCSA safety and authority registry databases, loadboards, and social media groups.</li>
+                            <li><strong>Value Proposition:</strong> Emphasize how you free up their time so they can focus entirely on driving.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Copywriting and Voice">
-                        <span class="image-caption">Calibrating voice constancy against dynamic tonal shifts.</span>
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80" alt="Carrier Sourcing">
+                        <span class="image-caption">Identifying and targeting owner-operators and small fleet carriers.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>2.2 Narrative Frameworks & The Story Loop</h2>
-                    <span class="duration-badge">Module 2 • Slide 2 of 6</span>
+                    <h2>2.2 Digital Marketing & Social Proof</h2>
+                    <span class="duration-badge">Module 2 • Slide 2 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Effective brand storytelling bypasses corporate self-absorption to center the consumer in a heroic journey.</p>
+                        <p>Establish a commanding digital footprint that converts carriers into paying clients.</p>
                         <ul>
-                            <li><strong>The Customer as Hero:</strong> Positioning the buyer as the central protagonist facing conflict.</li>
-                            <li><strong>The Brand as Guide:</strong> Providing empathy and competence to show a proven solution.</li>
-                            <li><strong>The Stakes:</strong> Clearly contrasting successful outcomes against the consequences of inaction.</li>
+                            <li><strong>Crown Access Collateral:</strong> Professional promotional flyers, business phone lines, and landing pages.</li>
+                            <li><strong>Social Proof:</strong> Showcasing successful lane revenue reports and carrier testimonials.</li>
+                            <li><strong>Word-of-Mouth:</strong> Leveraging happy drivers to refer fellow owner-operators in their network.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80" alt="Storytelling Framework">
-                        <span class="image-caption">Structuring customer-centric narrative loops and stakes.</span>
+                        <img src="https://images.unsplash.com/photo-1432888622747-4eb9a1efeb05?auto=format&fit=crop&w=600&q=80" alt="Digital Marketing">
+                        <span class="image-caption">Designing high-converting marketing campaigns and social proof.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>2.3 Naming Strategy & Semantic Architecture</h2>
-                    <span class="duration-badge">Module 2 • Slide 3 of 6</span>
+                    <h2>2.3 The Dispatcher-Carrier Pitch & Sales Script</h2>
+                    <span class="duration-badge">Module 2 • Slide 3 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Choosing a corporate name requires balancing linguistic memorability with strict legal defensibility.</p>
+                        <p>Master the phone conversation to close carrier service agreements with confidence.</p>
                         <ul>
-                            <li><strong>Naming Archetypes:</strong> Descriptive, evocative metaphors, acronyms, and neologisms.</li>
-                            <li><strong>Phonetic Memorability:</strong> Analyzing syllable structures for global recall.</li>
-                            <li><strong>Cultural Connotation Audits:</strong> Screening potential names across global languages.</li>
+                            <li><strong>Cold Outreach:</strong> Structuring direct phone calls and text messages to newly authorized carriers.</li>
+                            <li><strong>Overcoming Objections:</strong> Handling fee pushback by demonstrating higher RPM (Rate Per Mile) earnings.</li>
+                            <li><strong>Closing the Deal:</strong> Seamlessly transitioning from pitch to sending your onboarding packet.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="Naming Strategy">
-                        <span class="image-caption">Evaluating phonetic resonance and cross-cultural risks.</span>
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Sales Pitch">
+                        <span class="image-caption">Mastering outbound carrier sales calls and objection handling.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>2.4 Intellectual Property & Trademark Risk Mitigation</h2>
-                    <span class="duration-badge">Module 2 • Slide 4 of 6</span>
+                    <h2>2.4 Carrier Onboarding Processes</h2>
+                    <span class="duration-badge">Module 2 • Slide 4 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Failing to secure intellectual property rights early can destroy years of accumulated market equity overnight.</p>
+                        <p>Set clear operational boundaries and establish smooth communication protocols.</p>
                         <ul>
-                            <li><strong>USPTO Database Searches:</strong> Conducting clearance filings prior to market entry.</li>
-                            <li><strong>International Madrid System:</strong> Securing multi-jurisdiction protection across economic zones.</li>
-                            <li><strong>Domain Real Estate:</strong> Acquiring clean top-level domains and exact-match handles.</li>
+                            <li><strong>Setting Expectations:</strong> Defining operating lanes, minimum acceptable rates, and working hours.</li>
+                            <li><strong>Communication Channels:</strong> Establishing preferred messaging tools (WhatsApp, phone, email).</li>
+                            <li><strong>Service Agreement Execution:</strong> Ensuring all legal paperwork is signed before booking their first load.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80" alt="Trademark Protection">
-                        <span class="image-caption">Navigating international trademark filing and domain acquisition.</span>
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Onboarding">
+                        <span class="image-caption">Establishing professional carrier onboarding and communication workflows.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 3 ================= -->
+        <div class="module-deck" data-module="2" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>3.1 The Dispatcher Tech Stack</h2>
+                    <span class="duration-badge">Module 3 • 45 Mins • Slide 1 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Equip your agency with modern cloud software to manage loads and communications efficiently.</p>
+                        <ul>
+                            <li><strong>Transportation Management Systems (TMS):</strong> Custom web tools or SaaS platforms to track active loads.</li>
+                            <li><strong>Document Management:</strong> Secure e-sign tools (DocuSign/HelloSign) and cloud storage (Google Drive/Dropbox).</li>
+                            <li><strong>Communication:</strong> Dedicated business phone apps and digital faxing solutions.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Tech Stack">
+                        <span class="image-caption">Building a streamlined digital back-office tech stack.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
                 <div class="slide-header">
-                    <h2>2.5 Module 2 Deep-Dive Synthesis</h2>
-                    <span class="duration-badge">Module 2 • Slide 5 of 6</span>
+                    <h2>3.2 Master Dispatcher-Carrier Agreements</h2>
+                    <span class="duration-badge">Module 3 • Slide 2 of 4</span>
                 </div>
                 <div class="slide-content-grid">
                     <div class="slide-text-side">
-                        <p>Review these critical verbal identity tenets prior to initiating the evaluation quiz:</p>
+                        <p>Protect your business and outline clear legal terms with your carrier clients.</p>
                         <ul>
-                            <li>Voice remains stable; tone shifts fluidly based on situational empathy.</li>
-                            <li>The customer is the hero; your brand acts as the wise guide.</li>
-                            <li>Invented neologisms offer superior trademark protection over literal words.</li>
-                            <li>Rigorous IP clearance prevents devastating rebranding lawsuits.</li>
+                            <li><strong>Power of Attorney (POA):</strong> Granting your agency legal authority to sign rate confirmations on their behalf.</li>
+                            <li><strong>Fee Structures:</strong> Detailing percentage deductions, billing frequency, and payment terms.</li>
+                            <li><strong>Limitation of Liability:</strong> Defining responsibilities regarding cargo claims, breakdowns, and cancellations.</li>
                         </ul>
                     </div>
                     <div class="slide-image-side">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Synthesis">
-                        <span class="image-caption">Consolidating messaging and legal protection frameworks.</span>
+                        <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Agreements">
+                        <span class="image-caption">Structuring bulletproof service agreements and power of attorney clauses.</span>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
-                <div class="instructor-placeholder-slide">
-                    <h2>Knowledge Check</h2>
+                <div class="slide-header">
+                    <h2>3.3 Carrier Documentation Vault</h2>
+                    <span class="duration-badge">Module 3 • Slide 3 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Brokers will request compliance paperwork every single time you book a load.</p>
+                        <ul>
+                            <li><strong>W-9 Form:</strong> Carrier's taxpayer identification and legal business address.</li>
+                            <li><strong>Certificate of Insurance (COI):</strong> Proof of active auto liability (typically $100k+) and cargo insurance ($100k+).</li>
+                            <li><strong>MC Authority Letter & NOA:</strong> Official FMCSA grant letter and Notice of Assignment (if using a factoring company).</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Documentation">
+                        <span class="image-caption">Organizing carrier insurance, W-9s, and authority letters.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>3.4 Setting Up Your Back-Office Workflow</h2>
+                    <span class="duration-badge">Module 3 • Slide 4 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Maintain immaculate records to ensure zero dropped loads and fast invoicing cycles.</p>
+                        <ul>
+                            <li><strong>Client Folders:</strong> Organizing individual digital filing cabinets for each carrier.</li>
+                            <li><strong>Load Tracking:</strong> Keeping real-time tabs on pickup times, transit status, and delivery confirmations.</li>
+                            <li><strong>Audit Readiness:</strong> Ensuring all documents are easily retrievable for weekly accounting and tax reporting.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Workflow">
+                        <span class="image-caption">Establishing efficient back-office organization and file management.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 4 ================= -->
+        <div class="module-deck" data-module="3" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>4.1 Mastering Loadboards (DAT & Truckstop)</h2>
+                    <span class="duration-badge">Module 4 • 45 Mins • Slide 1 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Loadboards are the primary marketplace where available freight and available trucks connect.</p>
+                        <ul>
+                            <li><strong>DAT & Truckstop.com:</strong> Navigating industry-standard loadboards, search filters, and geographic radiuses.</li>
+                            <li><strong>Posting Trucks:</strong> How to list your carrier's empty equipment so brokers can call you directly.</li>
+                            <li><strong>Filtering Freight:</strong> Sorting loads by weight, age, broker credit score, and deadhead miles.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=600&q=80" alt="Loadboards">
+                        <span class="image-caption">Navigating DAT, Truckstop, and freight search filters.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.2 Analyzing Lane Data & Market Trends</h2>
+                    <span class="duration-badge">Module 4 • Slide 2 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Spot market intelligence separates average dispatchers from high-earning professionals.</p>
+                        <ul>
+                            <li><strong>Spot Rates vs. Historical Data:</strong> Evaluating what a lane paid last week versus today.</li>
+                            <li><strong>Seasonal Surges:</strong> Identifying high-demand produce seasons, retail peaks, and weather disruptions.</li>
+                            <li><strong>Freight Density:</strong> Understanding inbound vs. outbound market ratios in major shipping hubs.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Lane Data">
+                        <span class="image-caption">Analyzing spot rates, seasonal surges, and market density.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.3 Equipment Types & Specifications</h2>
+                    <span class="duration-badge">Module 4 • Slide 3 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Match your carrier's exact equipment dimensions and weight limits to suitable loads.</p>
+                        <ul>
+                            <li><strong>Dry Van:</strong> Enclosed trailer for general palletized freight (53ft standard).</li>
+                            <li><strong>Reefer:</strong> Temperature-controlled refrigerated trailers for produce and pharmaceuticals.</li>
+                            <li><strong>Flatbed & Step Deck:</strong> Open-deck trailers for construction materials, machinery, and oversized cargo.</li>
+                            <li><strong>Box Trucks:</strong> Straight trucks for regional and dock-height deliveries.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=600&q=80" alt="Equipment Types">
+                        <span class="image-caption">Matching carrier equipment specifications to suitable freight categories.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.4 Spot Market vs. Contract Freight</h2>
+                    <span class="duration-badge">Module 4 • Slide 4 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Learn how to balance immediate spot market earnings with stable, recurring freight opportunities.</p>
+                        <ul>
+                            <li><strong>Spot Market Dynamics:</strong> High volatility, daily pricing fluctuations, and immediate load availability.</li>
+                            <li><strong>Dedicated Lanes:</strong> Securing recurring weekly loads for your carriers to guarantee baseline revenue.</li>
+                            <li><strong>Avoiding Cheap Freight:</strong> Recognizing below-market rate traps that destroy carrier profit margins.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Spot vs Contract">
+                        <span class="image-caption">Evaluating spot market volatility versus dedicated contract freight.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 5 ================= -->
+        <div class="module-deck" data-module="4" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>5.1 The Psychology of Broker Negotiation</h2>
+                    <span class="duration-badge">Module 5 • 45 Mins • Slide 1 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Negotiation is not about arguing; it is about demonstrating value and leveraging market conditions.</p>
+                        <ul>
+                            <li><strong>Confidence & Professionalism:</strong> Speaking the industry language (RPM, detention, linehaul) to command respect.</li>
+                            <li><strong>Leverage Points:</strong> Knowing when capacity is tight in a specific market so you can push rates upward.</li>
+                            <li><strong>Building Rapport:</strong> Establishing positive working relationships with broker agents for repeat business.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Negotiation Psychology">
+                        <span class="image-caption">Mastering negotiation psychology and professional communication.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.2 Phone & Email Negotiation Tactics</h2>
+                    <span class="duration-badge">Module 5 • Slide 2 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Execute tactical phone and email strategies to secure higher rate confirmations.</p>
+                        <ul>
+                            <li><strong>Handling Pushback:</strong> Responding calmly when a broker says "that's our maximum rate."</li>
+                            <li><strong>Justifying Higher Rates:</strong> Highlighting your carrier's pristine safety rating, on-time record, and team drivers.</li>
+                            <li><strong>Fuel Surcharges:</strong> Factoring fluctuating diesel prices into your linehaul rate negotiations.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Negotiation Tactics">
+                        <span class="image-caption">Executing phone negotiation scripts and justifying higher RPM rates.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.3 Factoring Companies & Broker Credit Checks</h2>
+                    <span class="duration-badge">Module 5 • Slide 3 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Protect your carriers from non-payment by verifying broker financial stability.</p>
+                        <ul>
+                            <li><strong>Broker Credit Checks:</strong> Utilizing DAT/Truckstop credit scores and days-to-pay metrics before booking.</li>
+                            <li><strong>Factoring Overview:</strong> How factoring companies advance cash to carriers immediately after load delivery.</li>
+                            <li><strong>Avoiding Bad Brokers:</strong> Spotting shady or slow-paying brokerages to prevent financial loss.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" alt="Credit Checks">
+                        <span class="image-caption">Checking broker credit scores and understanding factoring workflows.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.4 Handling Deadhead and Layover Negotiations</h2>
+                    <span class="duration-badge">Module 5 • Slide 4 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Ensure your carriers are compensated fairly when unexpected transit disruptions occur.</p>
+                        <ul>
+                            <li><strong>Detention Pay:</strong> Negotiating standard hourly rates (e.g., $50-$100/hr after 2 free hours) for loading/unloading delays.</li>
+                            <li><strong>Layover Compensation:</strong> Securing guaranteed daily pay if a shipper delays a load overnight.</li>
+                            <li><strong>Truck Ordered Not Used (TONU):</strong> Claiming fees when brokers cancel dispatched loads.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Deadhead and Layover">
+                        <span class="image-caption">Securing detention pay, layover fees, and TONU compensation.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 6 ================= -->
+        <div class="module-deck" data-module="5" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>6.1 The Booking Process & Rate Confirmations</h2>
+                    <span class="duration-badge">Module 6 • 45 Mins • Slide 1 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Executing the booking paperwork accurately protects your carrier and seals the contract.</p>
+                        <ul>
+                            <li><strong>Broker Setup Packets:</strong> Completing broker carrier agreements and profile sheets quickly.</li>
+                            <li><strong>Reviewing Rate Confirmations:</strong> Verifying pickup/delivery addresses, commodity weights, target times, and linehaul rates.</li>
+                            <li><strong>Signing & Returning:</strong> Executing rate cons via e-sign and sending them back to the broker.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Booking Process">
+                        <span class="image-caption">Completing setup packets and verifying rate confirmation details.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.2 Creating Professional Dispatch Sheets</h2>
+                    <span class="duration-badge">Module 6 • Slide 2 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Provide your drivers with clear, organized instructions for every dispatched load.</p>
+                        <ul>
+                            <li><strong>Dispatch Sheet Anatomy:</strong> Logging pickup times, facility names, gate codes, broker contact numbers, and reference IDs.</li>
+                            <li><strong>Driver Handoff:</strong> Sending professional dispatch sheets to your carrier so they have all data in one place.</li>
+                            <li><strong>Internal Record Keeping:</strong> Saving copies of every dispatched load in your TMS/digital folders.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Dispatch Sheets">
+                        <span class="image-caption">Formatting and delivering professional dispatch sheets to drivers.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.3 Transit Coordination & Check-Calls</h2>
+                    <span class="duration-badge">Module 6 • Slide 3 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Consistent communication ensures flawless load execution and satisfies broker tracking demands.</p>
+                        <ul>
+                            <li><strong>Check-Call Protocols:</strong> Providing regular status updates (Loaded, In Transit, Delivered) to brokers.</li>
+                            <li><strong>Tracking Apps:</strong> Managing electronic tracking requests (MacroPoint, FourKites) via driver smartphones.</li>
+                            <li><strong>Proactive Updates:</strong> Informing brokers immediately of any traffic or weather delays before they ask.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Transit Coordination">
+                        <span class="image-caption">Managing check-calls, electronic tracking, and driver updates.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.4 Handling Exceptions & Detention</h2>
+                    <span class="duration-badge">Module 6 • Slide 4 of 4</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Master problem-solving when unexpected shipping delays occur on the road.</p>
+                        <ul>
+                            <li><strong>Managing Detention:</strong> Having drivers check in/out with facility guards to stamp arrival and departure times on the BOL.</li>
+                            <li><strong>Rescheduling Appointments:</strong> Contacting brokers immediately when a breakdown or traffic jam threatens an on-time delivery.</li>
+                            <li><strong>Claiming Accessorial Fees:</strong> Submitting formal detention and layover paperwork to brokers for prompt payout.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Exceptions and Detention">
+                        <span class="image-caption">Handling facility delays, detention claims, and transit exceptions.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 7 ================= -->
+        <div class="module-deck" data-module="6" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>7.1 The Billing & Invoicing Cycle</h2>
+                    <span class="duration-badge">Module 7 • 45 Mins • Slide 1 of 3</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Closing out a completed load properly ensures your carriers get paid without administrative delays.</p>
+                        <ul>
+                            <li><strong>Bill of Lading (BOL):</strong> The signed proof of delivery receipt collected from the receiver.</li>
+                            <li><strong>Invoice Submission:</strong> Sending rate confirmations and signed BOLs to the broker or factoring company.</li>
+                            <li><strong>Payment Tracking:</strong> Monitoring accounts receivable to ensure timely settlement of your dispatch fees.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" alt="Billing and Invoicing">
+                        <span class="image-caption">Managing BOL submissions, invoicing cycles, and accounts receivable.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>7.2 Daily Dispatcher Routine & Scaling Your Agency</h2>
+                    <span class="duration-badge">Module 7 • Slide 2 of 3</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Transition from a solo dispatcher into running a thriving multi-dispatcher agency.</p>
+                        <ul>
+                            <li><strong>Daily Routine:</strong> Morning loadboard scans, mid-day transit tracking, and end-of-day carrier debriefs.</li>
+                            <li><strong>Agency Scaling:</strong> Hiring associate dispatchers, delegating load booking, and expanding your carrier roster.</li>
+                            <li><strong>Professional Growth:</strong> Maintaining elite communication standards under the Crown Access banner.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-152202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="Daily Routine and Scaling">
+                        <span class="image-caption">Structuring daily operations and scaling into a multi-dispatcher agency.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>7.3 Capstone Overview & Professional Excellence</h2>
+                    <span class="duration-badge">Module 7 • Slide 3 of 3</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Synthesize all 7 modules to launch and grow your independent dispatching enterprise.</p>
+                        <ul>
+                            <li><strong>Core Competencies:</strong> Entity formation, carrier sales, document compliance, loadboard navigation, and rate negotiation.</li>
+                            <li><strong>Operational Integrity:</strong> Maintaining high ethical standards and reliable communication with all partners.</li>
+                            <li><strong>Next Steps:</strong> Transitioning directly into active agency operations and onboarding your first carrier clients.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Capstone">
+                        <span class="image-caption">Mastering complete freight dispatch operations for long-term success.</span>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Presentation Deck Controls -->
+    <!-- Presentation Controls Bottom Bar -->
     <div class="deck-controls">
-        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous Slide</button>
-        <span class="slide-counter" id="slideCounter">Slide 1 of 6</span>
-        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next Slide</button>
+        <div class="deck-controls-left">
+            <a href="dashboard.html" class="back-dashboard-btn">
+                ← Back to Dashboard
+            </a>
+        </div>
+        <div class="deck-controls-right">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+            <span class="slide-counter" id="slideCounter">Module 1 • Slide 1 / 4</span>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
     </div>
 
 </div>
 
+<!-- JavaScript Engine for Navigation -->
 <script>
-    let currentModuleIndex = 0;
-    let currentSlideIndex = 0;
+    let currentModule = 0;
+    let currentSlide = 0;
+    
+    // Slide counts for each of the 7 modules (Modules 1-6 have 4 content slides; Module 7 has 3 content slides)
+    const moduleSlideCounts = [4, 4, 4, 4, 4, 4, 3];
 
-    const moduleDecks = document.querySelectorAll('.module-deck');
-    const moduleTabs = document.querySelectorAll('.module-tab');
-    const slideCounter = document.getElementById('slideCounter');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    function switchModule(moduleIndex) {
+        currentModule = moduleIndex;
+        currentSlide = 0;
 
-    function updateView() {
-        moduleDecks.forEach((deck, mIdx) => {
-            const slides = deck.querySelectorAll('.slide');
-            if (mIdx === currentModuleIndex) {
-                deck.style.display = 'block';
-                slides.forEach((slide, sIdx) => {
-                    if (sIdx === currentSlideIndex) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-            } else {
-                deck.style.display = 'none';
-            }
-        });
-
-        moduleTabs.forEach((tab, idx) => {
-            if (idx === currentModuleIndex) {
+        // Update active tabs
+        const tabs = document.querySelectorAll('.module-tab');
+        tabs.forEach((tab, idx) => {
+            if (idx === moduleIndex) {
                 tab.classList.add('active');
             } else {
                 tab.classList.remove('active');
             }
         });
 
-        const activeDeck = moduleDecks[currentModuleIndex];
-        const totalSlides = activeDeck.querySelectorAll('.slide').length;
-        slideCounter.textContent = `Module ${currentModuleIndex + 1} • Slide ${currentSlideIndex + 1} of ${totalSlides}`;
+        // Update visible module deck
+        const decks = document.querySelectorAll('.module-deck');
+        decks.forEach((deck, idx) => {
+            if (idx === moduleIndex) {
+                deck.style.display = 'block';
+                const slides = deck.querySelectorAll('.slide');
+                slides.forEach((s, sIdx) => {
+                    if (sIdx === 0) s.classList.add('active');
+                    else s.classList.remove('active');
+                });
+            } else {
+                deck.style.display = 'none';
+            }
+        });
 
-        prevBtn.disabled = (currentModuleIndex === 0 && currentSlideIndex === 0);
-        nextBtn.disabled = (currentModuleIndex === moduleDecks.length - 1 && currentSlideIndex === totalSlides - 1);
-    }
-
-    function switchModule(moduleIndex) {
-        currentModuleIndex = moduleIndex;
-        currentSlideIndex = 0;
-        updateView();
+        updateControls();
     }
 
     function changeSlide(direction) {
-        const activeDeck = moduleDecks[currentModuleIndex];
-        const totalSlides = activeDeck.querySelectorAll('.slide').length;
+        const deck = document.querySelector(`.module-deck[data-module="${currentModule}"]`);
+        const slides = deck.querySelectorAll('.slide');
 
-        currentSlideIndex += direction;
+        slides[currentSlide].classList.remove('active');
+        currentSlide += direction;
 
-        if (currentSlideIndex >= totalSlides) {
-            if (currentModuleIndex < moduleDecks.length - 1) {
-                currentModuleIndex++;
-                currentSlideIndex = 0;
+        if (currentSlide < 0) {
+            if (currentModule > 0) {
+                switchModule(currentModule - 1);
+                currentSlide = moduleSlideCounts[currentModule] - 1;
+                const prevDeck = document.querySelector(`.module-deck[data-module="${currentModule}"]`);
+                const prevSlides = prevDeck.querySelectorAll('.slide');
+                prevSlides[currentSlide].classList.add('active');
             } else {
-                currentSlideIndex = totalSlides - 1;
+                currentSlide = 0;
             }
-        } else if (currentSlideIndex < 0) {
-            if (currentModuleIndex > 0) {
-                currentModuleIndex--;
-                const prevDeck = moduleDecks[currentModuleIndex];
-                currentSlideIndex = prevDeck.querySelectorAll('.slide').length - 1;
+        } else if (currentSlide >= slides.length) {
+            if (currentModule < moduleSlideCounts.length - 1) {
+                switchModule(currentModule + 1);
+                return;
             } else {
-                currentSlideIndex = 0;
+                currentSlide = slides.length - 1;
             }
         }
 
-        updateView();
+        slides[currentSlide].classList.add('active');
+        updateControls();
     }
 
-    updateView();
+    function updateControls() {
+        const totalSlides = moduleSlideCounts[currentModule];
+        document.getElementById('slideCounter').innerText = `Module ${currentModule + 1} • Slide ${currentSlide + 1} / ${totalSlides}`;
+
+        document.getElementById('prevBtn').disabled = (currentModule === 0 && currentSlide === 0);
+        document.getElementById('nextBtn').disabled = (currentModule === moduleSlideCounts.length - 1 && currentSlide === totalSlides - 1);
+    }
+
+    // Initialize state on load
+    updateControls();
 </script>
 
 </body>
