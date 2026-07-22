@@ -1,45 +1,59 @@
 <script>
-const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        
-        // Initialize client with explicit persistence
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-            auth: {
-                persistSession: true,
-                autoRefreshToken: true
-            }
-        });
+    const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoemJxbHVtb2h3bHhnYm9kb3BmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2Mzg1MDMsImV4cCI6MjEwMDIxNDUwM30.oaLH3NqWFdAvzHm3PGyXMgxo4cFfF4BRSPTR90JcLOM';
+    
+    // Initialize Supabase client once with explicit persistence
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: {
+            persistSession: true,
+            autoRefreshToken: true
+        }
+    });
 
-        async function checkExistingSession() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) {
-                window.location.href = 'portal.html';
-        // Redirect if already logged in
-        window.onload = async function() {
-            const { data } = await supabaseClient.auth.getSession();
+    // Check if user is already logged in on page load
+    window.onload = async function() {
+        try {
+            const { data, error } = await supabaseClient.auth.getSession();
             if (data && data.session) {
                 window.location.replace('portal.html');
-}
+            }
+        } catch (err) {
+            console.error("Session check error:", err);
         }
-        checkExistingSession();
-        };
+    };
 
-        // Handle Login Submission
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-e.preventDefault();
-            const email = document.getElementById('email').value;
-            const email = document.getElementById('email').value.trim();
-const password = document.getElementById('password').value;
-const errorDiv = document.getElementById('error-msg');
-const submitBtn = document.getElementById('submit-btn');
-@@ -136,7 +144,8 @@ <h1 class="text-3xl font-black text-white">Student Sign In</h1>
-submitBtn.textContent = 'Sign In to Portal';
-submitBtn.disabled = false;
-} else {
-                window.location.href = 'portal.html';
-                // Smooth replacement to portal
-                window.location.replace('portal.html');
-}
-});
+    // Handle Login Form Submission
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('error-msg');
+        const submitBtn = document.getElementById('login-btn') || document.getElementById('submit-btn');
+
+        if (errorDiv) errorDiv.classList.add('hidden');
+        if (submitBtn) {
+            submitBtn.textContent = 'Authenticating...';
+            submitBtn.disabled = true;
+        }
+
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+            if (error) throw error;
+
+            // Smooth replacement to portal upon successful login
+            window.location.replace('portal.html');
+
+        } catch (err) {
+            if (errorDiv) {
+                errorDiv.textContent = err.message || 'Invalid login credentials. Please try again.';
+                errorDiv.classList.remove('hidden');
+            }
+            if (submitBtn) {
+                submitBtn.textContent = 'Sign In to Portal';
+                submitBtn.disabled = false;
+            }
+        }
+    });
 </script>
