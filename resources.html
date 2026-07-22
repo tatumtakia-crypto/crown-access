@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Library | Crown Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#080808',
+                        brandCard: '#121212',
+                        brandBorder: '#222222',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .metallic-gold-text {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-blue-text {
+            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-card-gold {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+        }
+        .metallic-card-blue {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metallic-card-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
+        <div class="text-center animate-pulse">
+            <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE RESOURCES...</span>
+        </div>
+        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
+    </div>
+
+    <!-- Main Content (Hidden until session verified) -->
+    <div id="dashboard-content" style="display: none;" class="flex-col justify-between min-h-screen w-full">
+        
+        <!-- Navigation Bar -->
+        <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+                        <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                            <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Resource Library</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden md:inline"></span>
+                    
+                    <!-- Back to Dashboard Button -->
+                    <a href="index.html" class="border border-gray-700 hover:bg-gray-800 text-gray-300 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
+                        &larr; Dashboard
+                    </a>
+
+                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Resources Container -->
+        <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
+            <div class="mb-12">
+                <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Downloadable Vault</span>
+                <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Training Modules & Knowledge Checks</h1>
+                <p class="text-gray-400 text-sm md:text-base">Access your curriculum components, interactive tools, and module check points below.</p>
+            </div>
+
+            <!-- Specific Resource Buttons Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Support Chat -->
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Community Support</span>
+                        <h3 class="text-lg font-black text-white mb-2">Support Chat Room</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Connect directly with mentors and peers for live questions and assistance.</p>
+                    </div>
+                    <a href="chat.html" class="text-xs text-blue-400 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Open Chat &rarr;
+                    </a>
+                </div>
+
+                <!-- Full Course -->
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Core Curriculum</span>
+                        <h3 class="text-lg font-black text-white mb-2">Full Course Material</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Review the master training modules, video walk-throughs, and foundational frameworks.</p>
+                    </div>
+                    <a href="index.html" class="text-xs text-yellow-400 border border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Access Course &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 1 -->
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 1</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Test your understanding of module 1 fundamentals and core concepts.</p>
+                    </div>
+                    <a href="quiz-1.html" class="text-xs text-blue-400 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 2 -->
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 2</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Verify your progress on module 2 operational workflows.</p>
+                    </div>
+                    <a href="quiz-2.html" class="text-xs text-yellow-400 border border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 3 -->
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 3</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Evaluate your comprehension of module 3 strategies and execution.</p>
+                    </div>
+                    <a href="quiz-3.html" class="text-xs text-blue-400 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 4 -->
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 4</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Check your skills on module 4 management and scenario application.</p>
+                    </div>
+                    <a href="quiz-4.html" class="text-xs text-yellow-400 border border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 5 -->
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 5</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Assess your understanding of module 5 advanced processes.</p>
+                    </div>
+                    <a href="quiz-5.html" class="text-xs text-blue-400 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 6 -->
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 6</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Review checkpoints and insights for module 6 optimization.</p>
+                    </div>
+                    <a href="quiz-6.html" class="text-xs text-yellow-400 border border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+                <!-- Knowledge Check 7 -->
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
+                        <h3 class="text-lg font-black text-white mb-2">Knowledge Check 7</h3>
+                        <p class="text-gray-300 text-xs mb-6 leading-relaxed">Complete final phase evaluations and check your readiness.</p>
+                    </div>
+                    <a href="quiz-7.html" class="text-xs text-blue-400 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                        Start Quiz &rarr;
+                    </a>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
+            <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        window.onload = async function() {
+            const debugDiv = document.getElementById('debug-error');
+            
+            try {
+                const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+                if (sessionError) throw sessionError;
+                
+                if (!sessionData.session) {
+                    debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
+                    return;
+                }
+
+                document.getElementById('user-email').textContent = sessionData.session.user.email;
+                
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('dashboard-content').style.display = 'flex';
+
+            } catch (err) {
+                console.error("Resource Load Error:", err);
+                debugDiv.innerHTML = "System Error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Return to Login</a>";
+            }
+        };
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            window.location.replace('login.html');
+        });
+    </script>
+</body>
+</html>
