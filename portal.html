@@ -120,7 +120,7 @@
                 <div id="course-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
-                        <h3 class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Masterclass Material</h3>
+                        <h3 id="course-title" class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Checking Access...</h3>
                         <p id="course-desc" class="text-gray-300 text-sm mb-6 leading-relaxed">Verifying active purchase record...</p>
                     </div>
                     <div id="course-action-wrapper">
@@ -169,8 +169,9 @@
     </div>
 
     <script>
+        // 1. Corrected Supabase Keys
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoemJxbHVtb2h3bHhnYm9kb3BmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2Mzg1MDMsImV4cCI6MjEwMDIxNDUwM30.oaLH3NqWFdAvzHm3PGyXMgxo4cFfF4BRSPTR90JcLOM';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         window.onload = async function() {
@@ -188,7 +189,14 @@
                 const user = sessionData.session.user;
                 document.getElementById('user-email').textContent = user.email;
                 
-                let hasActiveCourse = false;
+                // Initialize default UI states
+                const courseTitle = document.getElementById('course-title');
+                const courseDesc = document.getElementById('course-desc');
+                const actionWrapper = document.getElementById('course-action-wrapper');
+                const courseCardContainer = document.getElementById('course-card-container');
+                
+                let foundPurchase = false;
+                let purchaseDataString = "";
 
                 try {
                     // Query the 'purchases' table for this user
@@ -200,30 +208,61 @@
                     if (purchaseError) {
                         console.error("Supabase purchases query error:", purchaseError.message);
                     } else if (purchases && purchases.length > 0) {
-                        hasActiveCourse = true;
+                        foundPurchase = true;
+                        // Turn all purchase data into a lowercase string so we can easily search for keywords
+                        // This prevents errors if you named the database column something different (like 'item_name' vs 'product')
+                        purchaseDataString = JSON.stringify(purchases).toLowerCase();
                     }
                 } catch (dbErr) {
                     console.error("Database query exception:", dbErr);
                 }
 
-                const courseDesc = document.getElementById('course-desc');
-                const actionWrapper = document.getElementById('course-action-wrapper');
-                const courseCardContainer = document.getElementById('course-card-container');
+                // 2. Dynamic Routing Based on Purchase Keywords
+                if (foundPurchase) {
+                    if (purchaseDataString.includes("live") || purchaseDataString.includes("virtual")) {
+                        // User bought the 7-Day Live Intensive
+                        courseTitle.textContent = "7-Day Live Intensive";
+                        courseDesc.textContent = "Access your live cohort schedule, daily video links, and instructor materials.";
+                        actionWrapper.innerHTML = `
+                            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                                Enter Live Portal &rarr;
+                            </span>
+                        `;
+                        courseCardContainer.classList.add('cursor-pointer');
+                        // Replace 'live.html' with whatever your live portal page is named
+                        courseCardContainer.onclick = () => { window.location.href = 'live.html'; }; 
 
-                if (hasActiveCourse) {
-                    courseDesc.textContent = "Access your purchased masterclasses, interactive slide decks, and step-by-step training modules.";
-                    actionWrapper.innerHTML = `
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                            Access Self-Led Course &rarr;
-                        </span>
-                    `;
-                    courseCardContainer.classList.add('cursor-pointer');
-                    courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+                    } else if (purchaseDataString.includes("self")) {
+                        // User bought the Self-Paced Course
+                        courseTitle.textContent = "Self-Paced Mastery";
+                        courseDesc.textContent = "Access your purchased masterclasses, interactive video modules, and step-by-step training.";
+                        actionWrapper.innerHTML = `
+                            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                                Access Self-Led Course &rarr;
+                            </span>
+                        `;
+                        courseCardContainer.classList.add('cursor-pointer');
+                        courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+
+                    } else {
+                        // Fallback: They bought something else (like a website bundle), just give them generic access
+                        courseTitle.textContent = "Core Curriculum";
+                        courseDesc.textContent = "Access your training materials and administrative resources.";
+                        actionWrapper.innerHTML = `
+                            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                                Open Materials &rarr;
+                            </span>
+                        `;
+                        courseCardContainer.classList.add('cursor-pointer');
+                        courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+                    }
                 } else {
-                    courseDesc.textContent = "You do not have an active purchase record found in our database. Complete checkout to instantly unlock this curriculum.";
+                    // User has NO purchases on record
+                    courseTitle.textContent = "No Active Enrollment";
+                    courseDesc.textContent = "You do not have an active course purchase on record. Secure your spot to unlock this curriculum.";
                     actionWrapper.innerHTML = `
-                        <a href="checkout.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">
-                            Unlock Course Material &rarr;
+                        <a href="index.html#programs" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">
+                            View Course Options &rarr;
                         </a>
                     `;
                     courseCardContainer.classList.remove('cursor-pointer');
