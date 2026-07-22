@@ -116,7 +116,7 @@
 
             <div class="grid md:grid-cols-2 gap-8">
                 
-                <!-- Card 1: Course Material (Dynamically routed to Live or Self-Led based on what they own) -->
+                <!-- Card 1: Course Material -->
                 <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
@@ -174,6 +174,12 @@
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // Explicit ID mapping configuration
+        const COURSE_IDS = {
+            SELF: '21d4cd05-7960-4096-9485-7e964b4f7b06',
+            LIVE: '42c3c928-d4ab-4c33-b350-96b8117a3e23'
+        };
+
         window.onload = async function() {
             const debugDiv = document.getElementById('debug-error');
             
@@ -188,7 +194,7 @@
 
                 document.getElementById('user-email').textContent = sessionData.session.user.email;
                 
-                // Fetch available courses to inspect titles/types
+                // Fetch the courses the student owns/has access to via RLS
                 const { data: courses, error: coursesError } = await supabaseClient
                     .from('courses')
                     .select('*');
@@ -205,18 +211,30 @@
                         <a href="checkout.html" class="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">Purchase Masterclass &rarr;</a>
                     `;
                 } else {
-                    // Check if they own/have access to self-led vs live cohort based on course name or identifiers
-                    // Adjust keywords here if your self-led course table column or name differs (e.g. 'self', 'recorded', 'led')
-                    const selfLedCourse = courses.find(c => {
-                        const title = (c.title || c.name || '').toLowerCase();
-                        return title.includes('self') || title.includes('recorded') || title.includes('self-led');
-                    });
+                    // Match against the exact UUIDs provided
+                    const hasSelf = courses.some(c => c.id === COURSE_IDS.SELF);
+                    const hasLive = courses.some(c => c.id === COURSE_IDS.LIVE);
 
-                    const targetCourse = selfLedCourse || courses[0];
-                    const targetPage = (selfLedCourse) ? 'self-led.html' : 'live-cohort.html'; // Change 'self-led.html' to whatever page handles self-led content if named differently
+                    let targetPage = 'live-cohort.html';
+                    let targetId = courses[0].id;
+                    let label = 'Access Course Material';
+
+                    if (hasSelf) {
+                        targetPage = 'self-led.html'; // Change to match your exact file name if different
+                        targetId = COURSE_IDS.SELF;
+                        label = 'Access Self-Led Course &rarr;';
+                    } else if (hasLive) {
+                        targetPage = 'live-cohort.html';
+                        targetId = COURSE_IDS.LIVE;
+                        label = 'Access Live Cohort Course &rarr;';
+                    } else {
+                        // Fallback to whichever one they matched or the first item
+                        targetId = courses[0].id;
+                        label = 'Access Course Material &rarr;';
+                    }
 
                     courseActionContainer.innerHTML = `
-                        <a href="${targetPage}?course_id=${targetCourse.id}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Access Course Material &rarr;</a>
+                        <a href="${targetPage}?course_id=${targetId}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">${label}</a>
                     `;
                 }
                 
