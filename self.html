@@ -679,20 +679,8 @@
                             <div class="options-grid">
                                 <label class="option-label"><input type="radio" name="m1_q1" value="A"> A) Voice changes hourly based on weather.</label>
                                 <label class="option-label"><input type="radio" name="m1_q1" value="B"> B) Voice is core personality; tone adjusts dynamically by context.</label>
-                                <label class="option-label"><input type="radio" name="m1_q1" value="C"> C) Voice is written only; tone is spoken only.</label>
-                                <label class="option-label"><input type="radio" name="m1_q1" value="D"> D) There is no difference between them.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="C"> C) Voice is wri</div>
                             </div>
-                            <div class="quiz-feedback" id="m1_f1"></div>
-                        </div>
-                        <div class="question-box" data-q="2" data-ans="A">
-                            <div class="question-title">2. In narrative brand frameworks, who should be positioned as the "hero"?</div>
-                            <div class="options-grid">
-                                <label class="option-label"><input type="radio" name="m1_q2" value="A"> A) The customer.</label>
-                                <label class="option-label"><input type="radio" name="m1_q2" value="B"> B) The company CEO.</label>
-                                <label class="option-label"><input type="radio" name="m1_q2" value="C"> C) The company product line.</label>
-                                <label class="option-label"><input type="radio" name="m1_q2" value="D"> D) The lead investor</label>
-                            </div>
-                            <div class="quiz-feedback" id="m1_f2"></div>
                         </div>
                     </div>
                 </div>
@@ -701,112 +689,22 @@
 
     </div>
 
-    <!-- Presentation Controls with Back to Dashboard Button in Bottom Right -->
+    <!-- Presentation Controls Bottom Bar -->
     <div class="deck-controls">
         <div class="deck-controls-left">
+            <!-- UPDATED: Changed from <button> to <a> linked to portal.html -->
+            <a href="portal.html" class="back-dashboard-btn">
+                ← Back to Dashboard
+            </a>
+        </div>
+        <div class="deck-controls-right">
             <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
             <span class="slide-counter" id="slideCounter">Slide 1 of 6</span>
             <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
         </div>
-        <div class="deck-controls-right">
-            <a href="dashboard.html" class="back-dashboard-btn">&#8592; Back to Dashboard</a>
-        </div>
     </div>
 
 </div>
-
-<script>
-    let currentModuleIndex = 0;
-    let currentSlideIndex = 0;
-
-    function switchModule(moduleIndex) {
-        currentModuleIndex = moduleIndex;
-        currentSlideIndex = 0;
-
-        // Update active tabs
-        const tabs = document.querySelectorAll('.module-tab');
-        tabs.forEach((tab, index) => {
-            if (index === moduleIndex) {
-                tab.classList.add('active');
-            } else {
-                tab.classList.remove('active');
-            }
-        });
-
-        // Update visible module deck
-        const decks = document.querySelectorAll('.module-deck');
-        decks.forEach((deck, index) => {
-            if (index === moduleIndex) {
-                deck.style.display = 'block';
-                const slides = deck.querySelectorAll('.slide');
-                slides.forEach((s, sIndex) => {
-                    if (sIndex === 0) s.classList.add('active');
-                    else s.classList.remove('active');
-                });
-            } else {
-                deck.style.display = 'none';
-            }
-        });
-
-        updateControls();
-    }
-
-    function changeSlide(direction) {
-        const activeDeck = document.querySelectorAll('.module-deck')[currentModuleIndex];
-        const slides = activeDeck.querySelectorAll('.slide');
-        
-        slides[currentSlideIndex].classList.remove('active');
-        currentSlideIndex += direction;
-
-        if (currentSlideIndex < 0) currentSlideIndex = 0;
-        if (currentSlideIndex >= slides.length) currentSlideIndex = slides.length - 1;
-
-        slides[currentSlideIndex].classList.add('active');
-        updateControls();
-    }
-
-    function updateControls() {
-        const activeDeck = document.querySelectorAll('.module-deck')[currentModuleIndex];
-        const slides = activeDeck.querySelectorAll('.slide');
-
-        document.getElementById('slideCounter').innerText = `Slide ${currentSlideIndex + 1} of ${slides.length}`;
-        document.getElementById('prevBtn').disabled = (currentSlideIndex === 0);
-        document.getElementById('nextBtn').disabled = (currentSlideIndex === slides.length - 1);
-    }
-
-    function gradeModule(modIdx, totalQ) {
-        let score = 0;
-        for (let i = 1; i <= totalQ; i++) {
-            const selected = document.querySelector(`input[name="m${modIdx}_q${i}"]:checked`);
-            const feedbackEl = document.getElementById(`m${modIdx}_f${i}`);
-            const qBox = feedbackEl.closest('.question-box');
-            const correctAns = qBox.getAttribute('data-ans');
-
-            feedbackEl.style.display = 'block';
-            if (selected) {
-                if (selected.value === correctAns) {
-                    score++;
-                    feedbackEl.className = 'quiz-feedback correct';
-                    feedbackEl.innerText = '✓ Correct!';
-                } else {
-                    feedbackEl.className = 'quiz-feedback incorrect';
-                    feedbackEl.innerText = `✗ Incorrect. Correct answer was (${correctAns}).`;
-                }
-            } else {
-                feedbackEl.className = 'quiz-feedback incorrect';
-                feedbackEl.innerText = '✗ No answer selected.';
-            }
-        }
-
-        const scoreDisplay = document.getElementById(`score-display-${modIdx}`);
-        const percentage = Math.round((score / totalQ) * 100);
-        scoreDisplay.innerText = `Score: ${score}/${totalQ} (${percentage}%)`;
-        scoreDisplay.style.color = percentage >= 80 ? '#4ade80' : '#f87171';
-    }
-
-    // Initialize controls on load
-    updateControls();
-</script>
 
 </body>
 </html>
