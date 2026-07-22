@@ -250,11 +250,11 @@
                 </span>
                 <h2 class="text-3xl md:text-5xl font-black text-white mb-4">Business Setup & Individual Services</h2>
                 <p class="text-gray-300 text-sm md:text-base">
-                    Skip the tech hurdles. Choose our comprehensive turn-key package or mix-and-match individual components to launch your dispatch enterprise.
+                    Skip the tech hurdles. Choose our professional turn-key components to launch your dispatch enterprise.
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Website Tiers -->
                 <div class="bg-black/50 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
                     <div>
@@ -325,14 +325,6 @@
                     <button type="button" class="add-to-cart-btn w-full mt-2 border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold py-2.5 rounded-lg transition cursor-pointer relative z-10" data-name="Branding Package" data-price="5000">Add to Cart ($50)</button>
                 </div>
             </div>
-
-            <div class="text-center bg-black/40 border border-gray-800 rounded-2xl p-8">
-                <h3 class="text-xl font-black text-white mb-2">Ready for the Complete Turn-Key Enterprise Package?</h3>
-                <p class="text-gray-400 text-sm mb-6">Combine website, TMS portal, documents, and branding into a seamless agency buildout bundle.</p>
-                <button type="button" class="add-to-cart-btn shine-button-gold text-black font-extrabold px-10 py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Full Business Setup Bundle" data-price="100000">
-                    Add Full Bundle ($1,000) to Cart
-                </button>
-            </div>
         </div>
     </section>
 
@@ -367,7 +359,6 @@
 
     <!-- Cart & Checkout Logic Script -->
     <script>
-        // Updated with your actual Supabase credentials
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoemJxbHVtb2h3bHhnYm9kb3BmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2Mzg1MDMsImV4cCI6MjEwMDIxNDUwM30.oaLH3NqWFdAvzHm3PGyXMgxo4cFfF4BRSPTR90JcLOM';
         
@@ -453,11 +444,6 @@
         async function checkout() {
             const checkoutBtn = document.getElementById('checkout-btn');
             
-            if (SUPABASE_URL === 'YOUR_SUPABASE_URL' || !SUPABASE_URL.startsWith('http')) {
-                alert('Please configure your real SUPABASE_URL and SUPABASE_ANON_KEY in the script tag to initiate Square checkout.');
-                return;
-            }
-
             checkoutBtn.innerText = 'Connecting to Secure Square...';
             checkoutBtn.disabled = true;
 
@@ -480,7 +466,6 @@
             }
         }
 
-        // Programmatic event listener bindings to guarantee clicks trigger safely
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.add-to-cart-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
@@ -498,3 +483,4 @@
     </script>
 </body>
 </html>
+```eof
