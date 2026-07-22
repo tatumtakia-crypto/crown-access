@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Chat | Crown Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#080808',
+                        brandCard: '#121212',
+                        brandBorder: '#222222',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .metallic-gold-text {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-blue-text {
+            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black flex flex-col min-h-screen">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
+        <div class="text-center animate-pulse">
+            <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">CONNECTING TO SECURE CHAT...</span>
+        </div>
+        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
+    </div>
+
+    <!-- Main Chat Interface (Hidden until session verified) -->
+    <div id="dashboard-content" style="display: none;" class="flex flex-col flex-grow w-full">
+        
+        <!-- Navigation Bar -->
+        <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+                        <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                            <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Community Support Chat</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden md:inline"></span>
+                    
+                    <!-- Back to Resource Library Button -->
+                    <a href="portal.html" class="border border-gray-700 hover:bg-gray-800 text-gray-300 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
+                        &larr; Resource Library
+                    </a>
+
+                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow flex flex-col">
+            <div class="bg-brandCard border border-gray-800 rounded-2xl flex flex-col flex-grow shadow-2xl overflow-hidden h-[650px]">
+                
+                <!-- Chat Header info -->
+                <div class="bg-[#161616] px-6 py-4 border-b border-gray-800 flex items-center justify-between">
+                    <div>
+                        <h2 class="font-bold text-white text-sm">Live Mentorship Stream</h2>
+                        <p class="text-xs text-gray-400">Ask questions, share breakthroughs, and get peer support.</p>
+                    </div>
+                    <span class="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live Connection
+                    </span>
+                </div>
+
+                <!-- Message History Box -->
+                <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
+                    <!-- Dynamic messages will append here -->
+                </div>
+
+                <!-- Message Input Form -->
+                <form id="chat-form" class="bg-[#161616] p-4 border-t border-gray-800 flex gap-3">
+                    <input 
+                        type="text" 
+                        id="message-input" 
+                        placeholder="Type your message here..." 
+                        autocomplete="off"
+                        required
+                        class="flex-grow bg-brandDark border border-gray-700 text-gray-100 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition"
+                    >
+                    <button 
+                        type="submit" 
+                        class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition shadow-lg shadow-blue-600/20"
+                    >
+                        Send
+                    </button>
+                </form>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-6 px-6 border-t border-gray-800 text-center text-xs text-gray-500 bg-brandDark">
+            <p>&copy; 2026 Crown Access. Secure Student Environment.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let currentUser = null;
+
+        window.onload = async function() {
+            const debugDiv = document.getElementById('debug-error');
+            
+            try {
+                const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+                if (sessionError) throw sessionError;
+                
+                if (!sessionData.session) {
+                    debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
+                    return;
+                }
+
+                currentUser = sessionData.session.user;
+                document.getElementById('user-email').textContent = currentUser.email;
+                
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('dashboard-content').style.display = 'flex';
+
+                // Load existing messages and start real-time listener
+                fetchMessages();
+                subscribeToMessages();
+
+            } catch (err) {
+                console.error("Chat Load Error:", err);
+                debugDiv.innerHTML = "System Error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Return to Login</a>";
+            }
+        };
+
+        // Fetch historical messages from Supabase table named 'messages'
+        async function fetchMessages() {
+            const { data, error } = await supabaseClient
+                .from('messages')
+                .select('*')
+                .order('created_at', { ascending: true })
+                .limit(50);
+
+            if (error) {
+                console.error('Error fetching messages:', error);
+                return;
+            }
+
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.innerHTML = '';
+            
+            data.forEach(msg => appendMessage(msg));
+            scrollToBottom();
+        }
+
+        // Real-time listener for new messages
+        function subscribeToMessages() {
+            supabaseClient
+                .channel('public:messages')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+                    appendMessage(payload.new);
+                    scrollToBottom();
+                })
+                .subscribe();
+        }
+
+        // Handle sending a message
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const inputField = document.getElementById('message-input');
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            inputField.value = '';
+
+            const { error } = await supabaseClient
+                .from('messages')
+                .insert([
+                    { 
+                        content: text, 
+                        user_email: currentUser.email,
+                        user_id: currentUser.id 
+                    }
+                ]);
+
+            if (error) {
+                alert('Error sending message: ' + error.message);
+            }
+        });
+
+        // Append an individual message bubble to the chat container
+        function appendMessage(msg) {
+            const chatContainer = document.getElementById('chat-messages');
+            const isMe = currentUser && msg.user_email === currentUser.email;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'}`;
+
+            const bubble = document.createElement('div');
+            bubble.className = `max-w-md px-4 py-3 rounded-2xl text-sm ${
+                isMe 
+                    ? 'bg-blue-600 text-white rounded-br-none' 
+                    : 'bg-[#1e1e1e] border border-gray-800 text-gray-200 rounded-bl-none'
+            }`;
+            
+            const senderTag = document.createElement('span');
+            senderTag.className = `block text-[10px] font-bold mb-1 ${isMe ? 'text-blue-200' : 'text-yellow-500'}`;
+            senderTag.textContent = isMe ? 'You' : msg.user_email;
+
+            const textContent = document.createElement('p');
+            textContent.textContent = msg.content;
+            textContent.className = 'break-words';
+
+            bubble.appendChild(senderTag);
+            bubble.appendChild(textContent);
+            wrapper.appendChild(bubble);
+            chatContainer.appendChild(wrapper);
+        }
+
+        function scrollToBottom() {
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            window.location.replace('login.html');
+        });
+    </script>
+</body>
+</html>
