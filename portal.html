@@ -209,17 +209,18 @@
                         console.error("Supabase purchases query error:", purchaseError.message);
                     } else if (purchases && purchases.length > 0) {
                         foundPurchase = true;
-                        // Turn all purchase data into a lowercase string so we can easily search for keywords
+                        // Turn all purchase data into a string to search for the UUIDs
                         purchaseDataString = JSON.stringify(purchases).toLowerCase();
                     }
                 } catch (dbErr) {
                     console.error("Database query exception:", dbErr);
                 }
 
-                // 2. Dynamic Routing Based on Purchase Keywords
+                // 2. Dynamic Routing Based on Purchase UUIDs
                 if (foundPurchase) {
-                    if (purchaseDataString.includes("live") || purchaseDataString.includes("virtual")) {
-                        // User bought the 7-Day Live Intensive
+                    // Checks for the LIVE Course UUID
+                    if (purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23")) {
+                        
                         courseTitle.textContent = "7-Day Live Intensive";
                         courseDesc.textContent = "Access your live cohort schedule, daily video links, and instructor materials.";
                         actionWrapper.innerHTML = `
@@ -228,11 +229,11 @@
                             </span>
                         `;
                         courseCardContainer.classList.add('cursor-pointer');
-                        // Updated to point to live-cohort.html
                         courseCardContainer.onclick = () => { window.location.href = 'live-cohort.html'; }; 
 
-                    } else if (purchaseDataString.includes("self")) {
-                        // User bought the Self-Paced Course
+                    // Checks for the SELF-PACED Course UUID
+                    } else if (purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06")) {
+                        
                         courseTitle.textContent = "Self-Paced Mastery";
                         courseDesc.textContent = "Access your purchased masterclasses, interactive video modules, and step-by-step training.";
                         actionWrapper.innerHTML = `
@@ -244,7 +245,7 @@
                         courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
 
                     } else {
-                        // Fallback: They bought something else (like a website bundle), just give them generic access
+                        // Fallback logic
                         courseTitle.textContent = "Core Curriculum";
                         courseDesc.textContent = "Access your training materials and administrative resources.";
                         actionWrapper.innerHTML = `
