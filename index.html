@@ -6,8 +6,17 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
+  }
+
+  // Fallback if someone opens the function URL directly in a browser instead of fetching
+  if (req.method === 'GET') {
+    return new Response(
+      JSON.stringify({ status: "online", message: "Supabase Edge Function is active. Use POST requests to trigger checkout." }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+    )
   }
 
   try {
