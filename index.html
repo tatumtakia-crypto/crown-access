@@ -6,41 +6,36 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 
   try {
-    const { cartItems } = await req.json()
+    const body = await req.json().catch(() => ({}))
+    const cartItems = body.cartItems
 
     if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
       throw new Error("Cart is empty or invalid.")
     }
 
-    // Map cart items into Square's line items format
-    const lineItems = cartItems.map((item) => ({
-      name: item.name,
-      quantity: String(item.quantity || 1),
-      base_price_money: {
-        amount: item.price_cents, // Already passed as cents from your frontend
-        currency: "USD"
-      }
-    }))
-
     const SQUARE_ACCESS_TOKEN = Deno.env.get('square_access_token')
-    
     if (!SQUARE_ACCESS_TOKEN) {
       throw new Error("Square access token is missing in Supabase secrets.")
     }
 
-    // Determine environment based on token prefix
     const isSandbox = SQUARE_ACCESS_TOKEN.startsWith('EAAA')
     const squareUrl = isSandbox 
       ? "https://connect.squareupsandbox.com/v2/online-checkout/payment-links"
       : "https://connect.squareup.com/v2/online-checkout/payment-links"
 
-    // Call Square API to create a multi-item checkout link
+    const totalAmount = cartItems.reduce((sum, item) => {
+      return sum + (Number(item.price_cents || 0) * Number(item.quantity || 1))
+    }, 0)
+
+    if (totalAmount <= 0) {
+      throw new Error("Invalid cart total amount.")
+    }
+
     const squareResponse = await fetch(squareUrl, {
       method: 'POST',
       headers: {
@@ -50,12 +45,15 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         idempotency_key: crypto.randomUUID(),
-        order: {
-          location_id: Deno.env.get('square_location_id') || "", 
-          line_items: lineItems
+        quick_pay: {
+          name: "Crown Access Order",
+          price_money: {
+            amount: totalAmount,
+            currency: "USD"
+          }
         },
         checkout_options: {
-          redirect_url: "https://tatumtakia-crypto.github.io" // Change or remove if you want a default return page
+          redirect_url: "https://tatumtakia-crypto.github.io"
         }
       })
     })
@@ -66,7 +64,6 @@ serve(async (req) => {
       throw new Error(squareData.errors?.[0]?.detail || "Failed to create Square payment link.")
     }
 
-    // Match the exact property name ('checkoutUrl') that your HTML script looks for
     return new Response(
       JSON.stringify({ checkoutUrl: squareData.payment_link.url }),
       { 
@@ -80,7 +77,7 @@ serve(async (req) => {
       JSON.stringify({ error: error.message }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 400 
+        status: 200 
       }
     )
   }
