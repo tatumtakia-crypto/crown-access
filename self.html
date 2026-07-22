@@ -1,410 +1,247 @@
 <!DOCTYPE html>
-
 <html lang="en" class="scroll-smooth">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Student Dashboard | Crown Access</title>
-
+    <title>Masterclass Curriculum | Crown Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
-
         tailwind.config = {
-
             theme: {
-
                 extend: {
-
                     colors: {
-
                         brandDark: '#080808',
-
                         brandCard: '#121212',
-
                         brandBorder: '#222222',
-
                     }
-
                 }
-
             }
-
         }
-
     </script>
-
     <style>
-
         .metallic-gold-text {
-
             background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-
             -webkit-background-clip: text;
-
             -webkit-text-fill-color: transparent;
-
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
-
         }
-
         .metallic-blue-text {
-
             background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
-
             -webkit-background-clip: text;
-
             -webkit-text-fill-color: transparent;
-
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
-
         }
-
-        .metallic-card-gold {
-
-            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
-
-            border: 1px solid rgba(212, 175, 55, 0.3);
-
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
-
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-
+        .course-slide {
+            display: none;
         }
-
-        .metallic-card-gold:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.3);
-
+        .course-slide.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
         }
-
-        .metallic-card-blue {
-
-            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
-
-            border: 1px solid rgba(37, 99, 235, 0.3);
-
-            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
-
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .metallic-card-blue:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.3);
-
-        }
-
     </style>
-
 </head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-blue-500 selection:text-black">
 
-<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black">
-
-
-
-    <!-- Bulletproof Loading Screen -->
-
+    <!-- Loading Screen -->
     <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
-
         <div class="text-center animate-pulse">
-
-            <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
-
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION...</span>
-
+            <span class="block text-sm uppercase tracking-widest metallic-blue-text font-bold mb-2">Crown Access</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">LOADING COURSE MODULES...</span>
         </div>
-
         <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
-
     </div>
 
-
-
-    <!-- Main Dashboard -->
-
-    <div id="dashboard-content" style="display: none;" class="flex-col justify-between min-h-screen w-full">
-
+    <!-- Course App Container -->
+    <div id="app-content" style="display: none;" class="flex flex-col min-h-screen justify-between">
         
-
-        <!-- Navigation Bar -->
-
+        <!-- Header -->
         <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
-
-            <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
-
-                        <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
-
-                            <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
-
-                        </div>
-
-                    </div>
-
+                    <a href="portal.html" class="border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1">
+                        &larr; Back to Portal
+                    </a>
+                    <div class="h-6 w-[1px] bg-gray-800 hidden sm:block"></div>
                     <div>
-
-                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-
-                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
-
+                        <span class="text-xs uppercase tracking-widest metallic-blue-text font-bold block">Masterclass</span>
+                        <h1 class="text-sm md:text-base font-black text-white" id="course-title-header">Core Curriculum</h1>
                     </div>
-
                 </div>
 
-
-
-                <!-- Header Actions -->
-
-                <div class="flex items-center space-x-2 sm:space-x-3">
-
-                    <span id="user-email" class="text-xs font-semibold text-gray-400 hidden lg:inline mr-2"></span>
-
-                    
-
-                    <a href="resources.html" class="border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-
-                        📁 Resources
-
-                    </a>
-
-
-
-                    <a href="chat.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-
-                        💬 Chat
-
-                    </a>
-
-
-
-                    <a href="loadboard.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-
-                        🚛 Loadboard
-
-                    </a>
-
-
-
-                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-
-                        Sign Out
-
-                    </button>
-
+                <!-- Progress Tracker Indicator -->
+                <div class="flex items-center space-x-4">
+                    <span id="page-indicator" class="text-xs font-bold text-gray-400 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-full">
+                        Module 1 of 5
+                    </span>
                 </div>
-
             </div>
-
         </header>
 
-
-
-        <!-- Main Dashboard Content (2x2 Grid) -->
-
-        <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
-
-            <div class="mb-12">
-
-                <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
-
-                <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
-
-                <p class="text-gray-400 text-sm md:text-base">Access your masterclasses, resource vault, community chat, and mock loadboard below.</p>
-
-            </div>
-
-
-
-            <div class="grid md:grid-cols-2 gap-8">
-
+        <!-- Slide / Module Content Area -->
+        <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow flex flex-col justify-center">
+            
+            <div class="bg-[#121212] border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl relative">
                 
-
-                <!-- Card 1: Course Material -->
-
-                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
-
-                    <div>
-
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
-
-                        <h3 class="text-2xl font-black text-white mb-2">Masterclass Material</h3>
-
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your purchased masterclasses, video walk-throughs, and step-by-step training modules.</p>
-
+                <!-- MODULE 1 -->
+                <div class="course-slide active" data-step="1">
+                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 1</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Welcome & Course Orientation</h2>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                        Welcome to the masterclass curriculum. In this module, we will outline everything you need to succeed, establish baseline expectations, and guide you through setting up your operational workflow.
+                    </p>
+                    <div class="bg-black/40 border border-gray-800 rounded-2xl p-6 mb-6">
+                        <h4 class="text-white font-bold text-sm mb-2 uppercase tracking-wide text-blue-400">Key Objectives:</h4>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                            <li>Navigating the Crown Access student ecosystem.</li>
+                            <li>Establishing proper foundational habits.</li>
+                            <li>Leveraging community resources and tools effectively.</li>
+                        </ul>
                     </div>
-
-                    <div>
-
-                        <span class="text-xs text-gray-500 italic">Content managed via system access.</span>
-
-                    </div>
-
                 </div>
 
-
-
-                <!-- Card 2: Resources -->
-
-                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
-
-                    <div>
-
-                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Downloadable Vault</span>
-
-                        <h3 class="text-2xl font-black text-white mb-2">Resource Library</h3>
-
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Explore individual training guides, knowledge checks, scripts, and downloadable files.</p>
-
+                <!-- MODULE 2 -->
+                <div class="course-slide" data-step="2">
+                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 2</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Core Framework Setup</h2>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                        Setting up your infrastructure properly from day one saves hundreds of hours down the road. We look at standard toolkits, communication structures, and tracking databases.
+                    </p>
+                    <div class="bg-black/40 border border-gray-800 rounded-2xl p-6 mb-6">
+                        <h4 class="text-white font-bold text-sm mb-2 uppercase tracking-wide text-blue-400">Core Action Items:</h4>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                            <li>Review downloadable setup sheets in your vault.</li>
+                            <li>Configure communication profiles.</li>
+                            <li>Test live loadboard interactions.</li>
+                        </ul>
                     </div>
-
-                    <a href="resources.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/20 transition">Open Resource Library &rarr;</a>
-
                 </div>
 
-
-
-                <!-- Card 3: Support Chat Room -->
-
-                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
-
-                    <div>
-
-                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Community Support</span>
-
-                        <h3 class="text-2xl font-black text-white mb-2">Support Chat Room</h3>
-
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Connect directly with mentors and peers for live questions, guidance, and assistance.</p>
-
+                <!-- MODULE 3 -->
+                <div class="course-slide" data-step="3">
+                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 3</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Advanced Execution Strategies</h2>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                        Now that your framework is up and running, let's dive into advanced execution routines, optimizing daily workflows, and scaling results consistently.
+                    </p>
+                    <div class="bg-black/40 border border-gray-800 rounded-2xl p-6 mb-6">
+                        <h4 class="text-white font-bold text-sm mb-2 uppercase tracking-wide text-blue-400">Strategies Covered:</h4>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                            <li>Speed optimization tactics.</li>
+                            <li>Handling high-pressure operational scenarios.</li>
+                            <li>Peer review configurations.</li>
+                        </ul>
                     </div>
-
-                    <a href="chat.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/20 transition">Open Chat Room &rarr;</a>
-
                 </div>
 
-
-
-                <!-- Card 4: Mock Loadboard -->
-
-                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
-
-                    <div>
-
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Interactive Tool</span>
-
-                        <h3 class="text-2xl font-black text-white mb-2">Mock Loadboard</h3>
-
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Practice searching lanes, evaluating rates, and booking simulated loads in real-time.</p>
-
-                    </div>
-
-                    <a href="loadboard.html" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Open Loadboard &rarr;</a>
-
+                <!-- MODULE 4 -->
+                <div class="course-slide" data-step="4">
+                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 4</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Troubleshooting & Edge Cases</h2>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                        Every operator faces obstacles. This module provides troubleshooting scripts, error resolution pathways, and advice gathered from seasoned professionals.
+                    </p>
                 </div>
 
+                <!-- MODULE 5 -->
+                <div class="course-slide" data-step="5">
+                    <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Final Module</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Graduation & Next Steps</h2>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                        Congratulations on completing the core curriculum! You are now equipped with the frameworks required to advance. Make sure to engage regularly via the community chat room.
+                    </p>
+                    <div class="mt-8">
+                        <a href="portal.html" class="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition">
+                            Return to Student Dashboard &rarr;
+                        </a>
+                    </div>
+                </div>
 
+                <!-- Navigation Controls Bar Inside Card Bottom -->
+                <div class="flex items-center justify-between mt-10 pt-6 border-t border-gray-800">
+                    <button id="prev-btn" onclick="changeSlide(-1)" class="bg-gray-900 hover:bg-gray-800 text-gray-300 border border-gray-700 font-bold px-5 py-2.5 rounded-xl text-sm transition disabled:opacity-30 disabled:cursor-not-allowed">
+                        &larr; Previous Module
+                    </button>
+                    
+                    <span id="step-counter-text" class="text-xs text-gray-500 font-mono">1 / 5</span>
+
+                    <button id="next-btn" onclick="changeSlide(1)" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-900/20 disabled:opacity-30 disabled:cursor-not-allowed">
+                        Next Module &rarr;
+                    </button>
+                </div>
 
             </div>
-
         </main>
 
-
-
         <!-- Footer -->
-
-        <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
-
-            <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
-
+        <footer class="py-8 px-6 border-t border-gray-800 text-center text-xs text-gray-500 bg-brandDark">
+            <p>&copy; 2026 Crown Access. Masterclass Learning Environment.</p>
         </footer>
-
-
 
     </div>
 
-
-
+    <!-- Script to handle Authentication and Slide Pagination Logic -->
     <script>
-
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-
+        let currentSlide = 1;
+        const totalSlides = 5;
 
         window.onload = async function() {
-
             const debugDiv = document.getElementById('debug-error');
-
-            
-
             try {
-
                 const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
-
                 if (sessionError) throw sessionError;
-
                 
-
                 if (!sessionData.session) {
-
-                    debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
-
+                    window.location.replace('login.html');
                     return;
-
                 }
 
-
-
-                document.getElementById('user-email').textContent = sessionData.session.user.email;
-
-                
-
                 document.getElementById('loading-screen').style.display = 'none';
-
-                document.getElementById('dashboard-content').style.display = 'flex';
-
-
+                document.getElementById('app-content').style.display = 'flex';
+                updateSlideView();
 
             } catch (err) {
-
-                console.error("Dashboard Load Error:", err);
-
-                debugDiv.innerHTML = "System Error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Return to Login</a>";
-
+                console.error("Course Auth Error:", err);
+                debugDiv.innerHTML = "Session error. <a href='login.html' class='text-blue-400 underline'>Please login again</a>";
             }
-
         };
 
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            updateSlideView();
+        }
 
+        function updateSlideView() {
+            // Toggle slide elements
+            document.querySelectorAll('.course-slide').forEach((slide, index) => {
+                if (index + 1 === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
 
-        document.getElementById('logout-btn').addEventListener('click', async () => {
+            // Update Header & Footer Indicators
+            document.getElementById('page-indicator').textContent = `Module ${currentSlide} of ${totalSlides}`;
+            document.getElementById('step-counter-text').textContent = `${currentSlide} / ${totalSlides}`;
 
-            await supabaseClient.auth.signOut();
-
-            window.location.replace('login.html');
-
-        });
-
+            // Handle Button States
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+            
+            // Scroll to top of view on change
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
-
 </body>
-
-</html> 
-
+</html>
