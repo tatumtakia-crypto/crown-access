@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | Crown Access</title>
+    <title>Self-Led Masterclass | Crown Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -32,132 +32,63 @@
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
         }
-        .metallic-card-gold {
-            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .metallic-card-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.3);
-        }
-        .metallic-card-blue {
-            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
-            border: 1px solid rgba(37, 99, 235, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .metallic-card-blue:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.3);
-        }
     </style>
 </head>
 <body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black">
 
-    <!-- Bulletproof Loading Screen -->
+    <!-- Loading Screen -->
     <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
         <div class="text-center animate-pulse">
             <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION...</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING COURSE ACCESS...</span>
         </div>
         <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
     </div>
 
-    <!-- Main Dashboard -->
-    <div id="dashboard-content" style="display: none;" class="flex-col justify-between min-h-screen w-full">
+    <!-- Course Content Area -->
+    <div id="course-content" style="display: none;" class="flex flex-col min-h-screen justify-between">
         
         <!-- Navigation Bar -->
         <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
-                        <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
-                            <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                    <a href="dashboard.html" class="flex items-center space-x-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+                            <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                                <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
-                    </div>
+                        <div>
+                            <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                            <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Self-Led Masterclass</span>
+                        </div>
+                    </a>
                 </div>
 
-                <!-- Header Actions -->
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                    <span id="user-email" class="text-xs font-semibold text-gray-400 hidden lg:inline mr-2"></span>
-                    
-                    <a href="resources.html" class="border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-                        📁 Resources
+                <div class="flex items-center space-x-4">
+                    <a href="dashboard.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-4 py-2 rounded-lg transition">
+                        &larr; Back to Dashboard
                     </a>
-
-                    <a href="chat.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-                        💬 Chat
-                    </a>
-
-                    <a href="loadboard.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-                        🚛 Loadboard
-                    </a>
-
-                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3 py-2 rounded-lg transition">
-                        Sign Out
-                    </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Dashboard Content (2x2 Grid) -->
-        <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
-            <div class="mb-12">
-                <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
-                <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
-                <p class="text-gray-400 text-sm md:text-base">Access your masterclasses, resource vault, community chat, and mock loadboard below.</p>
+        <!-- Main Course Viewer -->
+        <main class="max-w-5xl mx-auto px-6 py-16 w-full flex-grow">
+            <div class="mb-8">
+                <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
+                <h1 class="text-3xl md:text-4xl font-black text-white mb-3">Masterclass Training Modules</h1>
+                <p class="text-gray-400 text-sm md:text-base">Complete your training steps below. All modules are unlocked and ready for viewing.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                
-                <!-- Card 1: Course Material -->
-                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Masterclass Material</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your purchased masterclasses, video walk-throughs, and step-by-step training modules.</p>
-                    </div>
-                    <div id="course-action-container">
-                        <span class="text-xs text-gray-500 italic">Verifying purchase status...</span>
-                    </div>
+            <!-- Video / Content Container -->
+            <div class="bg-brandCard border border-gray-800 rounded-3xl p-8 shadow-2xl mb-8">
+                <div class="aspect-video bg-black/50 border border-gray-800 rounded-2xl flex items-center justify-center mb-6 overflow-hidden">
+                    <!-- Embed your course video or content here -->
+                    <p class="text-gray-500 text-sm">Your Masterclass Video / Content Player Goes Here</p>
                 </div>
-
-                <!-- Card 2: Resources -->
-                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Downloadable Vault</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Resource Library</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Explore individual training guides, knowledge checks, scripts, and downloadable files.</p>
-                    </div>
-                    <a href="resources.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/20 transition">Open Resource Library &rarr;</a>
-                </div>
-
-                <!-- Card 3: Support Chat Room -->
-                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Community Support</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Support Chat Room</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Connect directly with mentors and peers for live questions, guidance, and assistance.</p>
-                    </div>
-                    <a href="chat.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/20 transition">Open Chat Room &rarr;</a>
-                </div>
-
-                <!-- Card 4: Mock Loadboard -->
-                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Interactive Tool</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Mock Loadboard</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Practice searching lanes, evaluating rates, and booking simulated loads in real-time.</p>
-                    </div>
-                    <a href="loadboard.html" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Open Loadboard &rarr;</a>
-                </div>
-
+                <h2 class="text-xl font-bold text-white mb-2">Module 1: Getting Started</h2>
+                <p class="text-gray-300 text-sm leading-relaxed">Welcome to the self-led curriculum. Follow along with the training materials, review the framework, and proceed at your own pace.</p>
             </div>
         </main>
 
@@ -165,7 +96,6 @@
         <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
             <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
         </footer>
-
     </div>
 
     <script>
@@ -173,93 +103,28 @@
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const COURSE_SELF_ID = '21d4cd05-7960-4096-9485-7e964b4f7b06';
-        const COURSE_LIVE_ID = '42c3c928-d4ab-4c33-b350-96b8117a3e23';
-
         window.onload = async function() {
             const debugDiv = document.getElementById('debug-error');
             
             try {
+                // Verify user is logged into Supabase overall
                 const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
                 if (sessionError) throw sessionError;
                 
                 if (!sessionData.session) {
-                    debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
+                    debugDiv.innerHTML = "Access Denied: Please log in first.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Go to Login</a>";
                     return;
                 }
 
-                document.getElementById('user-email').textContent = sessionData.session.user.email;
-                
-                // Query user purchases/enrollments table first (or handle via secure RPC if courses table is restricted).
-                // If your purchases table is named 'purchases' or 'enrollments', change the table name below.
-                // Let's query 'purchases' table matching user_id and course_id.
-                const userId = sessionData.session.user.id;
-                
-                const { data: purchases, error: purchaseError } = await supabaseClient
-                    .from('purchases')
-                    .select('course_id')
-                    .eq('user_id', userId);
-
-                const courseActionContainer = document.getElementById('course-action-container');
-
-                // If purchases table query fails or returns empty, fallback to checking the courses table directly via RLS
-                let activeCourseIds = [];
-                if (!purchaseError && purchases && purchases.length > 0) {
-                    activeCourseIds = purchases.map(p => p.course_id);
-                } else {
-                    const { data: courses, error: coursesError } = await supabaseClient
-                        .from('courses')
-                        .select('id');
-                    if (!coursesError && courses) {
-                        activeCourseIds = courses.map(c => c.id);
-                    }
-                }
-
-                const hasSelfCourse = activeCourseIds.includes(COURSE_SELF_ID);
-                const hasLiveCourse = activeCourseIds.includes(COURSE_LIVE_ID);
-
-                let htmlOutput = '';
-
-                if (hasSelfCourse) {
-                    htmlOutput += `
-                        <a href="self.html?course_id=${COURSE_SELF_ID}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition mb-2">
-                            Access Self-Led Course &rarr;
-                        </a>
-                    `;
-                }
-
-                if (hasLiveCourse) {
-                    htmlOutput += `
-                        <a href="live-cohort.html?course_id=${COURSE_LIVE_ID}" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-purple-500/20 transition mb-2">
-                            Access Live Cohort &rarr;
-                        </a>
-                    `;
-                }
-
-                if (!hasSelfCourse && !hasLiveCourse) {
-                    htmlOutput = `
-                        <div class="bg-red-500/10 border border-red-500/30 text-red-400 text-xs p-3 rounded-xl mb-2 font-medium">
-                            No active course purchase found on your account.
-                        </div>
-                        <a href="checkout.html" class="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">Purchase Masterclass &rarr;</a>
-                    `;
-                }
-
-                courseActionContainer.innerHTML = htmlOutput;
-                
+                // Session valid -> Show content directly
                 document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('dashboard-content').style.display = 'flex';
+                document.getElementById('course-content').style.display = 'flex';
 
             } catch (err) {
-                console.error("Dashboard Load Error:", err);
+                console.error("Course Page Error:", err);
                 debugDiv.innerHTML = "System Error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Return to Login</a>";
             }
         };
-
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabaseClient.auth.signOut();
-            window.location.replace('login.html');
-        });
     </script>
 </body>
 </html>
