@@ -36,6 +36,11 @@
             background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metallic-card-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.3);
         }
         .metallic-card-blue {
             background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
@@ -79,17 +84,6 @@
                 </div>
                 <div class="flex items-center space-x-3 sm:space-x-4">
                     <span id="user-email" class="text-sm font-semibold text-gray-400 hidden md:inline"></span>
-                    
-                    <!-- Resources Button -->
-                    <a href="resources.html" class="border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
-                        📁 Resources
-                    </a>
-
-                    <!-- Chat Room Button -->
-                    <a href="chat.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
-                        💬 Chat Room
-                    </a>
-
                     <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition">
                         Sign Out
                     </button>
@@ -102,18 +96,55 @@
             <div class="mb-12">
                 <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
                 <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
-                <p class="text-gray-400 text-sm md:text-base">Access your enrolled masterclasses, resource packets, and step-by-step guides below.</p>
+                <p class="text-gray-400 text-sm md:text-base">Access your masterclasses, resource vault, community chat, and mock loadboard below.</p>
             </div>
 
-            <!-- Dynamic Course Grid populated from Supabase RLS -->
-            <div id="courses-container" class="grid md:grid-cols-2 gap-8">
-                <!-- Courses injected via JavaScript -->
-            </div>
-            
-            <!-- Fallback if student has no courses -->
-            <div id="no-courses" style="display: none;" class="metallic-card-gold rounded-3xl p-8 text-center">
-                <h3 class="text-xl font-black text-white mb-2">No Active Courses Found</h3>
-                <p class="text-gray-400 text-sm">It looks like you haven't purchased or been assigned any courses yet. If you believe this is an error, please contact support.</p>
+            <!-- Unified 2x2 Grid Layout -->
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Card 1: Course Material -->
+                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
+                        <h3 class="text-2xl font-black text-white mb-2">Masterclass Material</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your enrolled courses, video walk-throughs, and step-by-step training modules.</p>
+                    </div>
+                    <div id="courses-link-container">
+                        <!-- Populated dynamically via JS or falls back to direct link -->
+                        <a href="live-cohort.html" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Access Course Material &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Resources -->
+                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Downloadable Vault</span>
+                        <h3 class="text-2xl font-black text-white mb-2">Resource Library</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Explore individual training guides, knowledge checks, scripts, and downloadable files.</p>
+                    </div>
+                    <a href="resources.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/20 transition">Open Resource Library &rarr;</a>
+                </div>
+
+                <!-- Card 3: Support Chat Room -->
+                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Community Support</span>
+                        <h3 class="text-2xl font-black text-white mb-2">Support Chat Room</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Connect directly with mentors and peers for live questions, guidance, and assistance.</p>
+                    </div>
+                    <a href="chat.html" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/20 transition">Open Chat Room &rarr;</a>
+                </div>
+
+                <!-- Card 4: Mock Loadboard -->
+                <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Interactive Tool</span>
+                        <h3 class="text-2xl font-black text-white mb-2">Mock Loadboard</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Practice searching lanes, evaluating rates, and booking simulated loads in real-time.</p>
+                    </div>
+                    <a href="loadboard.html" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Open Loadboard &rarr;</a>
+                </div>
+
             </div>
         </main>
 
@@ -122,69 +153,35 @@
             <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
         </footer>
 
-    </div> <!-- End of Dashboard Content -->
+    </div>
 
     <script>
-        // Initialize Supabase
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Run Verification when page loads
         window.onload = async function() {
             const debugDiv = document.getElementById('debug-error');
             
             try {
-                // 1. Fetch Session
                 const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
-                
                 if (sessionError) throw sessionError;
                 
-                // 2. If NO Session, show error and return to login
                 if (!sessionData.session) {
                     debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
                     return;
                 }
 
-                // 3. Set Email
                 document.getElementById('user-email').textContent = sessionData.session.user.email;
                 
-                // 4. Fetch Securely Filtered Courses from Supabase (RLS Handles Security)
-                const { data: courses, error: coursesError } = await supabaseClient
-                    .from('courses')
-                    .select('*');
-
-                if (coursesError) throw coursesError;
-
-                const container = document.getElementById('courses-container');
-                const noCoursesMsg = document.getElementById('no-courses');
-
-                if (!courses || courses.length === 0) {
-                    noCoursesMsg.style.display = 'block';
-                } else {
-                    container.innerHTML = '';
-                    courses.forEach((course, index) => {
-                        // Alternate styles/colors based on position or default to blue card design
-                        const isEven = index % 2 === 0;
-                        const cardClass = isEven ? 'metallic-card-blue' : 'metallic-card-gold';
-                        const badgeBg = isEven ? 'bg-blue-600/20 text-blue-400 border-blue-500/30' : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30';
-                        const btnClass = isEven ? 'bg-blue-500/10 text-blue-400 border-blue-500/30' : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30';
-
-                        const cardHTML = `
-                            <div class="${cardClass} rounded-3xl p-8 flex flex-col justify-between">
-                                <div>
-                                    <span class="${badgeBg} border text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Enrolled Course</span>
-                                    <h3 class="text-2xl font-black text-white mb-2">${escapeHtml(course.title)}</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">${escapeHtml(course.description || 'Access your course materials and modules below.')}</p>
-                                </div>
-                                <a href="live-cohort.html?course_id=${course.id}" class="text-xs ${btnClass} border px-3 py-1.5 rounded-full font-bold text-center w-max block">Access Course Material &rarr;</a>
-                            </div>
-                        `;
-                        container.innerHTML += cardHTML;
-                    });
+                // Optionally pull dynamic course ID if available to link the masterclass card directly
+                const { data: courses } = await supabaseClient.from('courses').select('id').limit(1);
+                if (courses && courses.length > 0) {
+                    document.getElementById('courses-link-container').innerHTML = `
+                        <a href="live-cohort.html?course_id=${courses[0].id}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Access Course Material &rarr;</a>
+                    `;
                 }
                 
-                // 5. Swap Visibility Safely
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('dashboard-content').style.display = 'flex';
 
@@ -194,12 +191,6 @@
             }
         };
 
-        // Helper function to prevent basic XSS when rendering database content
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        // Handle Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await supabaseClient.auth.signOut();
             window.location.replace('login.html');
