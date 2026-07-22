@@ -1,355 +1,269 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge Check 1 | Crown Access</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandDark: '#080808',
-                        brandCard: '#121212',
-                        brandBorder: '#222222',
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Knowledge Check | Crown Access</title>
     <style>
-        .metallic-gold-text {
-            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        :root {
+            --bg-color: #0b0f19;
+            --slide-bg: #111827;
+            --border-color: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #22c55e;
+            --error: #ef4444;
         }
-        .metallic-blue-text {
-            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        .metallic-card-gold {
-            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+
+        .master-container {
+            width: 100%;
+            max-width: 1050px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        .metallic-card-blue {
-            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
-            border: 1px solid rgba(37, 99, 235, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+
+        .deck-viewport {
+            background-color: var(--slide-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .slide-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: #60a5fa;
+        }
+
+        .duration-badge {
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            max-height: 480px;
+            padding-right: 10px;
+        }
+
+        .question-box {
+            background: #1f2937;
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: #111827;
+            padding: 9px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        .option-label input {
+            accent-color: var(--primary);
+            margin-top: 3px;
+        }
+
+        .quiz-feedback {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.correct { color: #4ade80; }
+        .quiz-feedback.incorrect { color: #f87171; }
+
+        .submit-module-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .submit-module-btn:hover {
+            opacity: 0.9;
+        }
+
+        .module-score-display {
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-yellow-500 selection:text-black flex flex-col min-h-screen">
+<body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
-        <div class="text-center animate-pulse">
-            <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING ASSESSMENT ACCESS...</span>
+<div class="master-container">
+    <div class="deck-viewport">
+        <div class="slide-header">
+            <h2>Module 1: Foundations Knowledge Check</h2>
+            <span class="duration-badge">Score & Verify Mastery</span>
         </div>
-        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
+        <div class="quiz-container" id="quiz-deck-0">
+            <div class="question-box" data-q="1" data-ans="A">
+                <div class="question-title">1. What is the primary operational difference between a freight dispatcher and a freight broker?</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="m0_q1" value="A"> A) Dispatchers represent and book loads for carriers; brokers mediate between shippers and carriers.</label>
+                    <label class="option-label"><input type="radio" name="m0_q1" value="B"> B) Dispatchers require a $75,000 surety bond.</label>
+                    <label class="option-label"><input type="radio" name="m0_q1" value="C"> C) Brokers drive semi-trucks.</label>
+                    <label class="option-label"><input type="radio" name="m0_q1" value="D"> D) There is no difference.</label>
+                </div>
+                <div class="quiz-feedback" id="m0_f1"></div>
+            </div>
+            <div class="question-box" data-q="2" data-ans="B">
+                <div class="question-title">2. Why is forming an LLC and obtaining an EIN important for your dispatch business?</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="m0_q2" value="A"> A) It automatically grants you broker authority.</label>
+                    <label class="option-label"><input type="radio" name="m0_q2" value="B"> B) It provides legal liability protection and enables professional business banking.</label>
+                    <label class="option-label"><input type="radio" name="m0_q2" value="C"> C) It waives all federal taxes.</label>
+                    <label class="option-label"><input type="radio" name="m0_q2" value="D"> D) It allows you to drive commercial trucks.</label>
+                </div>
+                <div class="quiz-feedback" id="m0_f2"></div>
+            </div>
+            <div class="question-box" data-q="3" data-ans="B">
+                <div class="question-title">3. Do independent freight dispatchers need a $75,000 broker bond?</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="m0_q3" value="A"> A) Yes, exactly $75,000.</label>
+                    <label class="option-label"><input type="radio" name="m0_q3" value="B"> B) No, because dispatchers represent carriers rather than taking financial custody of freight.</label>
+                    <label class="option-label"><input type="radio" name="m0_q3" value="C"> C) Yes, $100,000.</label>
+                    <label class="option-label"><input type="radio" name="m0_q3" value="D"> D) Only if operating in Alabama.</label>
+                </div>
+                <div class="quiz-feedback" id="m0_f3"></div>
+            </div>
+            <div class="question-box" data-q="4" data-ans="B">
+                <div class="question-title">4. What is the standard compensation model for an independent freight dispatcher?</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="m0_q4" value="A"> A) A flat annual salary paid by brokers.</label>
+                    <label class="option-label"><input type="radio" name="m0_q4" value="B"> B) A weekly percentage (e.g., 5% to 10%) of gross load revenue.</label>
+                    <label class="option-label"><input type="radio" name="m0_q4" value="C"> C) Hourly wages paid by shippers.</label>
+                    <label class="option-label"><input type="radio" name="m0_q4" value="D"> D) Commission paid directly by the government.</label>
+                </div>
+                <div class="quiz-feedback" id="m0_f4"></div>
+            </div>
+            <div class="question-box" data-q="5" data-ans="B">
+                <div class="question-title">5. What does MC and DOT stand for in motor carrier compliance?</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="m0_q5" value="A"> A) Motor Carrier and Department of Training.</label>
+                    <label class="option-label"><input type="radio" name="m0_q5" value="B"> B) Motor Carrier and Department of Transportation.</label>
+                    <label class="option-label"><input type="radio" name="m0_q5" value="C"> C) Master Control and Delivery Order.</label>
+                    <label class="option-label"><input type="radio" name="m0_q5" value="D"> D) Management Corporation and Direct Operation.</label>
+                </div>
+                <div class="quiz-feedback" id="m0_f5"></div>
+            </div>
+        </div>
+        <div style="margin-top: 20px; display: flex; align-items: center;">
+            <button class="submit-module-btn" onclick="gradeQuiz(0, 5)">Grade Knowledge Check</button>
+            <span class="module-score-display" id="score-display-0"></span>
+        </div>
     </div>
+</div>
 
-    <!-- Main Quiz Content (Hidden until session verified) -->
-    <div id="dashboard-content" style="display: none;" class="flex flex-col flex-grow w-full">
+<script>
+    function gradeQuiz(modIdx, totalQ) {
+        let score = 0;
+        const container = document.getElementById(`quiz-deck-${modIdx}`);
         
-        <!-- Navigation Bar -->
-        <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
-                        <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
-                            <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Knowledge Check 1</span>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden md:inline"></span>
-                    
-                    <a href="portal.html" class="border border-gray-700 hover:bg-gray-800 text-gray-300 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
-                        &larr; Resource Library
-                    </a>
-
-                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition">
-                        Sign Out
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <!-- Quiz Container Section -->
-        <main class="max-w-4xl mx-auto px-6 py-16 w-full flex-grow">
-            <div class="mb-10 text-center">
-                <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Module Evaluation</span>
-                <h1 class="text-3xl md:text-4xl font-black text-white mb-3">Brand Fundamentals Assessment</h1>
-                <p class="text-gray-400 text-sm">Select the correct answer for each question below.</p>
-            </div>
-
-            <!-- Quiz Questions Deck -->
-            <div class="quiz-container space-y-6" id="quiz-deck-0">
-                
-                <!-- Question 1 -->
-                <div class="metallic-card-blue rounded-2xl p-6 question-box" data-q="1" data-ans="A">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Question 1 of 5</span>
-                    <div class="question-title font-bold text-white text-base md:text-lg mb-4">What is the fundamental difference between a brand’s "identity" and its "image"?</div>
-                    <div class="options-grid space-y-2.5">
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q1" value="A" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">A) Identity is created by the company; image is actual public perception.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q1" value="B" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">B) Identity refers to product pricing, image to logo design.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q1" value="C" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">C) Identity changes daily, image is fixed permanently.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q1" value="D" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">D) Both terms mean the exact same thing.</span>
-                        </label>
-                    </div>
-                    <div class="quiz-feedback mt-4 text-xs font-semibold" id="m0_f1"></div>
-                </div>
-
-                <!-- Question 2 -->
-                <div class="metallic-card-gold rounded-2xl p-6 question-box" data-q="2" data-ans="B">
-                    <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Question 2 of 5</span>
-                    <div class="question-title font-bold text-white text-base md:text-lg mb-4">What primary commercial benefit does high "brand equity" provide?</div>
-                    <div class="options-grid space-y-2.5">
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q2" value="A" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">A) It waives corporate income taxes automatically.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q2" value="B" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">B) It grants pricing power, higher loyalty, and increased perceived value.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q2" value="C" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">C) It eliminates the need for customer service.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q2" value="D" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">D) It prevents supply chain issues entirely.</span>
-                        </label>
-                    </div>
-                    <div class="quiz-feedback mt-4 text-xs font-semibold" id="m0_f2"></div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="metallic-card-blue rounded-2xl p-6 question-box" data-q="3" data-ans="B">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Question 3 of 5</span>
-                    <div class="question-title font-bold text-white text-base md:text-lg mb-4">How is a "perceptual map" utilized during brand strategy?</div>
-                    <div class="options-grid space-y-2.5">
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q3" value="A" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">A) To track physical shipping coordinate routes.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q3" value="B" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">B) To plot competitors across axes to identify unserved market gaps.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q3" value="C" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">C) To design office architectural floor plans.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q3" value="D" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">D) To measure internal staff turnover metrics.</span>
-                        </label>
-                    </div>
-                    <div class="quiz-feedback mt-4 text-xs font-semibold" id="m0_f3"></div>
-                </div>
-
-                <!-- Question 4 -->
-                <div class="metallic-card-gold rounded-2xl p-6 question-box" data-q="4" data-ans="B">
-                    <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Question 4 of 5</span>
-                    <div class="question-title font-bold text-white text-base md:text-lg mb-4">Which of the following best defines a Unique Value Proposition (UVP)?</div>
-                    <div class="options-grid space-y-2.5">
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q4" value="A" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">A) A 500-word mission statement hidden in handbooks.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q4" value="B" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">B) A clear declaration of what you offer, target users, and why you provide superior value.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q4" value="C" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">C) A legal trademark filing document.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q4" value="D" class="mt-1 accent-yellow-500"> 
-                            <span class="text-sm text-gray-300">D) An unresearched focus group slogan.</span>
-                        </label>
-                    </div>
-                    <div class="quiz-feedback mt-4 text-xs font-semibold" id="m0_f4"></div>
-                </div>
-
-                <!-- Question 5 -->
-                <div class="metallic-card-blue rounded-2xl p-6 question-box" data-q="5" data-ans="B">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Question 5 of 5</span>
-                    <div class="question-title font-bold text-white text-base md:text-lg mb-4">When segmenting an audience using psychographics, what factors are evaluated?</div>
-                    <div class="options-grid space-y-2.5">
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q5" value="A" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">A) Zip codes and income brackets.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q5" value="B" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">B) Consumer values, lifestyle choices, psychological attitudes, and behavioral drivers.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q5" value="C" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">C) Physical height and weight measurements.</span>
-                        </label>
-                        <label class="option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition">
-                            <input type="radio" name="m0_q5" value="D" class="mt-1 accent-blue-500"> 
-                            <span class="text-sm text-gray-300">D) Office building square footage counts.</span>
-                        </label>
-                    </div>
-                    <div class="quiz-feedback mt-4 text-xs font-semibold" id="m0_f5"></div>
-                </div>
-
-            </div>
-
-            <!-- Quiz Action Controls -->
-            <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-brandCard p-6 rounded-2xl border border-gray-800">
-                <div id="quiz-score-summary" class="text-sm font-semibold text-gray-400 hidden">
-                    Score: <span id="score-val" class="text-white font-bold">0</span> / 5
-                </div>
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <button id="submit-quiz-btn" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-bold text-sm px-8 py-3 rounded-xl shadow-lg transition">
-                        Submit & Grade Check
-                    </button>
-                    <button id="retry-quiz-btn" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold text-sm px-8 py-3 rounded-xl border border-gray-700 transition hidden">
-                        Retry Assessment
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="py-6 px-6 border-t border-gray-800 text-center text-xs text-gray-500 bg-brandDark">
-            <p>&copy; 2026 Crown Access. Secure Student Environment.</p>
-        </footer>
-
-    </div>
-
-    <script>
-        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        window.onload = async function() {
-            const debugDiv = document.getElementById('debug-error');
-            try {
-                const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
-                if (sessionError) throw sessionError;
-                
-                if (!sessionData.session) {
-                    debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Login Again</a>";
-                    return;
-                }
-
-                document.getElementById('user-email').textContent = sessionData.session.user.email;
-                document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('dashboard-content').style.display = 'flex';
-            } catch (err) {
-                debugDiv.innerHTML = "System Error: " + err.message;
-            }
-        };
-
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabaseClient.auth.signOut();
-            window.location.replace('login.html');
-        });
-
-        // Quiz grading and retry logic
-        document.getElementById('submit-quiz-btn').addEventListener('click', () => {
-            const questions = document.querySelectorAll('.question-box');
-            let correctCount = 0;
-
-            questions.forEach((qBox) => {
-                const qNum = qBox.getAttribute('data-q');
-                const correctAnswer = qBox.getAttribute('data-ans');
-                const selectedInput = qBox.querySelector(`input[name="m0_q${qNum}"]:checked`);
-                const feedbackEl = document.getElementById(`m0_f${qNum}`);
-
-                // Remove existing styling classes on options
-                qBox.querySelectorAll('.option-label').forEach(label => {
-                    label.classList.remove('border-green-500/50', 'bg-green-500/10', 'border-red-500/50', 'bg-red-500/10');
-                });
-
-                if (!selectedInput) {
-                    feedbackEl.textContent = "⚠️ Please select an option for this question.";
-                    feedbackEl.className = "quiz-feedback mt-4 text-xs font-semibold text-yellow-400";
-                    return;
-                }
-
-                const userVal = selectedInput.value;
-                const parentLabel = selectedInput.closest('.option-label');
-
-                if (userVal === correctAnswer) {
-                    correctCount++;
-                    feedbackEl.textContent = "✓ Correct!";
-                    feedbackEl.className = "quiz-feedback mt-4 text-xs font-semibold text-green-400";
-                    parentLabel.classList.add('border-green-500/50', 'bg-green-500/10');
-                } else {
-                    feedbackEl.textContent = `✗ Incorrect. The correct answer was (${correctAnswer}).`;
-                    feedbackEl.className = "quiz-feedback mt-4 text-xs font-semibold text-red-400";
-                    parentLabel.classList.add('border-red-500/50', 'bg-red-500/10');
-                    
-                    // Highlight correct option
-                    qBox.querySelectorAll(`input[name="m0_q${qNum}"]`).forEach(inp => {
-                        if (inp.value === correctAnswer) {
-                            inp.closest('.option-label').classList.add('border-green-500/30', 'bg-green-500/5');
-                        }
-                    });
-                }
-            });
-
-            // Display overall score summary
-            document.getElementById('score-val').textContent = correctCount;
-            document.getElementById('quiz-score-summary').classList.remove('hidden');
-
-            // Switch action buttons
-            document.getElementById('submit-quiz-btn').classList.add('hidden');
-            document.getElementById('retry-quiz-btn').classList.remove('hidden');
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        });
-
-        document.getElementById('retry-quiz-btn').addEventListener('click', () => {
-            // Clear inputs
-            document.querySelectorAll('input[type="radio"]').forEach(inp => inp.checked = false);
+        for (let i = 1; i <= totalQ; i++) {
+            const qBox = container.querySelector(`.question-box[data-q="${i}"]`);
+            const correctAns = qBox.getAttribute('data-ans');
+            const selected = qBox.querySelector(`input[name="m${modIdx}_q${i}"]:checked`);
+            const feedbackEl = document.getElementById(`m${modIdx}_f${i}`);
             
-            // Clear feedbacks and label styles
-            for (let i = 1; i <= 5; i++) {
-                const fb = document.getElementById(`m0_f${i}`);
-                if (fb) fb.textContent = "";
+            feedbackEl.style.display = 'block';
+            if (selected && selected.value === correctAns) {
+                score++;
+                feedbackEl.innerText = "✓ Correct! Professional standard verified.";
+                feedbackEl.className = "quiz-feedback correct";
+            } else {
+                feedbackEl.innerText = `✕ Incorrect. The correct answer is option ${correctAns}.`;
+                feedbackEl.className = "quiz-feedback incorrect";
             }
+        }
 
-            document.querySelectorAll('.option-label').forEach(label => {
-                label.className = "option-label flex items-start gap-3 p-3 rounded-xl border border-gray-800 bg-brandDark/50 hover:bg-gray-800/50 cursor-pointer transition";
-            });
+        const scoreDisplay = document.getElementById(`score-display-${modIdx}`);
+        const percentage = Math.round((score / totalQ) * 100);
+        
+        if (score === totalQ) {
+            scoreDisplay.style.color = "var(--success)";
+            scoreDisplay.innerText = `Score: ${score}/${totalQ} (${percentage}%) - Mastered!`;
+        } else {
+            scoreDisplay.style.color = "var(--error)";
+            scoreDisplay.innerText = `Score: ${score}/${totalQ} (${percentage}%) - Review material & retry.`;
+        }
+    }
+</script>
 
-            // Hide summary and toggle buttons back
-            document.getElementById('quiz-score-summary').classList.add('hidden');
-            document.getElementById('retry-quiz-btn').classList.add('hidden');
-            document.getElementById('submit-quiz-btn').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
 </body>
 </html>
