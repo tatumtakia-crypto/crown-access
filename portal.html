@@ -77,9 +77,20 @@
                         <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
                     </div>
                 </div>
-                <div class="flex items-center space-x-6">
-                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden sm:inline"></span>
-                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-4 py-2.5 rounded-lg transition">
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden md:inline"></span>
+                    
+                    <!-- Resources Button -->
+                    <a href="resources.html" class="border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
+                        📁 Resources
+                    </a>
+
+                    <!-- Chat Room Button -->
+                    <a href="chat.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition flex items-center gap-1.5">
+                        💬 Chat Room
+                    </a>
+
+                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition">
                         Sign Out
                     </button>
                 </div>
