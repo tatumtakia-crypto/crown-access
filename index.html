@@ -138,8 +138,15 @@
             <p id="empty-cart-msg" class="text-gray-500 text-center py-12 text-sm">Your cart is currently empty.</p>
         </div>
 
-        <div class="p-6 border-t border-gray-800 bg-black/50">
-            <div class="flex justify-between items-center mb-4">
+        <!-- Cart Footer with Prominent Notice Box & Checkout Button -->
+        <div class="p-6 border-t border-gray-800 bg-black/50 space-y-4">
+            <div class="bg-yellow-500/15 border-2 border-yellow-500/50 rounded-xl p-4 shadow-lg">
+                <p class="text-xs sm:text-sm text-yellow-300 leading-snug font-bold">
+                    📌 IMPORTANT NOTICE:<br>
+                    Login details and booking links (for live course) will be sent via email after purchase to book and access your course.
+                </p>
+            </div>
+            <div class="flex justify-between items-center">
                 <span class="text-gray-400 font-medium">Total:</span>
                 <span id="cart-total" class="text-2xl font-black metallic-gold-text">$0.00</span>
             </div>
@@ -162,7 +169,7 @@
                 Master the Art of <br class="hidden sm:inline"><span class="metallic-gold-text">Truck Dispatching</span>
             </h1>
             <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-                Learn proven strategies to <strong class="text-white">attract and secure carriers</strong>, master operations through our 7-Day Live Masterclass or self-led tracks, and option for full business turn-key setup.
+                Learn proven strategies to <strong class="text-white">attract and secure carriers</strong>, master operations through our 3-Day Live Masterclass or self-led tracks, and option for full business turn-key setup.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#programs" class="shine-button-gold text-black font-extrabold px-8 py-4 rounded-xl transition text-base text-center">
@@ -190,12 +197,12 @@
                 <div class="metallic-card-blue rounded-3xl p-6 sm:p-10 flex flex-col justify-between relative transition duration-300">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full uppercase tracking-wider">7-Day Live Intensive</span>
+                            <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full uppercase tracking-wider">3-Day Live Intensive</span>
                             <span class="text-2xl font-black text-blue-400">$85</span>
                         </div>
                         <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">Virtual Class</h3>
                         <p class="text-gray-300 text-sm mb-8 leading-relaxed">
-                            An intensive 7-day live boot camp focused heavily on teaching you how to proactively attract carriers, build long-term relationships, and close lucrative dispatch deals under direct instructor oversight.
+                            An intensive 3-day live boot camp focused heavily on teaching you how to proactively attract carriers, build long-term relationships, and close lucrative dispatch deals under direct instructor oversight.
                         </p>
                         
                         <div class="space-y-4 mb-8">
@@ -207,17 +214,17 @@
                                 </li>
                                 <li class="flex items-start">
                                     <span class="metallic-blue-text font-bold mr-3 text-lg leading-none">✓</span>
-                                    <span><strong>7 Days of Direct Live Instruction:</strong> Immersive day-by-day training, real-time Q&A, and booking workflows.</span>
+                                    <span><strong>3 Days of Direct Live Instruction:</strong> Immersive day-by-day training, real-time Q&A, and booking workflows.</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div>
                         <div class="border-t border-gray-800 pt-6 mb-6 flex items-center justify-between">
-                            <span class="text-xs text-gray-400">Duration: 7 Full Days</span>
+                            <span class="text-xs text-gray-400">Duration: 3 Full Days</span>
                             <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Cohort Access</span>
                         </div>
-                        <button type="button" class="add-to-cart-btn w-full shine-button-blue text-white font-extrabold py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Virtual Class (7-Day Live)" data-price="8500">
+                        <button type="button" class="add-to-cart-btn w-full shine-button-blue text-white font-extrabold py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Virtual Class (3-Day Live)" data-price="8500">
                             Add to Cart ($85)
                         </button>
                     </div>
@@ -515,7 +522,6 @@
             document.getElementById('cart-overlay')?.addEventListener('click', closeCart);
             document.getElementById('checkout-btn')?.addEventListener('click', checkout);
 
-            // Close mobile menu when clicking navigation links
             document.querySelectorAll('.mobile-nav-link').forEach(link => {
                 link.addEventListener('click', () => {
                     document.getElementById('mobile-menu')?.classList.add('hidden');
