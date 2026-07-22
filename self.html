@@ -38,32 +38,35 @@
             gap: 20px;
         }
 
-        /* Top Bar with Dashboard Link & Module Nav */
-        .top-bar {
+        /* Top Action Bar with Dashboard Link */
+        .top-action-bar {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #111827;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            justify-content: flex-start;
+            width: 100%;
+            margin-bottom: -10px;
         }
 
         .back-dashboard-btn {
-            background: #374151;
+            background: #1f2937;
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            font-size: 0.85rem;
-            transition: background 0.2s;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
 
         .back-dashboard-btn:hover {
             background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-1px);
         }
 
         /* Top Module Navigation Bar */
@@ -356,9 +359,9 @@
 
 <div class="master-container">
 
-    <!-- Top Action Bar with Back to Dashboard Button -->
-    <div class="top-bar">
-        <a href="dashboard.html" class="back-dashboard-btn">← Back to Dashboard</a>
+    <!-- Standalone Back to Dashboard Button -->
+    <div class="top-action-bar">
+        <a href="dashboard.html" class="back-dashboard-btn">&#8592; Back to Dashboard</a>
     </div>
 
     <!-- Top Module Navigation -->
@@ -544,6 +547,147 @@
                     <div style="margin-top: 15px; display: flex; align-items: center;">
                         <button class="submit-module-btn" onclick="gradeModule(0, 5)">Grade Module 1 Quiz</button>
                         <span class="module-score-display" id="score-display-0"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 2 ================= -->
+        <div class="module-deck" data-module="1" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>2.1 Voice, Tone, & Linguistic Architecture</h2>
+                    <span class="duration-badge">Module 2 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Words establish the emotional frequency of your enterprise across all public touchpoints.</p>
+                        <ul>
+                            <li><strong>Brand Voice:</strong> Immutable, core personality characteristics that never alter.</li>
+                            <li><strong>Brand Tone:</strong> Dynamic, situational adjustments based on audience sentiment or channel.</li>
+                            <li><strong>Linguistic Guardrails:</strong> Establishing approved vocabulary libraries and banning weak buzzwords.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Copywriting and Voice">
+                        <span class="image-caption">Calibrating voice constancy against dynamic tonal shifts.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.2 Narrative Frameworks & The Story Loop</h2>
+                    <span class="duration-badge">Module 2 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Effective brand storytelling bypasses corporate self-absorption to center the consumer in a heroic journey.</p>
+                        <ul>
+                            <li><strong>The Customer as Hero:</strong> Positioning the buyer as the central protagonist facing conflict.</li>
+                            <li><strong>The Brand as Guide:</strong> Providing empathy and competence to show a proven solution.</li>
+                            <li><strong>The Stakes:</strong> Clearly contrasting successful outcomes against the consequences of inaction.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Storytelling Framework">
+                        <span class="image-caption">Structuring customer-centric narrative loops and stakes.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.3 Naming Strategy & Semantic Architecture</h2>
+                    <span class="duration-badge">Module 2 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Choosing a corporate name requires balancing linguistic memorability with strict legal defensibility.</p>
+                        <ul>
+                            <li><strong>Naming Archetypes:</strong> Descriptive, evocative metaphors, acronyms, and neologisms.</li>
+                            <li><strong>Phonetic Memorability:</strong> Analyzing syllable structures for global recall.</li>
+                            <li><strong>Cultural Connotation Audits:</strong> Screening potential names across global languages.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Naming Strategy">
+                        <span class="image-caption">Evaluating phonetic resonance and cross-cultural risks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.4 Intellectual Property & Trademark Risk Mitigation</h2>
+                    <span class="duration-badge">Module 2 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Failing to secure intellectual property rights early can destroy years of accumulated market equity overnight.</p>
+                        <ul>
+                            <li><strong>USPTO Database Searches:</strong> Conducting clearance filings prior to market entry.</li>
+                            <li><strong>International Madrid System:</strong> Securing multi-jurisdiction protection across economic zones.</li>
+                            <li><strong>Domain Real Estate:</strong> Acquiring clean top-level domains and exact-match handles.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Trademark Protection">
+                        <span class="image-caption">Navigating international trademark filing and domain acquisition.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.5 Module 2 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 2 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Review these critical verbal identity tenets prior to initiating the evaluation quiz:</p>
+                        <ul>
+                            <li>Voice remains stable; tone shifts fluidly based on situational empathy.</li>
+                            <li>The customer is the hero; your brand acts as the wise guide.</li>
+                            <li>Invented neologisms offer superior trademark protection over literal words.</li>
+                            <li>Rigorous IP clearance prevents devastating rebranding lawsuits.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Synthesis">
+                        <span class="image-caption">Consolidating messaging and legal protection frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 2: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-1">
+                        <div class="question-box" data-q="1" data-ans="B">
+                            <div class="question-title">1. What is the primary difference between brand voice and brand tone?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q1" value="A"> A) Voice changes hourly based on weather.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="B"> B) Voice is core personality; tone adjusts dynamically by context.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="C"> C) Voice is written only; tone is spoken only.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="D"> D) There is no difference between them.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="A">
+                            <div class="question-title">2. In narrative brand frameworks, who should be positioned as the "hero"?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q2" value="A"> A) The customer.</label>
+                                <label class="option-label"><input type="radio" name="m1_q2" value="B"> B) The company CEO.</label>
+                                <label class="option-label"><input type="radio" name="m1_q2" value="C"> C) The company product line.</label>
+                                <label class="option-label"><input type="radio" name="m1_q2" value="D"> D) The lead investor</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f2"></div>
+                        </div>
                     </div>
                 </div>
             </div>
