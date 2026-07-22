@@ -57,7 +57,6 @@
             <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
             <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING SECURE CONNECTION...</span>
         </div>
-        <!-- If it fails, the error will print right here -->
         <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
     </div>
 
@@ -95,25 +94,15 @@
                 <p class="text-gray-400 text-sm md:text-base">Access your enrolled masterclasses, resource packets, and step-by-step guides below.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Clickable Live Cohort Card linked to live-cohort.html -->
-                <a href="live-cohort.html" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between cursor-pointer block">
-                    <div>
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Live Cohort / Core Module</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Carrier Attraction Masterclass &rarr;</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Learn how to approach, pitch, and secure independent motor carriers under direct instruction in your live room.</p>
-                    </div>
-                    <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Click to Join Live Room</span>
-                </a>
-
-                <div class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Self-Paced Module</span>
-                        <h3 class="text-2xl font-black text-white mb-2">Load Booking & Rate Negotiations</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Master mock phone flows, broker negotiations, and compliance frameworks at your own pace.</p>
-                    </div>
-                    <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1.5 rounded-full font-bold text-center w-max">Unlocked Access</span>
-                </div>
+            <!-- Dynamic Course Grid populated from Supabase RLS -->
+            <div id="courses-container" class="grid md:grid-cols-2 gap-8">
+                <!-- Courses injected via JavaScript -->
+            </div>
+            
+            <!-- Fallback if student has no courses -->
+            <div id="no-courses" style="display: none;" class="metallic-card-gold rounded-3xl p-8 text-center">
+                <h3 class="text-xl font-black text-white mb-2">No Active Courses Found</h3>
+                <p class="text-gray-400 text-sm">It looks like you haven't purchased or been assigned any courses yet. If you believe this is an error, please contact support.</p>
             </div>
         </main>
 
@@ -136,29 +125,68 @@
             
             try {
                 // 1. Fetch Session
-                const { data, error } = await supabaseClient.auth.getSession();
+                const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
                 
-                if (error) throw error;
+                if (sessionError) throw sessionError;
                 
                 // 2. If NO Session, show error and return to login
-                if (!data.session) {
+                if (!sessionData.session) {
                     debugDiv.innerHTML = "Access Denied: Browser lost login session.<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Click here to Login Again</a>";
                     return;
                 }
 
-                // 3. Success! Set Email
-                document.getElementById('user-email').textContent = data.session.user.email;
+                // 3. Set Email
+                document.getElementById('user-email').textContent = sessionData.session.user.email;
                 
-                // 4. Swap Visibility Safely
+                // 4. Fetch Securely Filtered Courses from Supabase (RLS Handles Security)
+                const { data: courses, error: coursesError } = await supabaseClient
+                    .from('courses')
+                    .select('*');
+
+                if (coursesError) throw coursesError;
+
+                const container = document.getElementById('courses-container');
+                const noCoursesMsg = document.getElementById('no-courses');
+
+                if (!courses || courses.length === 0) {
+                    noCoursesMsg.style.display = 'block';
+                } else {
+                    container.innerHTML = '';
+                    courses.forEach((course, index) => {
+                        // Alternate styles/colors based on position or default to blue card design
+                        const isEven = index % 2 === 0;
+                        const cardClass = isEven ? 'metallic-card-blue' : 'metallic-card-gold';
+                        const badgeBg = isEven ? 'bg-blue-600/20 text-blue-400 border-blue-500/30' : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30';
+                        const btnClass = isEven ? 'bg-blue-500/10 text-blue-400 border-blue-500/30' : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30';
+
+                        const cardHTML = `
+                            <div class="${cardClass} rounded-3xl p-8 flex flex-col justify-between">
+                                <div>
+                                    <span class="${badgeBg} border text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Enrolled Course</span>
+                                    <h3 class="text-2xl font-black text-white mb-2">${escapeHtml(course.title)}</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">${escapeHtml(course.description || 'Access your course materials and modules below.')}</p>
+                                </div>
+                                <a href="live-cohort.html?course_id=${course.id}" class="text-xs ${btnClass} border px-3 py-1.5 rounded-full font-bold text-center w-max block">Access Course Material &rarr;</a>
+                            </div>
+                        `;
+                        container.innerHTML += cardHTML;
+                    });
+                }
+                
+                // 5. Swap Visibility Safely
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('dashboard-content').style.display = 'flex';
 
             } catch (err) {
-                // 5. Catch crashes and print to screen
                 console.error("Dashboard Load Error:", err);
                 debugDiv.innerHTML = "System Error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Return to Login</a>";
             }
         };
+
+        // Helper function to prevent basic XSS when rendering database content
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
 
         // Handle Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
