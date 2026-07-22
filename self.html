@@ -679,9 +679,15 @@
                             <div class="options-grid">
                                 <label class="option-label"><input type="radio" name="m1_q1" value="A"> A) Voice changes hourly based on weather.</label>
                                 <label class="option-label"><input type="radio" name="m1_q1" value="B"> B) Voice is core personality; tone adjusts dynamically by context.</label>
-                                <label class="option-label"><input type="radio" name="m1_q1" value="C"> C) Voice is wri</div>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="C"> C) Voice is written; tone is spoken.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="D"> D) There is no difference.</label>
                             </div>
+                            <div class="quiz-feedback" id="m1_f1"></div>
                         </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(1, 1)">Grade Module 2 Quiz</button>
+                        <span class="module-score-display" id="score-display-1"></span>
                     </div>
                 </div>
             </div>
@@ -692,8 +698,7 @@
     <!-- Presentation Controls Bottom Bar -->
     <div class="deck-controls">
         <div class="deck-controls-left">
-            <!-- UPDATED: Changed from <button> to <a> linked to portal.html -->
-            <a href="portal.html" class="back-dashboard-btn">
+            <a href="dashboard.html" class="back-dashboard-btn">
                 ← Back to Dashboard
             </a>
         </div>
@@ -705,6 +710,144 @@
     </div>
 
 </div>
+
+<!-- JavaScript Engine for Navigation and Quizzes -->
+<script>
+    let currentModuleIndex = 0;
+    let currentSlideIndex = 0;
+
+    // Initialize the deck on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        switchModule(0);
+    });
+
+    // Handle jumping between top Module Tabs
+    function switchModule(moduleIndex) {
+        const modules = document.querySelectorAll('.module-deck');
+        const tabs = document.querySelectorAll('.module-tab');
+
+        if (moduleIndex >= modules.length || moduleIndex < 0) return;
+
+        // Hide all modules, show selected
+        modules.forEach((mod, idx) => {
+            mod.style.display = (idx === moduleIndex) ? 'block' : 'none';
+        });
+
+        // Update active tab styling
+        tabs.forEach((tab, idx) => {
+            if (idx === moduleIndex) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
+
+        currentModuleIndex = moduleIndex;
+        currentSlideIndex = 0; // Reset to the first slide of the new module
+        updateSlideDisplay();
+    }
+
+    // Handle Next and Previous Buttons
+    function changeSlide(direction) {
+        const activeModule = document.querySelectorAll('.module-deck')[currentModuleIndex];
+        const slides = activeModule.querySelectorAll('.slide');
+
+        let newSlideIndex = currentSlideIndex + direction;
+
+        // Auto-advance to the NEXT module if hitting 'Next' on the last slide
+        if (newSlideIndex >= slides.length) {
+            const totalModules = document.querySelectorAll('.module-deck').length;
+            if (currentModuleIndex < totalModules - 1) {
+                switchModule(currentModuleIndex + 1);
+                return;
+            } else {
+                newSlideIndex = slides.length - 1; // Stop at very end of course
+            }
+        }
+        
+        // Auto-return to the PREVIOUS module if hitting 'Prev' on the first slide
+        if (newSlideIndex < 0) {
+            if (currentModuleIndex > 0) {
+                switchModule(currentModuleIndex - 1);
+                const prevModuleSlides = document.querySelectorAll('.module-deck')[currentModuleIndex].querySelectorAll('.slide');
+                currentSlideIndex = prevModuleSlides.length - 1;
+                updateSlideDisplay();
+                return;
+            } else {
+                newSlideIndex = 0; // Stop at very beginning of course
+            }
+        }
+
+        currentSlideIndex = newSlideIndex;
+        updateSlideDisplay();
+    }
+
+    // Update the visuals: Show correct slide, update counter, disable boundaries
+    function updateSlideDisplay() {
+        const activeModule = document.querySelectorAll('.module-deck')[currentModuleIndex];
+        if (!activeModule) return;
+        
+        const slides = activeModule.querySelectorAll('.slide');
+        
+        slides.forEach((slide, idx) => {
+            if (idx === currentSlideIndex) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+
+        // Update the "Slide X of Y" text
+        const counter = document.getElementById('slideCounter');
+        counter.textContent = `Slide ${currentSlideIndex + 1} of ${slides.length}`;
+
+        // Disable Previous/Next buttons if at extreme boundaries
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const totalModules = document.querySelectorAll('.module-deck').length;
+
+        prevBtn.disabled = (currentModuleIndex === 0 && currentSlideIndex === 0);
+        nextBtn.disabled = (currentModuleIndex === totalModules - 1 && currentSlideIndex === slides.length - 1);
+    }
+
+    // Handle Grading the Quizzes
+    function gradeModule(modIndex, totalQuestions) {
+        let score = 0;
+        const quizContainer = document.getElementById(`quiz-deck-${modIndex}`);
+        if (!quizContainer) return;
+
+        const questions = quizContainer.querySelectorAll('.question-box');
+        
+        questions.forEach((qBox) => {
+            const qNum = qBox.getAttribute('data-q');
+            const correctAns = qBox.getAttribute('data-ans');
+            const selected = qBox.querySelector(`input[name="m${modIndex}_q${qNum}"]:checked`);
+            const feedback = qBox.querySelector('.quiz-feedback');
+            
+            feedback.style.display = 'block';
+            
+            if (selected && selected.value === correctAns) {
+                score++;
+                feedback.textContent = "✓ Correct";
+                feedback.className = "quiz-feedback correct";
+            } else if (selected) {
+                feedback.textContent = "✗ Incorrect. The correct answer was " + correctAns + ".";
+                feedback.className = "quiz-feedback incorrect";
+            } else {
+                feedback.textContent = "⚠ Please select an answer.";
+                feedback.className = "quiz-feedback incorrect";
+            }
+        });
+
+        // Display Final Score
+        const scoreDisplay = document.getElementById(`score-display-${modIndex}`);
+        if (scoreDisplay) {
+            const percentage = Math.round((score / questions.length) * 100);
+            scoreDisplay.textContent = `Score: ${score}/${questions.length} (${percentage}%)`;
+            scoreDisplay.style.color = percentage >= 80 ? 'var(--success)' : 'var(--error)';
+        }
+    }
+</script>
 
 </body>
 </html>
