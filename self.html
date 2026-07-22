@@ -38,37 +38,6 @@
             gap: 20px;
         }
 
-        /* Top Action Bar with Dashboard Link */
-        .top-action-bar {
-            display: flex;
-            justify-content: flex-start;
-            width: 100%;
-            margin-bottom: -10px;
-        }
-
-        .back-dashboard-btn {
-            background: #1f2937;
-            color: white;
-            border: 1px solid var(--border-color);
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
-
-        .back-dashboard-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            transform: translateY(-1px);
-        }
-
         /* Top Module Navigation Bar */
         .module-nav {
             display: grid;
@@ -293,6 +262,19 @@
             padding: 20px 40px;
             background: #0f172a;
             border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .deck-controls-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .deck-controls-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .nav-btn {
@@ -313,6 +295,27 @@
         .nav-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
+        }
+
+        .back-dashboard-btn {
+            background: #1f2937;
+            color: white;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .back-dashboard-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
         }
 
         .slide-counter {
@@ -352,17 +355,20 @@
             .module-nav {
                 grid-template-columns: repeat(3, 1fr);
             }
+            .deck-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .deck-controls-right {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="master-container">
-
-    <!-- Standalone Back to Dashboard Button -->
-    <div class="top-action-bar">
-        <a href="dashboard.html" class="back-dashboard-btn">&#8592; Back to Dashboard</a>
-    </div>
 
     <!-- Top Module Navigation -->
     <div class="module-nav">
@@ -695,11 +701,16 @@
 
     </div>
 
-    <!-- Presentation Controls -->
+    <!-- Presentation Controls with Back to Dashboard Button in Bottom Right -->
     <div class="deck-controls">
-        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
-        <span class="slide-counter" id="slideCounter">Slide 1 of 6</span>
-        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        <div class="deck-controls-left">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+            <span class="slide-counter" id="slideCounter">Slide 1 of 6</span>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+        <div class="deck-controls-right">
+            <a href="dashboard.html" class="back-dashboard-btn">&#8592; Back to Dashboard</a>
+        </div>
     </div>
 
 </div>
