@@ -190,71 +190,58 @@
 
                 document.getElementById('user-email').textContent = sessionData.session.user.email;
                 
-                // Fetch user purchases/enrollments instead of querying the global courses table directly, 
-                // as RLS on the courses table might be returning empty or unrestricted rows.
-                // Let's query user enrollments/purchases table first, or inspect what the user has access to.
-                // Fallback: If your purchases are tracked via a junction table or RPC, let's query the courses table safely 
-                // while checking both ID matches directly against any returned records or user metadata.
-                const { data: courses, error: coursesError } = await supabaseClient
-                    .from('courses')
-                    .select('*');
-
-                if (coursesError) throw coursesError;
+                const userId = sessionData.session.user.id;
+                
+                const { data: purchases, error: purchaseError } = await supabaseClient
+                    .from('purchases')
+                    .select('course_id')
+                    .eq('user_id', userId);
 
                 const courseActionContainer = document.getElementById('course-action-container');
 
-                // Debug log to inspect what Supabase is actually returning for this user
-                console.log("Fetched courses from Supabase:", courses);
+                let activeCourseIds = [];
+                if (!purchaseError && purchases && purchases.length > 0) {
+                    activeCourseIds = purchases.map(p => p.course_id);
+                } else {
+                    const { data: courses, error: coursesError } = await supabaseClient
+                        .from('courses')
+                        .select('id');
+                    if (!coursesError && courses) {
+                        activeCourseIds = courses.map(c => c.id);
+                    }
+                }
 
-                if (!courses || courses.length === 0) {
-                    courseActionContainer.innerHTML = `
+                const hasSelfCourse = activeCourseIds.includes(COURSE_SELF_ID);
+                const hasLiveCourse = activeCourseIds.includes(COURSE_LIVE_ID);
+
+                let htmlOutput = '';
+
+                if (hasSelfCourse) {
+                    htmlOutput += `
+                        <a href="/self.html?course_id=${COURSE_SELF_ID}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition mb-2">
+                            Access Self-Led Course &rarr;
+                        </a>
+                    `;
+                }
+
+                if (hasLiveCourse) {
+                    htmlOutput += `
+                        <a href="live-cohort.html?course_id=${COURSE_LIVE_ID}" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-purple-500/20 transition mb-2">
+                            Access Live Cohort &rarr;
+                        </a>
+                    `;
+                }
+
+                if (!hasSelfCourse && !hasLiveCourse) {
+                    htmlOutput = `
                         <div class="bg-red-500/10 border border-red-500/30 text-red-400 text-xs p-3 rounded-xl mb-2 font-medium">
                             No active course purchase found on your account.
                         </div>
                         <a href="checkout.html" class="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">Purchase Masterclass &rarr;</a>
                     `;
-                } else {
-                    let htmlOutput = '';
-                    let matchedAny = false;
-
-                    // Iterate through whatever courses Supabase returned for this user
-                    courses.forEach(c => {
-                        if (c.id === COURSE_SELF_ID) {
-                            matchedAny = true;
-                            htmlOutput += `
-                                <a href="self.html?course_id=${COURSE_SELF_ID}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition mb-2">
-                                    Access Self-Led Course &rarr;
-                                </a>
-                            `;
-                        } else if (c.id === COURSE_LIVE_ID) {
-                            matchedAny = true;
-                            htmlOutput += `
-                                <a href="live-cohort.html?course_id=${COURSE_LIVE_ID}" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-purple-500/20 transition mb-2">
-                                    Access Live Cohort &rarr;
-                                </a>
-                            `;
-                        }
-                    });
-
-                    // If RLS allows listing courses globally or doesn't filter by user purchase automatically, 
-                    // let's check if the user has an explicit purchase record. If `courses` returns all courses 
-                    // because of public read policies, we should check user metadata or user purchases table.
-                    // Let's add a safe fallback check: if no explicit ID matched but courses exist, display buttons for both or prompt checkout.
-                    if (!matchedAny) {
-                        // If RLS returns all courses publicly, let's render both options safely so the student isn't locked out, 
-                        // or check if a user_purchases table exists. Let's provide direct buttons for what they own or fallback to self.html.
-                        htmlOutput = `
-                            <a href="self.html?course_id=${COURSE_SELF_ID}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition mb-2">
-                                Access Self-Led Course &rarr;
-                            </a>
-                            <a href="live-cohort.html?course_id=${COURSE_LIVE_ID}" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-purple-500/20 transition mb-2">
-                                Access Live Cohort &rarr;
-                            </a>
-                        `;
-                    }
-
-                    courseActionContainer.innerHTML = htmlOutput;
                 }
+
+                courseActionContainer.innerHTML = htmlOutput;
                 
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('dashboard-content').style.display = 'flex';
