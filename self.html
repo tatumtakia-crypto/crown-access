@@ -1,265 +1,1619 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masterclass Curriculum | Crown Access</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandDark: '#080808',
-                        brandCard: '#121212',
-                        brandBorder: '#222222',
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Certified Brand Strategist: Extended Professional Mastery Course</title>
     <style>
-        .metallic-gold-text {
-            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        :root {
+            --bg-color: #0b0f19;
+            --slide-bg: #111827;
+            --border-color: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #22c55e;
+            --error: #ef4444;
+            --accent: #8b5cf6;
         }
-        .metallic-blue-text {
-            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        .course-slide {
-            display: none !important;
+
+        .master-container {
+            width: 100%;
+            max-width: 1050px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        .course-slide.active-slide {
-            display: block !important;
+
+        /* Top Module Navigation Bar */
+        .module-nav {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            background: #111827;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .module-tab {
+            background: #1f2937;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+        .module-tab:hover {
+            color: var(--text-main);
+            background: #374151;
+        }
+
+        .module-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Presentation Deck Viewport */
+        .deck-viewport {
+            background-color: var(--slide-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            min-height: 620px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Slide Layout */
+        .slide {
+            display: none;
+            flex-direction: column;
+            padding: 40px;
+            flex-grow: 1;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .slide-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #60a5fa;
+        }
+
+        .duration-badge {
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .slide-content-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 35px;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .slide-text-side p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-bottom: 14px;
+        }
+
+        .slide-text-side ul {
+            padding-left: 18px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .slide-text-side li {
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+        }
+
+        .slide-text-side strong {
+            color: var(--text-main);
+        }
+
+        .slide-image-side {
+            background: #1f2937;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            height: 310px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .image-caption {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .slide-full {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            max-height: 420px;
+            padding-right: 10px;
+        }
+
+        .question-box {
+            background: #1f2937;
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: #111827;
+            padding: 9px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        .option-label input {
+            accent-color: var(--primary);
+            margin-top: 3px;
+        }
+
+        .quiz-feedback {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.correct { color: #4ade80; }
+        .quiz-feedback.incorrect { color: #f87171; }
+
+        .deck-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #0f172a;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .submit-module-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .submit-module-btn:hover {
+            opacity: 0.9;
+        }
+
+        .module-score-display {
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px) {
+            .slide-content-grid {
+                grid-template-columns: 1fr;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .module-nav {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
     </style>
 </head>
-<body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-blue-500 selection:text-black">
+<body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
-        <div class="text-center animate-pulse">
-            <span class="block text-sm uppercase tracking-widest metallic-blue-text font-bold mb-2">Crown Access</span>
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">LOADING COURSE ENVIRONMENT...</span>
+<div class="master-container">
+
+    <!-- Top Module Navigation -->
+    <div class="module-nav">
+        <button class="module-tab active" onclick="switchModule(0)">Mod 1: Foundations</button>
+        <button class="module-tab" onclick="switchModule(1)">Mod 2: Verbal & IP</button>
+        <button class="module-tab" onclick="switchModule(2)">Mod 3: Visual Systems</button>
+        <button class="module-tab" onclick="switchModule(3)">Mod 4: Architecture</button>
+        <button class="module-tab" onclick="switchModule(4)">Mod 5: Experience</button>
+        <button class="module-tab" onclick="switchModule(5)">Mod 6: Growth & ROI</button>
+        <button class="module-tab" onclick="switchModule(6)">Mod 7: Master Exam</button>
+    </div>
+
+    <!-- Presentation Deck Viewport -->
+    <div class="deck-viewport" id="deckViewport">
+
+        <!-- ================= MODULE 1 ================= -->
+        <div class="module-deck" data-module="0">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>1.1 The Anatomy & Psychology of Modern Brands</h2>
+                    <span class="duration-badge">Module 1 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>A modern brand is not merely a visual asset package; it is a complex psychological construct living entirely within the consciousness of the consumer market.</p>
+                        <ul>
+                            <li><strong>Brand Identity vs. Brand Image:</strong> Identity is corporate output; Image is actual market reception.</li>
+                            <li><strong>Subconscious Heuristics:</strong> Strong brand signals bypass rational analysis to evoke immediate consumer trust.</li>
+                            <li><strong>The Perception Gap:</strong> Auditing and minimizing discrepancies between leadership intentions and user reality.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=600&q=80" alt="Brand Strategy Psychology">
+                        <span class="image-caption">Mapping brand architecture against consumer mental models.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.2 Financial Valuation & Brand Equity</h2>
+                    <span class="duration-badge">Module 1 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Brand equity transforms abstract recognition into hard economic leverage on corporate balance sheets.</p>
+                        <ul>
+                            <li><strong>Price Elasticity:</strong> High brand equity allows enterprises to command significant price premiums.</li>
+                            <li><strong>Customer Lifetime Value (LTV):</strong> Trusted brands cultivate higher retention rates and lower acquisition costs.</li>
+                            <li><strong>Risk Mitigation:</strong> Resilient brand reputation cushions enterprises against sudden economic downturns.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Brand Equity Valuation">
+                        <span class="image-caption">Quantifying economic leverage and equity valuation drivers.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.3 Strategic Positioning & Perceptual Mapping</h2>
+                    <span class="duration-badge">Module 1 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Strategic positioning demands a rigorous operational understanding of competitive whitespace.</p>
+                        <ul>
+                            <li><strong>The Perceptual Map Matrix:</strong> Plotting direct competitors across analytical axes to isolate market gaps.</li>
+                            <li><strong>Defensibility Analysis:</strong> Ensuring selected positioning corridors cannot be easily copied by giants.</li>
+                            <li><strong>Category Creation:</strong> Designing entirely new market definitions where your brand acts as category king.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Perceptual Mapping Analysis">
+                        <span class="image-caption">Isolating unserved market whitespace through matrix mapping.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.4 Unique Value Propositions & Psychographics</h2>
+                    <span class="duration-badge">Module 1 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Generic marketing fails because it addresses superficial needs instead of deep psychological motivators.</p>
+                        <ul>
+                            <li><strong>The UVP Formula:</strong> Defining clear functional utility, target customer profiles, and competitive edges.</li>
+                            <li><strong>Psychographic Profiling:</strong> Moving beyond demographics to study internal values and daily aspirations.</li>
+                            <li><strong>Empathy Mapping:</strong> Documenting what target consumers see, hear, think, and feel.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Target Audience Psychographics">
+                        <span class="image-caption">Deep psychographic profiling and consumer empathy mapping.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>1.5 Module 1 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 1 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Before proceeding to the knowledge evaluation, review the core strategic synthesis points:</p>
+                        <ul>
+                            <li>Brand identity represents proactive design; brand image reflects reactive public interpretation.</li>
+                            <li>Equity drives margin expansion, pricing power, and long-term business resilience.</li>
+                            <li>Perceptual mapping protects brands from competing in crowded, commoditized red oceans.</li>
+                            <li>Psychographics unlock the true emotional engines governing modern consumer purchasing decisions.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Strategic Synthesis Session">
+                        <span class="image-caption">Consolidating foundational strategy frameworks before testing.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 1: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-0">
+                        <div class="question-box" data-q="1" data-ans="A">
+                            <div class="question-title">1. What is the fundamental difference between a brand’s "identity" and its "image"?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m0_q1" value="A"> A) Identity is created by the company; image is actual public perception.</label>
+                                <label class="option-label"><input type="radio" name="m0_q1" value="B"> B) Identity refers to product pricing, image to logo design.</label>
+                                <label class="option-label"><input type="radio" name="m0_q1" value="C"> C) Identity changes daily, image is fixed permanently.</label>
+                                <label class="option-label"><input type="radio" name="m0_q1" value="D"> D) Both terms mean the exact same thing.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m0_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="B">
+                            <div class="question-title">2. What primary commercial benefit does high "brand equity" provide?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m0_q2" value="A"> A) It waives corporate income taxes automatically.</label>
+                                <label class="option-label"><input type="radio" name="m0_q2" value="B"> B) It grants pricing power, higher loyalty, and increased perceived value.</label>
+                                <label class="option-label"><input type="radio" name="m0_q2" value="C"> C) It eliminates the need for customer service.</label>
+                                <label class="option-label"><input type="radio" name="m0_q2" value="D"> D) It prevents supply chain issues entirely.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m0_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="B">
+                            <div class="question-title">3. How is a "perceptual map" utilized during brand strategy?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m0_q3" value="A"> A) To track physical shipping coordinate routes.</label>
+                                <label class="option-label"><input type="radio" name="m0_q3" value="B"> B) To plot competitors across axes to identify unserved market gaps.</label>
+                                <label class="option-label"><input type="radio" name="m0_q3" value="C"> C) To design office architectural floor plans.</label>
+                                <label class="option-label"><input type="radio" name="m0_q3" value="D"> D) To measure internal staff turnover metrics.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m0_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="B">
+                            <div class="question-title">4. Which of the following best defines a Unique Value Proposition (UVP)?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m0_q4" value="A"> A) A 500-word mission statement hidden in handbooks.</label>
+                                <label class="option-label"><input type="radio" name="m0_q4" value="B"> B) A clear declaration of what you offer, target users, and why you provide superior value.</label>
+                                <label class="option-label"><input type="radio" name="m0_q4" value="C"> C) A legal trademark filing document.</label>
+                                <label class="option-label"><input type="radio" name="m0_q4" value="D"> D) An unresearched focus group slogan.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m0_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. When segmenting an audience using psychographics, what factors are evaluated?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m0_q5" value="A"> A) Zip codes and income brackets.</label>
+                                <label class="option-label"><input type="radio" name="m0_q5" value="B"> B) Consumer values, lifestyle choices, psychological attitudes, and behavioral drivers.</label>
+                                <label class="option-label"><input type="radio" name="m0_q5" value="C"> C) Physical height and weight measurements.</label>
+                                <label class="option-label"><input type="radio" name="m0_q5" value="D"> D) Office building square footage counts.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m0_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(0, 5)">Grade Module 1 Quiz</button>
+                        <span class="module-score-display" id="score-display-0"></span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center px-4"></div>
-    </div>
 
-    <!-- Course App Container -->
-    <div id="app-content" style="display: none;" class="flex flex-col min-h-screen justify-between">
-        
-        <!-- Header -->
-        <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <a href="portal.html" class="border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1">
-                        &larr; Back to Portal
-                    </a>
-                    <div class="h-6 w-[1px] bg-gray-800 hidden sm:block"></div>
-                    <div>
-                        <span class="text-xs uppercase tracking-widest metallic-blue-text font-bold block">Masterclass</span>
-                        <h1 class="text-sm md:text-base font-black text-white">Core Curriculum</h1>
-                    </div>
+
+        <!-- ================= MODULE 2 ================= -->
+        <div class="module-deck" data-module="1" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>2.1 Voice, Tone, & Linguistic Architecture</h2>
+                    <span class="duration-badge">Module 2 • Slide 1 of 6</span>
                 </div>
-
-                <!-- Progress Tracker Indicator -->
-                <div class="flex items-center space-x-4">
-                    <span id="page-indicator" class="text-xs font-bold text-gray-400 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-full">
-                        Module 1 of 5
-                    </span>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Words establish the emotional frequency of your enterprise across all public touchpoints.</p>
+                        <ul>
+                            <li><strong>Brand Voice:</strong> Immutable, core personality characteristics that never alter.</li>
+                            <li><strong>Brand Tone:</strong> Dynamic, situational adjustments based on audience sentiment or channel.</li>
+                            <li><strong>Linguistic Guardrails:</strong> Establishing approved vocabulary libraries and banning weak buzzwords.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Copywriting and Voice">
+                        <span class="image-caption">Calibrating voice constancy against dynamic tonal shifts.</span>
+                    </div>
                 </div>
             </div>
-        </header>
 
-        <!-- Slide / Module Content Area -->
-        <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow flex flex-col justify-center">
-            
-            <div class="bg-[#121212] border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl relative">
-                
-                <!-- MODULE 1 -->
-                <div class="course-slide active-slide" id="slide-1">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 1</span>
-                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Welcome & Course Orientation</h2>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
-                        Welcome to the masterclass curriculum. In this module, we will outline everything you need to succeed, establish baseline expectations, and guide you through setting up your operational workflow.
-                    </p>
-                    <div class="bg-black/40 border border-gray-800 rounded-2xl p-6 mb-6">
-                        <h4 class="text-white font-bold text-sm mb-2 uppercase tracking-wide text-blue-400">Key Objectives:</h4>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
-                            <li>Navigating the Crown Access student ecosystem.</li>
-                            <li>Establishing proper foundational habits.</li>
-                            <li>Leveraging community resources and tools effectively.</li>
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.2 Narrative Frameworks & The Story Loop</h2>
+                    <span class="duration-badge">Module 2 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Effective brand storytelling bypasses corporate self-absorption to center the consumer in a heroic journey.</p>
+                        <ul>
+                            <li><strong>The Customer as Hero:</strong> Positioning the buyer as the central protagonist facing conflict.</li>
+                            <li><strong>The Brand as Guide:</strong> Providing empathy and competence to show a proven solution.</li>
+                            <li><strong>The Stakes:</strong> Clearly contrasting successful outcomes against the consequences of inaction.</li>
                         </ul>
                     </div>
-                </div>
-
-                <!-- MODULE 2 -->
-                <div class="course-slide" id="slide-2">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 2</span>
-                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Core Framework Setup</h2>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
-                        Setting up your infrastructure properly from day one saves hundreds of hours down the road. We look at standard toolkits, communication structures, and tracking databases.
-                    </p>
-                    <div class="bg-black/40 border border-gray-800 rounded-2xl p-6 mb-6">
-                        <h4 class="text-white font-bold text-sm mb-2 uppercase tracking-wide text-blue-400">Core Action Items:</h4>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
-                            <li>Review downloadable setup sheets in your vault.</li>
-                            <li>Configure communication profiles.</li>
-                            <li>Test live loadboard interactions.</li>
-                        </ul>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Storytelling Framework">
+                        <span class="image-caption">Structuring customer-centric narrative loops and stakes.</span>
                     </div>
                 </div>
-
-                <!-- MODULE 3 -->
-                <div class="course-slide" id="slide-3">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 3</span>
-                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Advanced Execution Strategies</h2>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
-                        Now that your framework is up and running, let's dive into advanced execution routines, optimizing daily workflows, and scaling results consistently.
-                    </p>
-                    <div class="bg-black/40 border border-gray-800 rounded-2xl p-6 mb-6">
-                        <h4 class="text-white font-bold text-sm mb-2 uppercase tracking-wide text-blue-400">Strategies Covered:</h4>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
-                            <li>Speed optimization tactics.</li>
-                            <li>Handling high-pressure operational scenarios.</li>
-                            <li>Peer review configurations.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- MODULE 4 -->
-                <div class="course-slide" id="slide-4">
-                    <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 4</span>
-                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Troubleshooting & Edge Cases</h2>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
-                        Every operator faces obstacles. This module provides troubleshooting scripts, error resolution pathways, and advice gathered from seasoned professionals.
-                    </p>
-                </div>
-
-                <!-- MODULE 5 -->
-                <div class="course-slide" id="slide-5">
-                    <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Final Module</span>
-                    <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Graduation & Next Steps</h2>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
-                        Congratulations on completing the core curriculum! You are now equipped with the frameworks required to advance. Make sure to engage regularly via the community chat room.
-                    </p>
-                    <div class="mt-8">
-                        <a href="portal.html" class="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition">
-                            Return to Student Dashboard &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Navigation Controls Bar Inside Card Bottom -->
-                <div class="flex items-center justify-between mt-10 pt-6 border-t border-gray-800">
-                    <button id="prev-btn" type="button" class="bg-gray-900 hover:bg-gray-800 text-gray-300 border border-gray-700 font-bold px-5 py-2.5 rounded-xl text-sm transition cursor-pointer">
-                        &larr; Previous Module
-                    </button>
-                    
-                    <span id="step-counter-text" class="text-xs text-gray-500 font-mono">1 / 5</span>
-
-                    <button id="next-btn" type="button" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-900/20 cursor-pointer">
-                        Next Module &rarr;
-                    </button>
-                </div>
-
             </div>
-        </main>
 
-        <!-- Footer -->
-        <footer class="py-8 px-6 border-t border-gray-800 text-center text-xs text-gray-500 bg-brandDark">
-            <p>&copy; 2026 Crown Access. Masterclass Learning Environment.</p>
-        </footer>
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.3 Naming Strategy & Semantic Architecture</h2>
+                    <span class="duration-badge">Module 2 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Choosing a corporate name requires balancing linguistic memorability with strict legal defensibility.</p>
+                        <ul>
+                            <li><strong>Naming Archetypes:</strong> Descriptive, evocative metaphors, acronyms, and neologisms.</li>
+                            <li><strong>Phonetic Memorability:</strong> Analyzing syllable structures for global recall.</li>
+                            <li><strong>Cultural Connotation Audits:</strong> Screening potential names across global languages.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Naming Strategy">
+                        <span class="image-caption">Evaluating phonetic resonance and cross-cultural risks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.4 Intellectual Property & Trademark Risk Mitigation</h2>
+                    <span class="duration-badge">Module 2 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Failing to secure intellectual property rights early can destroy years of accumulated market equity overnight.</p>
+                        <ul>
+                            <li><strong>USPTO Database Searches:</strong> Conducting clearance filings prior to market entry.</li>
+                            <li><strong>International Madrid System:</strong> Securing multi-jurisdiction protection across economic zones.</li>
+                            <li><strong>Domain Real Estate:</strong> Acquiring clean top-level domains and exact-match handles.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Trademark Protection">
+                        <span class="image-caption">Navigating international trademark filing and domain acquisition.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>2.5 Module 2 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 2 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Review these critical verbal identity tenets prior to initiating the evaluation quiz:</p>
+                        <ul>
+                            <li>Voice remains stable; tone shifts fluidly based on situational empathy.</li>
+                            <li>The customer is the hero; your brand acts as the wise guide.</li>
+                            <li>Invented neologisms offer superior trademark protection over literal words.</li>
+                            <li>Rigorous IP clearance prevents devastating rebranding lawsuits.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Synthesis">
+                        <span class="image-caption">Consolidating messaging and legal protection frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 2: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-1">
+                        <div class="question-box" data-q="1" data-ans="B">
+                            <div class="question-title">1. What is the primary difference between brand voice and brand tone?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q1" value="A"> A) Voice changes hourly based on weather.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="B"> B) Voice is core personality; tone adjusts dynamically by context.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="C"> C) Voice is written only; tone is spoken only.</label>
+                                <label class="option-label"><input type="radio" name="m1_q1" value="D"> D) There is no difference between them.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="A">
+                            <div class="question-title">2. In narrative brand frameworks, who should be positioned as the "hero"?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q2" value="A"> A) The customer.</label>
+                                <label class="option-label"><input type="radio" name="m1_q2" value="B"> B) The company CEO.</label>
+                                <label class="option-label"><input type="radio" name="m1_q2" value="C"> C) The company product line.</label>
+                                <label class="option-label"><input type="radio" name="m1_q2" value="D"> D) The lead investor.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="C">
+                            <div class="question-title">3. What is a key advantage of choosing an invented neologism for a brand name?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q3" value="A"> A) It instantly explains complex software code.</label>
+                                <label class="option-label"><input type="radio" name="m1_q3" value="B"> B) It guarantees free search engine rankings.</label>
+                                <label class="option-label"><input type="radio" name="m1_q3" value="C"> C) It provides maximum trademark uniqueness and defensibility.</label>
+                                <label class="option-label"><input type="radio" name="m1_q3" value="D"> D) It eliminates printing costs.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="B">
+                            <div class="question-title">4. Why are cultural connotation audits vital during global brand naming?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q4" value="A"> A) To calculate import tax rates.</label>
+                                <label class="option-label"><input type="radio" name="m1_q4" value="B"> B) To ensure names do not carry unintended offensive meanings abroad.</label>
+                                <label class="option-label"><input type="radio" name="m1_q4" value="C"> C) To translate color codes into CMYK.</label>
+                                <label class="option-label"><input type="radio" name="m1_q4" value="D"> D) To comply with local fire safety laws.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. What is the main purpose of executing a USPTO database search before launch?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m1_q5" value="A"> A) To check competitor website traffic volumes.</label>
+                                <label class="option-label"><input type="radio" name="m1_q5" value="B"> B) To verify trademark availability and mitigate infringement legal risks.</label>
+                                <label class="option-label"><input type="radio" name="m1_q5" value="C"> C) To register corporate office leases.</label>
+                                <label class="option-label"><input type="radio" name="m1_q5" value="D"> D) To secure social media advertising credits.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m1_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(1, 5)">Grade Module 2 Quiz</button>
+                        <span class="module-score-display" id="score-display-1"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 3 ================= -->
+        <div class="module-deck" data-module="2" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>3.1 Visual Systems & Gestalt Design Principles</h2>
+                    <span class="duration-badge">Module 3 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Visual systems govern how human eyes process structural meaning before conscious thought occurs.</p>
+                        <ul>
+                            <li><strong>Gestalt Theory:</strong> Principles of proximity, similarity, and closure in logo legibility.</li>
+                            <li><strong>Visual Hierarchy:</strong> Guiding viewer focus using scale, weight, and spatial contrast.</li>
+                            <li><strong>Grid Systems:</strong> Establishing mathematical order across collateral layouts.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=600&q=80" alt="Gestalt Design">
+                        <span class="image-caption">Applying Gestalt psychology to visual identity composition.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>3.2 Color Theory & Emotional Resonance</h2>
+                    <span class="duration-badge">Module 3 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Color choices trigger immediate visceral reactions that shape brand disposition.</p>
+                        <ul>
+                            <li><strong>Color Psychology:</strong> Cultural associations of chromatic spectrums (trust, luxury, urgency).</li>
+                            <li><strong>Palette Architecture:</strong> Balancing primary, secondary, and neutral functional roles.</li>
+                            <li><strong>Accessibility & Contrast:</strong> Designing color combinations that satisfy WCAG digital standards.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Color Theory">
+                        <span class="image-caption">Building functional color hierarchies and accessibility profiles.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>3.3 Typography & Readability Engineering</h2>
+                    <span class="duration-badge">Module 3 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Typefaces act as silent speakers, communicating corporate tone through structural geometry.</p>
+                        <ul>
+                            <li><strong>Serif vs. Sans-Serif:</strong> Historical context and functional modern readability applications.</li>
+                            <li><strong>Font Pairing Logic:</strong> Contrasting typographic weights to establish clear content hierarchy.</li>
+                            <li><strong>Licensing Compliance:</strong> Securing enterprise distribution rights for digital and print formats.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&q=80" alt="Typography">
+                        <span class="image-caption">Optimizing typographic hierarchy and licensing standards.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>3.4 Iconography, Imagery, & Motion Guidelines</h2>
+                    <span class="duration-badge">Module 3 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Modern brand identity extends into dynamic movement and bespoke icon suites.</p>
+                        <ul>
+                            <li><strong>Iconography Style:</strong> Maintaining consistent stroke weight, corner radii, and grid alignment.</li>
+                            <li><strong>Photography Direction:</strong> Defining lighting, subject casting, and color grading rules.</li>
+                            <li><strong>Motion Principles:</strong> Choreographing UI transitions and logo animations with physics.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Motion and Iconography">
+                        <span class="image-caption">Defining motion design and asset consistency guardrails.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>3.5 Module 3 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 3 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Review these core visual systems concepts before taking the module assessment:</p>
+                        <ul>
+                            <li>Gestalt principles explain how human minds group visual fragments into coherent symbols.</li>
+                            <li>Color accessibility is a legal and ethical requirement, not just an aesthetic choice.</li>
+                            <li>Typography carries implicit emotional baggage that must align with brand voice.</li>
+                            <li>Motion guidelines ensure digital touchpoints feel unified and purposeful.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=600&q=80" alt="Visual Synthesis">
+                        <span class="image-caption">Consolidating design system frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 3: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-2">
+                        <div class="question-box" data-q="1" data-ans="A">
+                            <div class="question-title">1. What do Gestalt principles explain in visual brand design?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m2_q1" value="A"> A) How the human brain groups visual elements into unified shapes.</label>
+                                <label class="option-label"><input type="radio" name="m2_q1" value="B"> B) How printing presses mix CMYK inks.</label>
+                                <label class="option-label"><input type="radio" name="m2_q1" value="C"> C) How software compresses vector files.</label>
+                                <label class="option-label"><input type="radio" name="m2_q1" value="D"> D) How monitors calculate pixel refresh rates.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m2_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="B">
+                            <div class="question-title">2. Why is color contrast compliance crucial in digital brand identity?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m2_q2" value="A"> A) It reduces web hosting server bills.</label>
+                                <label class="option-label"><input type="radio" name="m2_q2" value="B"> B) It ensures readability for users with visual impairments (WCAG standards).</label>
+                                <label class="option-label"><input type="radio" name="m2_q2" value="C"> C) It speeds up smartphone battery life.</label>
+                                <label class="option-label"><input type="radio" name="m2_q2" value="D"> D) It automates social media posting.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m2_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="B">
+                            <div class="question-title">3. What is the primary purpose of font pairing logic in typography?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m2_q3" value="A"> A) To confuse automated web scrapers.</label>
+                                <label class="option-label"><input type="radio" name="m2_q3" value="B"> B) To establish clear content hierarchy and visual harmony.</label>
+                                <label class="option-label"><input type="radio" name="m2_q3" value="C"> C) To reduce the total number of letters on a page.</label>
+                                <label class="option-label"><input type="radio" name="m2_q3" value="D"> D) To eliminate the need for graphic designers.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m2_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="C">
+                            <div class="question-title">4. Why must corporate font licenses be audited carefully?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m2_q4" value="A"> A) To check if fonts are waterproof.</label>
+                                <label class="option-label"><input type="radio" name="m2_q4" value="B"> B) To measure character pixel dimensions.</label>
+                                <label class="option-label"><input type="radio" name="m2_q4" value="C"> C) To ensure legal distribution rights across web, mobile, and print.</label>
+                                <label class="option-label"><input type="radio" name="m2_q4" value="D"> D) To translate text into foreign languages.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m2_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. What role do motion guidelines play in a modern visual system?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m2_q5" value="A"> A) They dictate physical office interior design.</label>
+                                <label class="option-label"><input type="radio" name="m2_q5" value="B"> B) They govern how UI transitions and animations behave consistently.</label>
+                                <label class="option-label"><input type="radio" name="m2_q5" value="C"> C) They track employee workout routines.</label>
+                                <label class="option-label"><input type="radio" name="m2_q5" value="D"> D) They manage database backup schedules.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m2_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(2, 5)">Grade Module 3 Quiz</button>
+                        <span class="module-score-display" id="score-display-2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 4 ================= -->
+        <div class="module-deck" data-module="3" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>4.1 Brand Architecture: Branded House vs. House of Brands</h2>
+                    <span class="duration-badge">Module 4 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Structuring multi-product enterprises requires deliberate brand architecture strategy.</p>
+                        <ul>
+                            <li><strong>Branded House:</strong> Single master brand covers all offerings (e.g., FedEx). High equity transfer.</li>
+                            <li><strong>House of Brands:</strong> Independent sub-brands operate autonomously (e.g., P&G). Isolated risk.</li>
+                            <li><strong>Hybrid Models:</strong> Endorsed or sub-branded structures bridging parent and product identities.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Brand Architecture">
+                        <span class="image-caption">Evaluating branded house versus house of brands frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.2 Sub-brands, Endorsed Brands, & Portfolio Logic</h2>
+                    <span class="duration-badge">Module 4 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Balancing parent company backing with product-specific autonomy requires precise portfolio logic.</p>
+                        <ul>
+                            <li><strong>Endorsed Structures:</strong> Subsidiary maintains identity while leveraging parent trust (e.g., Courtyard by Marriott).</li>
+                            <li><strong>Portfolio Rationalization:</strong> Eliminating redundant sub-brands that dilute marketing resources.</li>
+                            <li><strong>Equity Spillover:</strong> Managing how crises in one sub-brand impact the broader portfolio.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Portfolio Logic">
+                        <span class="image-caption">Managing portfolio risk and equity spillover pathways.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.3 Mergers, Acquisitions, & Rebranding Transitions</h2>
+                    <span class="duration-badge">Module 4 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>M&A activity introduces high-stakes brand integration challenges that can alienate loyal customer bases.</p>
+                        <ul>
+                            <li><strong>Migration Strategies:</strong> Phased co-branding transitions versus immediate full rebranding cuts.</li>
+                            <li><strong>Equity Preservation:</strong> Retaining high-value customer segments during corporate consolidation.</li>
+                            <li><strong>Internal Change Management:</strong> Aligning merged corporate cultures around unified brand values.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80" alt="Mergers and Acquisitions">
+                        <span class="image-caption">Executing smooth M&A brand migration and cultural alignment.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.4 International Expansion & Localization</h2>
+                    <span class="duration-badge">Module 4 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Scaling a brand across global borders requires balancing global consistency with local relevance.</p>
+                        <ul>
+                            <li><strong>Standardization vs. Localization:</strong> Determining which brand elements remain universal vs. adapted.</li>
+                            <li><strong>Regulatory Compliance:</strong> Navigating regional advertising laws and packaging mandates.</li>
+                            <li><strong>Local Competitor Benchmarking:</strong> Adapting positioning to counter entrenched regional players.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="International Expansion">
+                        <span class="image-caption">Balancing global brand equity with local market adaptation.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>4.5 Module 4 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 4 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Consolidating brand architecture and portfolio management principles before testing:</p>
+                        <ul>
+                            <li>Branded houses maximize equity efficiency; houses of brands isolate financial risk.</li>
+                            <li>M&A transitions require careful phased co-branding to prevent customer attrition.</li>
+                            <li>International expansion demands a delicate balance between global standards and local nuance.</li>
+                            <li>Portfolio rationalization prevents brand dilution across sprawling product lines.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Architecture Synthesis">
+                        <span class="image-caption">Reviewing architecture models and expansion strategies.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 4: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-3">
+                        <div class="question-box" data-q="1" data-ans="A">
+                            <div class="question-title">1. What defines a "Branded House" architecture model?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m3_q1" value="A"> A) A single master brand covers all products and corporate offerings.</label>
+                                <label class="option-label"><input type="radio" name="m3_q1" value="B"> B) Every product has an entirely unrelated, independent name.</label>
+                                <label class="option-label"><input type="radio" name="m3_q1" value="C"> C) Franchises operate without corporate oversight.</label>
+                                <label class="option-label"><input type="radio" name="m3_q1" value="D"> D) The company sells physical real estate assets.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m3_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="B">
+                            <div class="question-title">2. What is the primary advantage of a "House of Brands" model?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m3_q2" value="A"> A) Lowest possible marketing budget requirements.</label>
+                                <label class="option-label"><input type="radio" name="m3_q2" value="B"> B) Isolation of corporate risk and targeting of distinct consumer segments.</label>
+                                <label class="option-label"><input type="radio" name="m3_q2" value="C"> C) Elimination of trademark registration costs.</label>
+                                <label class="option-label"><input type="radio" name="m3_q2" value="D"> D) Instant universal brand recognition for every sub-item.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m3_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="B">
+                            <div class="question-title">3. During an M&A transition, what is the purpose of a phased co-branding migration?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m3_q3" value="A"> A) To confuse competing firms.</label>
+                                <label class="option-label"><input type="radio" name="m3_q3" value="B"> B) To retain existing customer equity and prevent sudden brand shock.</label>
+                                <label class="option-label"><input type="radio" name="m3_q3" value="C"> C) To extend office lease contracts.</label>
+                                <label class="option-label"><input type="radio" name="m3_q3" value="D"> D) To comply with tax filing deadlines.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m3_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="B">
+                            <div class="question-title">4. What does international brand localization involve?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m3_q4" value="A"> A) Using identical marketing slogans globally without changes.</label>
+                                <label class="option-label"><input type="radio" name="m3_q4" value="B"> B) Adapting messaging, imagery, and product offerings to local cultural nuances.</label>
+                                <label class="option-label"><input type="radio" name="m3_q4" value="C"> C) Shipping products exclusively by air freight.</label>
+                                <label class="option-label"><input type="radio" name="m3_q4" value="D"> D) Translating legal contracts into Latin.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m3_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. What is portfolio rationalization?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m3_q5" value="A"> A) Hiring more graphic designers.</label>
+                                <label class="option-label"><input type="radio" name="m3_q5" value="B"> B) Auditing and eliminating redundant sub-brands to optimize resources.</label>
+                                <label class="option-label"><input type="radio" name="m3_q5" value="C"> C) Reducing product manufacturing quality.</label>
+                                <label class="option-label"><input type="radio" name="m3_q5" value="D"> D) Moving company headquarters overseas.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m3_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(3, 5)">Grade Module 4 Quiz</button>
+                        <span class="module-score-display" id="score-display-3"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 5 ================= -->
+        <div class="module-deck" data-module="4" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>5.1 Omnichannel Experience & Touchpoint Mapping</h2>
+                    <span class="duration-badge">Module 5 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Brand experience is lived across every interaction point, from digital interfaces to physical packaging.</p>
+                        <ul>
+                            <li><strong>Touchpoint Ecosystem:</strong> Mapping every customer interaction across digital, social, and physical channels.</li>
+                            <li><strong>Frictionless Continuity:</strong> Ensuring seamless transition between online discovery and offline fulfillment.</li>
+                            <li><strong>Sensory Branding:</strong> Integrating auditory, tactile, and visual cues to reinforce identity.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Omnichannel Experience">
+                        <span class="image-caption">Mapping omnichannel touchpoints and sensory brand continuity.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.2 Employee Branding & Internal Advocacy</h2>
+                    <span class="duration-badge">Module 5 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>External brand promises ring hollow if internal culture fails to embody core values.</p>
+                        <ul>
+                            <li><strong>Internal Brand Alignment:</strong> Training staff to live the brand promise in daily customer interactions.</li>
+                            <li><strong>Employer Branding:</strong> Positioning the enterprise as an elite destination for top talent.</li>
+                            <li><strong>Leadership Modeling:</strong> Executive behaviors serving as the primary benchmark for cultural norms.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="Employee Branding">
+                        <span class="image-caption">Aligning internal culture and employer branding initiatives.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.3 Customer Journey Design & Conversion Optimization</h2>
+                    <span class="duration-badge">Module 5 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Strategic brand experience directly influences conversion rates at every stage of the funnel.</p>
+                        <ul>
+                            <li><strong>Funnel Friction Audits:</strong> Identifying drop-off points where unclear messaging causes abandonment.</li>
+                            <li><strong>Trust Signals:</strong> Integrating social proof, certifications, and guarantees at critical decision nodes.</li>
+                            <li><strong>Post-Purchase Delighting:</strong> Designing unboxing and onboarding experiences that drive advocacy.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Journey Design">
+                        <span class="image-caption">Optimizing conversion funnels and post-purchase retention.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.4 Brand Communities & Advocacy Loops</h2>
+                    <span class="duration-badge">Module 5 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>The ultimate stage of brand maturity is transitioning customers into passionate community advocates.</p>
+                        <ul>
+                            <li><strong>Community-Led Growth:</strong> Fostering peer-to-peer customer connections around shared values.</li>
+                            <li><strong>User-Generated Content (UGC):</strong> Empowering advocates to create authentic marketing assets.</li>
+                            <li><strong>Loyalty Incentives:</strong> Rewarding brand champions for driving organic acquisition.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80" alt="Brand Communities">
+                        <span class="image-caption">Fostering community-led growth and user advocacy loops.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>5.5 Module 5 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 5 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Reviewing omnichannel experience and community building principles:</p>
+                        <ul>
+                            <li>Omnichannel consistency requires seamless continuity across digital and physical touchpoints.</li>
+                            <li>Internal employee branding is the foundation of authentic external customer trust.</li>
+                            <li>Journey optimization removes friction and deploys trust signals at key decision nodes.</li>
+                            <li>Community-led growth transforms passive buyers into vocal brand advocates.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Experience Synthesis">
+                        <span class="image-caption">Consolidating brand experience and community frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 5: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-4">
+                        <div class="question-box" data-q="1" data-ans="A">
+                            <div class="question-title">1. What is the core objective of omnichannel experience mapping?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m4_q1" value="A"> A) Ensuring seamless, consistent interactions across all digital and physical touchpoints.</label>
+                                <label class="option-label"><input type="radio" name="m4_q1" value="B"> B) Reducing customer service staff to zero.</label>
+                                <label class="option-label"><input type="radio" name="m4_q1" value="C"> C) Eliminating physical product packaging.</label>
+                                <label class="option-label"><input type="radio" name="m4_q1" value="D"> D) Restricting sales to physical retail stores only.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m4_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="B">
+                            <div class="question-title">2. Why is internal employee branding critical for an enterprise?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m4_q2" value="A"> A) It enforces strict dress codes.</label>
+                                <label class="option-label"><input type="radio" name="m4_q2" value="B"> B) Because employees must authentically embody core values to build external trust.</label>
+                                <label class="option-label"><input type="radio" name="m4_q2" value="C"> C) It eliminates the need for human resources departments.</label>
+                                <label class="option-label"><input type="radio" name="m4_q2" value="D"> D) It restricts employee social media use.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m4_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="B">
+                            <div class="question-title">3. What role do "trust signals" play in customer journey design?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m4_q3" value="A"> A) They slow down website loading speeds.</label>
+                                <label class="option-label"><input type="radio" name="m4_q3" value="B"> B) They reduce buyer hesitation and validate quality at decision nodes.</label>
+                                <label class="option-label"><input type="radio" name="m4_q3" value="C"> C) They encrypt database passwords.</label>
+                                <label class="option-label"><input type="radio" name="m4_q3" value="D"> D) They increase product shipping weights.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m4_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="B">
+                            <div class="question-title">4. What is community-led growth in brand strategy?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m4_q4" value="A"> A) Building physical corporate housing complexes.</label>
+                                <label class="option-label"><input type="radio" name="m4_q4" value="B"> B) Fostered peer connections and user advocacy driving organic acquisition.</label>
+                                <label class="option-label"><input type="radio" name="m4_q4" value="C"> C) Relying solely on paid billboard advertising.</label>
+                                <label class="option-label"><input type="radio" name="m4_q4" value="D"> D) Outsourcing customer support offshore.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m4_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. What is the benefit of user-generated content (UGC)?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m4_q5" value="A"> A) It replaces the need for legal trademark filings.</label>
+                                <label class="option-label"><input type="radio" name="m4_q5" value="B"> B) It provides authentic marketing assets created by real, trusted advocates.</label>
+                                <label class="option-label"><input type="radio" name="m4_q5" value="C"> C) It reduces corporate tax obligations.</label>
+                                <label class="option-label"><input type="radio" name="m4_q5" value="D"> D) It automates product manufacturing.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m4_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(4, 5)">Grade Module 5 Quiz</button>
+                        <span class="module-score-display" id="score-display-4"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 6 ================= -->
+        <div class="module-deck" data-module="5" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>6.1 Brand Auditing & Competitive Intelligence</h2>
+                    <span class="duration-badge">Module 6 • Slide 1 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Continuous brand auditing ensures alignment between evolving market dynamics and enterprise identity.</p>
+                        <ul>
+                            <li><strong>Comprehensive Brand Audit:</strong> Assessing visual, verbal, and operational touchpoints systematically.</li>
+                            <li><strong>Competitive Intelligence:</strong> Tracking rival positioning shifts, messaging pivots, and market share.</li>
+                            <li><strong>Brand Health Metrics:</strong> Monitoring awareness, consideration, and Net Promoter Score (NPS).</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Brand Auditing">
+                        <span class="image-caption">Executing systematic brand health audits and competitive intelligence.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.2 Measuring Brand ROI & Financial Attribution</h2>
+                    <span class="duration-badge">Module 6 • Slide 2 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Proving brand ROI to executive leadership requires connecting creative output to financial metrics.</p>
+                        <ul>
+                            <li><strong>Attribution Modeling:</strong> Quantifying how brand awareness campaigns shorten sales cycles.</li>
+                            <li><strong>Customer Acquisition Cost (CAC):</strong> Demonstrating how strong equity lowers paid ad dependency.</li>
+                            <li><strong>Share of Voice vs. Share of Market:</strong> Correlating media presence with revenue growth.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Brand ROI">
+                        <span class="image-caption">Connecting brand equity investments directly to financial ROI.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.3 Crisis Management & Reputation Defense</h2>
+                    <span class="duration-badge">Module 6 • Slide 3 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Decades of accumulated brand equity can be severely damaged by poor crisis communication.</p>
+                        <ul>
+                            <li><strong>Crisis Playbooks:</strong> Establishing rapid response protocols before reputational threats occur.</li>
+                            <li><strong>Transparent Communication:</strong> Prioritizing accountability, empathy, and corrective action.</li>
+                            <li><strong>Reputation Recovery:</strong> Executing long-term brand rehabilitation campaigns after PR failures.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Crisis Management">
+                        <span class="image-caption">Managing crisis protocols and long-term reputation defense.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.4 Brand Evolution & Strategic Refresh Cycles</h2>
+                    <span class="duration-badge">Module 6 • Slide 4 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Brands must evolve gracefully across generations to avoid becoming culturally obsolete.</p>
+                        <ul>
+                            <li><strong>Evolution vs. Revolution:</strong> Distinguishing between minor visual refreshes and total rebranding.</li>
+                            <li><strong>Generational Relevance:</strong> Updating visual and verbal hooks to resonate with emerging buyer cohorts.</li>
+                            <li><strong>Heritage Preservation:</strong> Retaining core brand DNA while modernizing execution standards.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Brand Evolution">
+                        <span class="image-caption">Balancing generational brand refresh cycles with core heritage.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>6.5 Module 6 Deep-Dive Synthesis</h2>
+                    <span class="duration-badge">Module 6 • Slide 5 of 6</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Reviewing brand auditing, ROI measurement, and crisis defense principles:</p>
+                        <ul>
+                            <li>Regular audits catch misalignment between brand identity and market perception early.</li>
+                            <li>Connecting brand equity to lower CAC and higher LTV secures executive financial buy-in.</li>
+                            <li>Transparent crisis management protects long-term brand equity during public relations failures.</li>
+                            <li>Strategic refreshes modernize brands while protecting foundational heritage DNA.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Growth Synthesis">
+                        <span class="image-caption">Consolidating brand growth, ROI, and audit frameworks.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 6: Comprehensive Knowledge Check</h2>
+                    <span class="duration-badge">Score & Verify Mastery</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-5">
+                        <div class="question-box" data-q="1" data-ans="A">
+                            <div class="question-title">1. What is the primary purpose of a comprehensive brand audit?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m5_q1" value="A"> A) Systematically assessing visual, verbal, and operational touchpoint alignment.</label>
+                                <label class="option-label"><input type="radio" name="m5_q1" value="B"> B) Filing corporate tax returns.</label>
+                                <label class="option-label"><input type="radio" name="m5_q1" value="C"> C) Designing office physical furniture.</label>
+                                <label class="option-label"><input type="radio" name="m5_q1" value="D"> D) Testing software bug fix patches.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m5_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="B">
+                            <div class="question-title">2. How does high brand equity impact Customer Acquisition Cost (CAC)?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m5_q2" value="A"> A) It increases CAC significantly.</label>
+                                <label class="option-label"><input type="radio" name="m5_q2" value="B"> B) It lowers CAC by driving organic trust and reducing paid ad dependency.</label>
+                                <label class="option-label"><input type="radio" name="m5_q2" value="C"> C) It has no effect on customer acquisition metrics.</label>
+                                <label class="option-label"><input type="radio" name="m5_q2" value="D"> D) It eliminates marketing departments entirely.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m5_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="B">
+                            <div class="question-title">3. What is the most critical element during a brand crisis communication?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m5_q3" value="A"> A) Immediate denial of all allegations.</label>
+                                <label class="option-label"><input type="radio" name="m5_q3" value="B"> B) Transparent accountability, empathy, and corrective action.</label>
+                                <label class="option-label"><input type="radio" name="m5_q3" value="C"> C) Deleting all company social media accounts.</label>
+                                <label class="option-label"><input type="radio" name="m5_q3" value="D"> D) Increasing product prices.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m5_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="B">
+                            <div class="question-title">4. What distinguishes a brand evolution from a total revolution?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m5_q4" value="A"> A) Evolution changes the company name; revolution changes fonts.</label>
+                                <label class="option-label"><input type="radio" name="m5_q4" value="B"> B) Evolution modernizes execution while preserving core heritage DNA.</label>
+                                <label class="option-label"><input type="radio" name="m5_q4" value="C"> C) Evolution costs more money than revolution.</label>
+                                <label class="option-label"><input type="radio" name="m5_q4" value="D"> D) There is no difference.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m5_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. What does NPS stand for in brand health metrics?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m5_q5" value="A"> A) National Pricing Standard.</label>
+                                <label class="option-label"><input type="radio" name="m5_q5" value="B"> B) Net Promoter Score.</label>
+                                <label class="option-label"><input type="radio" name="m5_q5" value="C"> C) New Product Sales.</label>
+                                <label class="option-label"><input type="radio" name="m5_q5" value="D"> D) Network Protocol Security.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m5_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(5, 5)">Grade Module 6 Quiz</button>
+                        <span class="module-score-display" id="score-display-5"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE 7 ================= -->
+        <div class="module-deck" data-module="6" style="display: none;">
+            <div class="slide active">
+                <div class="slide-header">
+                    <h2>7.1 Capstone Mastery: Synthesis & Executive Defense</h2>
+                    <span class="duration-badge">Module 7 • Slide 1 of 3</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Welcome to the final capstone module. Professional mastery requires synthesizing all core brand strategy pillars into an executive defense framework.</p>
+                        <ul>
+                            <li><strong>Comprehensive Integration:</strong> Unifying research, verbal identity, visual design, architecture, and experience.</li>
+                            <li><strong>Board-Level Persuasion:</strong> Defending strategic recommendations using financial equity and ROI metrics.</li>
+                            <li><strong>Long-Term Stewardship:</strong> Overseeing brand governance and asset integrity across global scaling phases.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Executive Defense">
+                        <span class="image-caption">Synthesizing master strategies for executive board defense.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>7.2 Final Certification Review & Standards</h2>
+                    <span class="duration-badge">Module 7 • Slide 2 of 3</span>
+                </div>
+                <div class="slide-content-grid">
+                    <div class="slide-text-side">
+                        <p>Review the comprehensive mastery standards required to earn your Certified Brand Strategist credential:</p>
+                        <ul>
+                            <li>Passing scores across all prior module evaluations verify foundational knowledge.</li>
+                            <li>This final master exam tests advanced cross-disciplinary scenario analysis.</li>
+                            <li>Certification affirms your readiness to lead enterprise brand strategy at a professional level.</li>
+                        </ul>
+                    </div>
+                    <div class="slide-image-side">
+                        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=600&q=80" alt="Certification Standards">
+                        <span class="image-caption">Preparing for final professional certification verification.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-header">
+                    <h2>Module 7: Final Capstone Master Exam</h2>
+                    <span class="duration-badge">Final Certification Assessment</span>
+                </div>
+                <div class="slide-full">
+                    <div class="quiz-container" id="quiz-deck-6">
+                        <div class="question-box" data-q="1" data-ans="B">
+                            <div class="question-title">1. When presenting a multi-million dollar rebranding strategy to a corporate board of directors, what is the most effective persuasive approach?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m6_q1" value="A"> A) Focusing exclusively on subjective aesthetic trends and color swatches.</label>
+                                <label class="option-label"><input type="radio" name="m6_q1" value="B"> B) Connecting brand equity growth directly to financial leverage, pricing power, and ROI.</label>
+                                <label class="option-label"><input type="radio" name="m6_q1" value="C"> C) Threatening resignation if recommendations are not approved immediately.</label>
+                                <label class="option-label"><input type="radio" name="m6_q1" value="D"> D) Presenting 500 pages of unsummarized psychographic survey data.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m6_f1"></div>
+                        </div>
+                        <div class="question-box" data-q="2" data-ans="B">
+                            <div class="question-title">2. An international technology firm acquires three smaller regional startups. What brand architecture strategy minimizes customer alienation while consolidating equity?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m6_q2" value="A"> A) Instantly deleting all acquired brand names overnight.</label>
+                                <label class="option-label"><input type="radio" name="m6_q2" value="B"> B) Executing a phased co-branding migration plan backed by transparent communication.</label>
+                                <label class="option-label"><input type="radio" name="m6_q2" value="C"> C) Keeping all four brands completely separate forever with no integration.</label>
+                                <label class="option-label"><input type="radio" name="m6_q2" value="D"> D) Renaming the entire parent company after the smallest startup.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m6_f2"></div>
+                        </div>
+                        <div class="question-box" data-q="3" data-ans="B">
+                            <div class="question-title">3. How should a Certified Brand Strategist handle a severe public relations crisis that threatens enterprise reputation?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m6_q3" value="A"> A) Hide all social media channels and wait indefinitely.</label>
+                                <label class="option-label"><input type="radio" name="m6_q3" value="B"> B) Deploy transparent accountability, active empathy, and swift corrective operational action.</label>
+                                <label class="option-label"><input type="radio" name="m6_q3" value="C"> C) Blame customers for misunderstanding the product.</label>
+                                <label class="option-label"><input type="radio" name="m6_q3" value="D"> D) Launch an unrelated advertising campaign to distract the public.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m6_f3"></div>
+                        </div>
+                        <div class="question-box" data-q="4" data-ans="B">
+                            <div class="question-title">4. Why is internal employee branding considered just as critical as external marketing?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m6_q4" value="A"> A) It dictates office desk seating arrangements.</label>
+                                <label class="option-label"><input type="radio" name="m6_q4" value="B"> B) External brand promises fail if internal culture and employee behavior do not match.</label>
+                                <label class="option-label"><input type="radio" name="m6_q4" value="C"> C) Employees review trademark filings.</label>
+                                <label class="option-label"><input type="radio" name="m6_q4" value="D"> D) It calculates payroll taxes.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m6_f4"></div>
+                        </div>
+                        <div class="question-box" data-q="5" data-ans="B">
+                            <div class="question-title">5. What defines the ultimate pinnacle of modern brand maturity?</div>
+                            <div class="options-grid">
+                                <label class="option-label"><input type="radio" name="m6_q5" value="A"> A) Filing the highest number of lawsuits against competitors.</label>
+                                <label class="option-label"><input type="radio" name="m6_q5" value="B"> B) Fostering a self-sustaining community of passionate advocates driving organic growth.</label>
+                                <label class="option-label"><input type="radio" name="m6_q5" value="C"> C) Spending 100% of revenue on billboard advertising.</label>
+                                <label class="option-label"><input type="radio" name="m6_q5" value="D"> D) Keeping visual identity completely unchanged for 100 years.</label>
+                            </div>
+                            <div class="quiz-feedback" id="m6_f5"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; align-items: center;">
+                        <button class="submit-module-btn" onclick="gradeModule(6, 5)">Complete Master Exam & Certify</button>
+                        <span class="module-score-display" id="score-display-6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <!-- Script to handle Authentication and Slide Pagination Logic -->
-    <script>
-        const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    <!-- Controls Footer -->
+    <div class="deck-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous Slide</button>
+        <span class="slide-counter" id="slideCounter">Module 1 • Slide 1 / 6</span>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next Slide</button>
+    </div>
 
-        let currentSlide = 1;
-        const totalSlides = 5;
+</div>
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            const debugDiv = document.getElementById('debug-error');
-            try {
-                const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
-                if (sessionError) throw sessionError;
-                
-                if (!sessionData || !sessionData.session) {
-                    window.location.replace('login.html');
-                    return;
-                }
+<script>
+    let currentModule = 0;
+    let currentSlide = 0;
+    
+    // Slide counts for each of the 7 modules
+    const moduleSlideCounts = [6, 6, 6, 6, 6, 6, 3];
 
-                document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('app-content').style.display = 'flex';
-                
-                // Initialize button listeners explicitly
-                document.getElementById('prev-btn').addEventListener('click', () => navigateSlides(-1));
-                document.getElementById('next-btn').addEventListener('click', () => navigateSlides(1));
+    function switchModule(moduleIndex) {
+        currentModule = moduleIndex;
+        currentSlide = 0;
 
-                updateView();
-
-            } catch (err) {
-                console.error("Course Auth Error:", err);
-                debugDiv.innerHTML = "Session error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Please login again</a>";
+        // Update active tabs
+        const tabs = document.querySelectorAll('.module-tab');
+        tabs.forEach((tab, idx) => {
+            if (idx === moduleIndex) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
             }
         });
 
-        function navigateSlides(direction) {
-            currentSlide += direction;
-            if (currentSlide < 1) currentSlide = 1;
-            if (currentSlide > totalSlides) currentSlide = totalSlides;
-            updateView();
+        // Update visible module deck
+        const decks = document.querySelectorAll('.module-deck');
+        decks.forEach((deck, idx) => {
+            if (idx === moduleIndex) {
+                deck.style.display = 'block';
+                // Activate first slide of this deck
+                const slides = deck.querySelectorAll('.slide');
+                slides.forEach((s, sIdx) => {
+                    if (sIdx === 0) s.classList.add('active');
+                    else s.classList.remove('active');
+                });
+            } else {
+                deck.style.display = 'none';
+            }
+        });
+
+        updateControls();
+    }
+
+    function changeSlide(direction) {
+        const deck = document.querySelector(`.module-deck[data-module="${currentModule}"]`);
+        const slides = deck.querySelectorAll('.slide');
+
+        slides[currentSlide].classList.remove('active');
+        currentSlide += direction;
+
+        if (currentSlide < 0) {
+            currentSlide = 0;
+        } else if (currentSlide >= slides.length) {
+            currentSlide = slides.length - 1;
         }
 
-        function updateView() {
-            // Manage slide display visibility directly via ID
-            for (let i = 1; i <= totalSlides; i++) {
-                const slideEl = document.getElementById(`slide-${i}`);
-                if (slideEl) {
-                    if (i === currentSlide) {
-                        slideEl.classList.add('active-slide');
-                    } else {
-                        slideEl.classList.remove('active-slide');
-                    }
-                }
-            }
+        slides[currentSlide].classList.add('active');
+        updateControls();
+    }
 
-            // Update text labels
-            document.getElementById('page-indicator').textContent = `Module ${currentSlide} of ${totalSlides}`;
-            document.getElementById('step-counter-text').textContent = `${currentSlide} / ${totalSlides}`;
+    function updateControls() {
+        const totalSlides = moduleSlideCounts[currentModule];
+        document.getElementById('slideCounter').innerText = `Module ${currentModule + 1} • Slide ${currentSlide + 1} / ${totalSlides}`;
 
-            // Handle button accessibility opacity states
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
+        document.getElementById('prevBtn').disabled = (currentSlide === 0);
+        document.getElementById('nextBtn').disabled = (currentSlide === totalSlides - 1);
+    }
 
-            if (currentSlide === 1) {
-                prevBtn.style.opacity = '0.3';
-                prevBtn.style.pointerEvents = 'none';
+    function gradeModule(modIdx, totalQ) {
+        let score = 0;
+        const deck = document.querySelector(`.module-deck[data-module="${modIdx}"]`);
+        
+        for (let i = 1; i <= totalQ; i++) {
+            const qBox = deck.querySelector(`.question-box[data-q="${i}"]`);
+            const correctAns = qBox.getAttribute('data-ans');
+            const selected = qBox.querySelector(`input[name="m${modIdx}_q${i}"]:checked`);
+            const feedbackEl = document.getElementById(`m${modIdx}_f${i}`);
+            
+            feedbackEl.style.display = 'block';
+            if (selected && selected.value === correctAns) {
+                score++;
+                feedbackEl.innerText = "✓ Correct! Strategic rationale verified.";
+                feedbackEl.className = "quiz-feedback correct";
             } else {
-                prevBtn.style.opacity = '1';
-                prevBtn.style.pointerEvents = 'auto';
+                feedbackEl.innerText = `✕ Incorrect. The correct answer is option ${correctAns}.`;
+                feedbackEl.className = "quiz-feedback incorrect";
             }
-
-            if (currentSlide === totalSlides) {
-                nextBtn.style.opacity = '0.3';
-                nextBtn.style.pointerEvents = 'none';
-            } else {
-                nextBtn.style.opacity = '1';
-                nextBtn.style.pointerEvents = 'auto';
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    </script>
+
+        const scoreDisplay = document.getElementById(`score-display-${modIdx}`);
+        const percentage = Math.round((score / totalQ) * 100);
+        
+        if (score === totalQ) {
+            scoreDisplay.style.color = "var(--success)";
+            scoreDisplay.innerText = `Score: ${score}/${totalQ} (${percentage}%) - Mastered!`;
+        } else {
+            scoreDisplay.style.color = "var(--error)";
+            scoreDisplay.innerText = `Score: ${score}/${totalQ} (${percentage}%) - Review material & retry.`;
+        }
+    }
+
+    // Initialize state on load
+    updateControls();
+</script>
+
 </body>
 </html>
