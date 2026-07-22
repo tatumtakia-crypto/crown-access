@@ -74,18 +74,20 @@
 
     <!-- Header / Navigation -->
     <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 sm:h-24 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center shrink-0">
                     <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
-                        <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                        <span class="metallic-blue-text font-serif italic text-xl sm:text-2xl">C</span><span class="metallic-gold-text font-serif italic text-xl sm:text-2xl">A</span>
                     </div>
                 </div>
                 <div>
-                    <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-                    <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">The Black Label Academy</span>
+                    <span class="block text-[10px] sm:text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                    <span class="text-sm sm:text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">The Black Label Academy</span>
                 </div>
             </div>
+
+            <!-- Desktop Nav Links -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-300">
                 <a href="#programs" class="hover:text-yellow-400 transition">Programs</a>
                 <a href="#setup" class="hover:text-yellow-400 transition">Full Business Setup</a>
@@ -96,6 +98,29 @@
                 </button>
                 <a href="login.html" class="border border-yellow-500/40 text-yellow-400 px-5 py-2.5 rounded-lg font-bold transition hover:bg-yellow-500/10">Student Portal</a>
             </nav>
+
+            <!-- Mobile Action Buttons (Cart & Menu Toggle) -->
+            <div class="flex md:hidden items-center space-x-2">
+                <button type="button" id="mobile-cart-btn" class="relative shine-button-gold text-black px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center space-x-1 cursor-pointer">
+                    <span>Cart</span>
+                    <span id="mobile-cart-badge" class="bg-black text-yellow-400 text-[10px] px-1.5 py-0.2 rounded-full font-black">0</span>
+                </button>
+                <button type="button" id="mobile-menu-btn" class="border border-gray-700 bg-brandCard text-gray-200 p-2 rounded-lg focus:outline-none cursor-pointer" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brandCard border-b border-gray-800 px-6 py-5 space-y-4 shadow-xl">
+            <a href="#programs" class="mobile-nav-link block text-sm font-semibold text-gray-300 hover:text-yellow-400 transition py-1">Programs</a>
+            <a href="#setup" class="mobile-nav-link block text-sm font-semibold text-gray-300 hover:text-yellow-400 transition py-1">Full Business Setup</a>
+            <a href="#contact" class="mobile-nav-link block text-sm font-semibold text-gray-300 hover:text-yellow-400 transition py-1">Contact</a>
+            <div class="pt-2 border-t border-gray-800 flex flex-col space-y-3">
+                <a href="login.html" class="text-center border border-yellow-500/40 text-yellow-400 py-2.5 rounded-lg font-bold text-xs transition hover:bg-yellow-500/10">Student Portal / Login</a>
+            </div>
         </div>
     </header>
 
@@ -125,25 +150,25 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="relative py-28 px-6 overflow-hidden">
-        <div class="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none"></div>
-        <div class="absolute top-1/3 right-1/3 translate-x-1/4 -translate-y-1/2 w-[500px] h-[300px] bg-yellow-600/10 blur-[130px] rounded-full pointer-events-none"></div>
+    <section class="relative py-20 sm:py-28 px-6 overflow-hidden">
+        <div class="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/3 translate-x-1/4 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] bg-yellow-600/10 blur-[130px] rounded-full pointer-events-none"></div>
 
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <span class="inline-block py-1.5 px-5 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-6 shadow-inner">
                 Crown Access • The Black Label Elite
             </span>
-            <h1 class="text-4xl md:text-7xl font-black tracking-tight mb-6 text-white leading-tight">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 text-white leading-tight">
                 Master the Art of <br class="hidden sm:inline"><span class="metallic-gold-text">Truck Dispatching</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+            <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
                 Learn proven strategies to <strong class="text-white">attract and secure carriers</strong>, master operations through our 7-Day Live Masterclass or self-led tracks, and option for full business turn-key setup.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#programs" class="shine-button-gold text-black font-extrabold px-8 py-4 rounded-xl transition text-base">
+                <a href="#programs" class="shine-button-gold text-black font-extrabold px-8 py-4 rounded-xl transition text-base text-center">
                     Explore Programs & Pricing
                 </a>
-                <a href="#setup" class="border border-blue-500/40 hover:border-blue-400 text-white font-semibold px-8 py-4 rounded-xl transition bg-blue-950/20 backdrop-blur">
+                <a href="#setup" class="border border-blue-500/40 hover:border-blue-400 text-white font-semibold px-8 py-4 rounded-xl transition bg-blue-950/20 backdrop-blur text-center">
                     Full Business Setup
                 </a>
             </div>
@@ -151,22 +176,22 @@
     </section>
 
     <!-- Detailed Programs Section -->
-    <section id="programs" class="py-24 px-6 bg-black/60 border-t border-b border-gray-800/80 relative">
+    <section id="programs" class="py-20 sm:py-24 px-6 bg-black/60 border-t border-b border-gray-800/80 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <span class="text-xs uppercase tracking-widest metallic-blue-text font-bold mb-2 block">Comprehensive Curriculum & Pricing</span>
                 <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-4 text-white">Academy Programs & Tuition</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Engineered to give you absolute command over freight dispatching operations, carrier acquisition, and agency scaling.</p>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm sm:text-base">Engineered to give you absolute command over freight dispatching operations, carrier acquisition, and agency scaling.</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
                 
                 <!-- Live Cohort Card -->
-                <div class="metallic-card-blue rounded-3xl p-8 md:p-10 flex flex-col justify-between relative transition duration-300 hover:scale-[1.01]">
+                <div class="metallic-card-blue rounded-3xl p-6 sm:p-10 flex flex-col justify-between relative transition duration-300">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">7-Day Live Intensive</span>
-                            <span class="text-2xl font-black text-blue-400">$175</span>
+                            <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full uppercase tracking-wider">7-Day Live Intensive</span>
+                            <span class="text-2xl font-black text-blue-400">$85</span>
                         </div>
                         <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">Virtual Class</h3>
                         <p class="text-gray-300 text-sm mb-8 leading-relaxed">
@@ -192,18 +217,18 @@
                             <span class="text-xs text-gray-400">Duration: 7 Full Days</span>
                             <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Cohort Access</span>
                         </div>
-                        <button type="button" class="add-to-cart-btn w-full shine-button-blue text-white font-extrabold py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Virtual Class (7-Day Live)" data-price="17500">
-                            Add to Cart ($175)
+                        <button type="button" class="add-to-cart-btn w-full shine-button-blue text-white font-extrabold py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Virtual Class (7-Day Live)" data-price="8500">
+                            Add to Cart ($85)
                         </button>
                     </div>
                 </div>
 
                 <!-- Self-Led Card -->
-                <div class="metallic-card-gold rounded-3xl p-8 md:p-10 flex flex-col justify-between relative transition duration-300 hover:scale-[1.01]">
+                <div class="metallic-card-gold rounded-3xl p-6 sm:p-10 flex flex-col justify-between relative transition duration-300">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Self-Led Mastery</span>
-                            <span class="text-2xl font-black metallic-gold-text">$150</span>
+                            <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full uppercase tracking-wider">Self-Led Mastery</span>
+                            <span class="text-2xl font-black metallic-gold-text">$75</span>
                         </div>
                         <h3 class="text-2xl md:text-3xl font-black mb-3 text-white">Self-Paced Course</h3>
                         <p class="text-gray-300 text-sm mb-8 leading-relaxed">
@@ -229,8 +254,8 @@
                             <span class="text-xs text-gray-400">Format: 24/7 Digital Portal</span>
                             <span class="text-xs font-bold metallic-gold-text uppercase tracking-wider">Instant Access</span>
                         </div>
-                        <button type="button" class="add-to-cart-btn w-full shine-button-gold text-black font-extrabold py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Self-Paced Course" data-price="15000">
-                            Add to Cart ($150)
+                        <button type="button" class="add-to-cart-btn w-full shine-button-gold text-black font-extrabold py-4 rounded-xl transition text-base tracking-wide cursor-pointer relative z-10" data-name="Self-Paced Course" data-price="7500">
+                            Add to Cart ($75)
                         </button>
                     </div>
                 </div>
@@ -240,8 +265,8 @@
     </section>
 
     <!-- Full Business Setup & Individual Services Pricing Section -->
-    <section id="setup" class="py-24 px-6 bg-brandDark relative">
-        <div class="max-w-6xl mx-auto bg-gradient-to-br from-brandCard to-black border border-yellow-500/30 rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden">
+    <section id="setup" class="py-20 sm:py-24 px-6 bg-brandDark relative">
+        <div class="max-w-6xl mx-auto bg-gradient-to-br from-brandCard to-black border border-yellow-500/30 rounded-3xl p-6 sm:p-14 shadow-2xl relative overflow-hidden">
             <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-yellow-500/5 blur-[100px] rounded-full pointer-events-none"></div>
             
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -394,6 +419,12 @@
             }
         }
 
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+        }
+
         function addToCart(name, priceCents) {
             const existingItem = cart.find(item => item.name === name);
             if (existingItem) {
@@ -413,6 +444,7 @@
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
             const badge = document.getElementById('cart-badge');
+            const mobileBadge = document.getElementById('mobile-cart-badge');
             const totalElement = document.getElementById('cart-total');
             const checkoutBtn = document.getElementById('checkout-btn');
 
@@ -438,6 +470,7 @@
             }
 
             badge.innerText = totalCount;
+            if (mobileBadge) mobileBadge.innerText = totalCount;
             totalElement.innerText = `$${(totalPriceCents / 100).toFixed(2)}`;
         }
 
@@ -476,11 +509,19 @@
             });
 
             document.getElementById('cart-toggle-btn')?.addEventListener('click', toggleCart);
+            document.getElementById('mobile-cart-btn')?.addEventListener('click', toggleCart);
+            document.getElementById('mobile-menu-btn')?.addEventListener('click', toggleMobileMenu);
             document.getElementById('cart-close-btn')?.addEventListener('click', closeCart);
             document.getElementById('cart-overlay')?.addEventListener('click', closeCart);
             document.getElementById('checkout-btn')?.addEventListener('click', checkout);
+
+            // Close mobile menu when clicking navigation links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu')?.classList.add('hidden');
+                });
+            });
         });
     </script>
 </body>
 </html>
-```eof
