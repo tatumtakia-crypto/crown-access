@@ -106,26 +106,44 @@
             </div>
         </header>
 
-        <!-- ================= STUDENT VIEW ================= -->
+        <!-- ================= STUDENT VIEW (Also rendered for Admins with Course Access Cards) ================= -->
         <main id="student-view" class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow" style="display: none;">
-            <div class="mb-12">
+            <div id="view-header-msg" class="mb-12">
                 <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
                 <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
                 <p class="text-gray-400 text-sm md:text-base">Access your masterclasses, resource vault, community chat, and mock loadboard below.</p>
             </div>
 
+            <!-- Admin Quick Switcher Banner (Only shown if user is admin) -->
+            <div id="admin-switcher-banner" style="display: none;" class="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl flex items-center justify-between">
+                <span class="text-sm font-bold text-yellow-400">👑 Admin View Mode: You have full access to both courses and the Admin Command Center.</span>
+                <button id="switch-to-admin-portal" class="text-xs bg-yellow-500 text-black px-4 py-2 rounded-xl font-extrabold hover:bg-yellow-400 transition cursor-pointer">
+                    Switch to Admin Portal &rarr;
+                </button>
+            </div>
+
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Card 1: Course Material -->
-                <div id="course-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group">
+                <!-- Card 1: 7-Day Live Intensive -->
+                <div id="live-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group cursor-pointer" onclick="window.location.href='live-cohort.html'">
                     <div>
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
-                        <h3 id="course-title" class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Checking Access...</h3>
-                        <p id="course-desc" class="text-gray-300 text-sm mb-6 leading-relaxed">Verifying active purchase record...</p>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Live Program</span>
+                        <h3 class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">7-Day Live Intensive</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your live cohort schedule, daily video links, and instructor materials.</p>
                     </div>
-                    <div id="course-action-wrapper"></div>
+                    <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">Enter Live Portal &rarr;</span>
                 </div>
 
-                <!-- Card 2: Resources -->
+                <!-- Card 2: Self-Paced Mastery -->
+                <div id="self-card-container" class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between group cursor-pointer" onclick="window.location.href='self.html'">
+                    <div>
+                        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Self-Led Program</span>
+                        <h3 class="text-2xl font-black text-white mb-2 group-hover:text-yellow-400 transition">Self-Paced Mastery</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your masterclasses, interactive video modules, and step-by-step training.</p>
+                    </div>
+                    <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-yellow-500/30 transition">Access Self-Led Course &rarr;</span>
+                </div>
+
+                <!-- Card 3: Resources -->
                 <a href="resources.html" class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Downloadable Vault</span>
@@ -135,7 +153,7 @@
                     <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-yellow-500/30 transition">Open Resource Library &rarr;</span>
                 </a>
 
-                <!-- Card 3: Support Chat Room -->
+                <!-- Card 4: Support Chat Room -->
                 <a href="chat.html" class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Community Support</span>
@@ -143,16 +161,6 @@
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">Connect directly with mentors and peers for live questions, guidance, and assistance.</p>
                     </div>
                     <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-yellow-500/30 transition">Open Chat Room &rarr;</span>
-                </a>
-
-                <!-- Card 4: Mock Loadboard -->
-                <a href="loadboard.html" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
-                    <div>
-                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Interactive Tool</span>
-                        <h3 class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Mock Loadboard</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Practice searching lanes, evaluating rates, and booking simulated loads in real-time.</p>
-                    </div>
-                    <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">Open Loadboard &rarr;</span>
                 </a>
             </div>
         </main>
@@ -166,6 +174,9 @@
                     <p class="text-gray-400 text-sm md:text-base">Complete visibility into enrolled students, active revenue, purchases, and course analytics.</p>
                 </div>
                 <div class="flex items-center space-x-3">
+                    <button id="switch-to-student-view" class="bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600/30 text-xs font-bold px-4 py-2 rounded-xl transition cursor-pointer">
+                        🎓 View Student Portal & Courses
+                    </button>
                     <span class="bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold px-4 py-2 rounded-xl">👑 Admin Privilege Active</span>
                 </div>
             </div>
@@ -286,18 +297,30 @@
                 }
 
                 if (isAdmin) {
-                    // ================= LOAD ADMIN PORTAL =================
+                    // ================= LOAD ADMIN PORTAL BY DEFAULT FOR ADMINS =================
                     document.getElementById('portal-badge').textContent = "Crown Access Admin";
                     document.getElementById('portal-heading').textContent = "Administration Portal";
                     document.getElementById('admin-view').style.display = 'block';
+                    document.getElementById('admin-switcher-banner').style.display = 'flex';
 
-                    // Fetch all purchases
+                    // Wire up toggle buttons for admins
+                    document.getElementById('switch-to-admin-portal').onclick = () => {
+                        document.getElementById('student-view').style.display = 'none';
+                        document.getElementById('admin-view').style.display = 'block';
+                        document.getElementById('portal-heading').textContent = "Administration Portal";
+                    };
+                    document.getElementById('switch-to-student-view').onclick = () => {
+                        document.getElementById('admin-view').style.display = 'none';
+                        document.getElementById('student-view').style.display = 'block';
+                        document.getElementById('portal-heading').textContent = "Training Portal & Courses";
+                    };
+
+                    // Fetch all purchases and profiles for the admin overview
                     const { data: allPurchases } = await supabaseClient
                         .from('purchases')
                         .select('*')
                         .order('created_at', { ascending: false });
 
-                    // Fetch all profiles from the profiles table for full student roster visibility
                     const { data: allProfiles } = await supabaseClient
                         .from('profiles')
                         .select('*');
@@ -329,7 +352,7 @@
                         purTbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-500">No purchases recorded yet.</td></tr>`;
                     }
 
-                    // Populate Students Table from profiles table data
+                    // Populate Students Table
                     const studTbody = document.getElementById('admin-students-table');
                     studTbody.innerHTML = "";
                     if (profilesList.length > 0) {
@@ -360,74 +383,26 @@
                     // ================= LOAD REGULAR STUDENT DASHBOARD =================
                     document.getElementById('student-view').style.display = 'block';
 
-                    const courseTitle = document.getElementById('course-title');
-                    const courseDesc = document.getElementById('course-desc');
-                    const actionWrapper = document.getElementById('course-action-wrapper');
-                    const courseCardContainer = document.getElementById('course-card-container');
-                    
-                    let foundPurchase = false;
-                    let purchaseDataString = "";
+                    const { data: purchases, error: purchaseError } = await supabaseClient
+                        .from('purchases')
+                        .select('*')
+                        .eq('user_id', user.id);
 
-                    try {
-                        const { data: purchases, error: purchaseError } = await supabaseClient
-                            .from('purchases')
-                            .select('*')
-                            .eq('user_id', user.id);
+                    let foundPurchase = purchases && purchases.length > 0;
+                    let purchaseDataString = foundPurchase ? JSON.stringify(purchases).toLowerCase() : "";
 
-                        if (purchaseError) {
-                            console.error("Supabase purchases query error:", purchaseError.message);
-                        } else if (purchases && purchases.length > 0) {
-                            foundPurchase = true;
-                            purchaseDataString = JSON.stringify(purchases).toLowerCase();
-                        }
-                    } catch (dbErr) {
-                        console.error("Database query exception:", dbErr);
-                    }
+                    // Regular students see specific purchased content or prompt to buy
+                    const liveCard = document.getElementById('live-card-container');
+                    const selfCard = document.getElementById('self-card-container');
 
                     if (foundPurchase) {
                         if (purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23")) {
-                            courseTitle.textContent = "7-Day Live Intensive";
-                            courseDesc.textContent = "Access your live cohort schedule, daily video links, and instructor materials.";
-                            actionWrapper.innerHTML = `
-                                <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                                    Enter Live Portal &rarr;
-                                </span>
-                            `;
-                            courseCardContainer.classList.add('cursor-pointer');
-                            courseCardContainer.onclick = () => { window.location.href = 'live-cohort.html'; }; 
-
+                            selfCard.style.opacity = '0.4';
+                            selfCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in the Live Intensive program. Upgrade to access Self-Paced Mastery.'); };
                         } else if (purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06")) {
-                            courseTitle.textContent = "Self-Paced Mastery";
-                            courseDesc.textContent = "Access your purchased masterclasses, interactive video modules, and step-by-step training.";
-                            actionWrapper.innerHTML = `
-                                <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                                    Access Self-Led Course &rarr;
-                                </span>
-                            `;
-                            courseCardContainer.classList.add('cursor-pointer');
-                            courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
-
-                        } else {
-                            courseTitle.textContent = "Core Curriculum";
-                            courseDesc.textContent = "Access your training materials and administrative resources.";
-                            actionWrapper.innerHTML = `
-                                <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                                    Open Materials &rarr;
-                                </span>
-                            `;
-                            courseCardContainer.classList.add('cursor-pointer');
-                            courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+                            liveCard.style.opacity = '0.4';
+                            liveCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in Self-Paced Mastery. Upgrade to access the Live Intensive program.'); };
                         }
-                    } else {
-                        courseTitle.textContent = "No Active Enrollment";
-                        courseDesc.textContent = "You do not have an active course purchase on record. Secure your spot to unlock this curriculum.";
-                        actionWrapper.innerHTML = `
-                            <a href="index.html#programs" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">
-                                View Course Options &rarr;
-                            </a>
-                        `;
-                        courseCardContainer.classList.remove('cursor-pointer');
-                        courseCardContainer.onclick = null;
                     }
                 }
                 
