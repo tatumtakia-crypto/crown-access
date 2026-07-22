@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | Crown Access</title>
+    <title>Student Dashboard & Admin Portal | Crown Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -60,12 +60,12 @@
     <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
         <div class="text-center animate-pulse">
             <span class="block text-sm uppercase tracking-widest metallic-gold-text font-bold mb-2">Crown Access</span>
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING PURCHASES FROM DATABASE...</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">VERIFYING CREDENTIALS FROM DATABASE...</span>
         </div>
         <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
     </div>
 
-    <!-- Main Dashboard -->
+    <!-- Main Dashboard / Admin Portal Container -->
     <div id="dashboard-content" style="display: none;" class="flex-col justify-between min-h-screen w-full">
         
         <!-- Navigation Bar -->
@@ -78,8 +78,8 @@
                         </div>
                     </div>
                     <div>
-                        <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
-                        <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
+                        <span id="portal-badge" class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                        <span id="portal-heading" class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
                     </div>
                 </div>
 
@@ -106,8 +106,8 @@
             </div>
         </header>
 
-        <!-- Main Dashboard Content (2x2 Grid) -->
-        <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
+        <!-- ================= STUDENT VIEW (Default) ================= -->
+        <main id="student-view" class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow" style="display: none;">
             <div class="mb-12">
                 <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
                 <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
@@ -115,17 +115,14 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                
-                <!-- Card 1: Course Material (Dynamic based on purchases table) -->
+                <!-- Card 1: Course Material -->
                 <div id="course-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
                         <h3 id="course-title" class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Checking Access...</h3>
                         <p id="course-desc" class="text-gray-300 text-sm mb-6 leading-relaxed">Verifying active purchase record...</p>
                     </div>
-                    <div id="course-action-wrapper">
-                        <!-- Populated dynamically -->
-                    </div>
+                    <div id="course-action-wrapper"></div>
                 </div>
 
                 <!-- Card 2: Resources -->
@@ -157,22 +154,105 @@
                     </div>
                     <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">Open Loadboard &rarr;</span>
                 </a>
+            </div>
+        </main>
 
+        <!-- ================= ADMIN OVERVIEW PORTAL ================= -->
+        <main id="admin-view" class="max-w-7xl mx-auto px-6 py-16 w-full flex-grow" style="display: none;">
+            <div class="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Administrative Command Center</span>
+                    <h1 class="text-3xl md:text-5xl font-black text-white mb-2">School Administration Portal</h1>
+                    <p class="text-gray-400 text-sm md:text-base">Complete visibility into enrolled students, active revenue, purchases, and course analytics.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold px-4 py-2 rounded-xl">👑 Admin Privilege Active</span>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="metallic-card-gold rounded-2xl p-6">
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold block mb-1">Total Enrolled Students</span>
+                    <span id="stat-students" class="text-3xl font-black text-white">--</span>
+                </div>
+                <div class="metallic-card-blue rounded-2xl p-6">
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold block mb-1">Total Purchases</span>
+                    <span id="stat-purchases" class="text-3xl font-black text-white">--</span>
+                </div>
+                <div class="metallic-card-gold rounded-2xl p-6">
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold block mb-1">Total Gross Revenue</span>
+                    <span id="stat-revenue" class="text-3xl font-black text-yellow-400">--</span>
+                </div>
+                <div class="metallic-card-blue rounded-2xl p-6">
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold block mb-1">Active Courses</span>
+                    <span class="text-3xl font-black text-blue-400">2 Programs</span>
+                </div>
+            </div>
+
+            <!-- Data Tables Section -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Students Table -->
+                <div class="metallic-card-blue rounded-3xl p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-black text-white">Enrolled Students & User Profiles</h3>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-3 py-1 rounded-full font-bold">Database Roster</span>
+                    </div>
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+                                    <th class="py-3 px-4">User ID / Email</th>
+                                    <th class="py-3 px-4">Created Date</th>
+                                    <th class="py-3 px-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-students-table" class="text-sm divide-y divide-gray-800/50">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Purchases Table -->
+                <div class="metallic-card-gold rounded-3xl p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-black text-white">Purchase & Order History</h3>
+                        <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-3 py-1 rounded-full font-bold">Transactions</span>
+                    </div>
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+                                    <th class="py-3 px-4">Course / Item</th>
+                                    <th class="py-3 px-4">Price</th>
+                                    <th class="py-3 px-4">Purchase Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-purchases-table" class="text-sm divide-y divide-gray-800/50">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </main>
 
         <!-- Footer -->
         <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark">
-            <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment.</p>
+            <p class="mb-2 font-medium">&copy; 2026 Crown Access. Secure Student Environment & Admin Portal.</p>
         </footer>
 
     </div>
 
+    <!-- Script Logic -->
     <script>
-        // 1. Corrected Supabase Keys
         const SUPABASE_URL = 'https://thzbqlumohwlxgbodopf.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoemJxbHVtb2h3bHhnYm9kb3BmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2Mzg1MDMsImV4cCI6MjEwMDIxNDUwM30.oaLH3NqWFdAvzHm3PGyXMgxo4cFfF4BRSPTR90JcLOM';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Define your admin email addresses here
+        const ADMIN_EMAILS = ['admin@crownaccess.com', 'adminericbarnes@gmail.com']; 
 
         window.onload = async function() {
             const debugDiv = document.getElementById('debug-error');
@@ -189,84 +269,148 @@
                 const user = sessionData.session.user;
                 document.getElementById('user-email').textContent = user.email;
                 
-                // Initialize default UI states
-                const courseTitle = document.getElementById('course-title');
-                const courseDesc = document.getElementById('course-desc');
-                const actionWrapper = document.getElementById('course-action-wrapper');
-                const courseCardContainer = document.getElementById('course-card-container');
-                
-                let foundPurchase = false;
-                let purchaseDataString = "";
+                // Check if logged-in user is an admin
+                const isAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase()) || user.email.includes('admin');
 
-                try {
-                    // Query the 'purchases' table for this user
-                    const { data: purchases, error: purchaseError } = await supabaseClient
+                if (isAdmin) {
+                    // ================= LOAD ADMIN PORTAL =================
+                    document.getElementById('portal-badge').textContent = "Crown Access Admin";
+                    document.getElementById('portal-heading').textContent = "Administration Portal";
+                    document.getElementById('admin-view').style.display = 'block';
+
+                    // Fetch all purchases and student records for admin overview
+                    const { data: allPurchases, error: purError } = await supabaseClient
                         .from('purchases')
                         .select('*')
-                        .eq('user_id', user.id);
+                        .order('created_at', { ascending: false });
 
-                    if (purchaseError) {
-                        console.error("Supabase purchases query error:", purchaseError.message);
-                    } else if (purchases && purchases.length > 0) {
-                        foundPurchase = true;
-                        // Turn all purchase data into a string to search for the UUIDs
-                        purchaseDataString = JSON.stringify(purchases).toLowerCase();
-                    }
-                } catch (dbErr) {
-                    console.error("Database query exception:", dbErr);
-                }
+                    // Since Supabase auth.users isn't always directly queryable via public client without custom RPC,
+                    // we pull unique user IDs from purchases or list them if a profiles table exists.
+                    // Here we extract active purchase records and compile unique student summaries.
+                    let purchasesList = allPurchases || [];
+                    
+                    // Populate Stats
+                    document.getElementById('stat-purchases').textContent = purchasesList.length;
+                    
+                    let totalRev = purchasesList.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+                    document.getElementById('stat-revenue').textContent = `$${totalRev.toFixed(2)}`;
 
-                // 2. Dynamic Routing Based on Purchase UUIDs
-                if (foundPurchase) {
-                    // Checks for the LIVE Course UUID
-                    if (purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23")) {
-                        
-                        courseTitle.textContent = "7-Day Live Intensive";
-                        courseDesc.textContent = "Access your live cohort schedule, daily video links, and instructor materials.";
-                        actionWrapper.innerHTML = `
-                            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                                Enter Live Portal &rarr;
-                            </span>
-                        `;
-                        courseCardContainer.classList.add('cursor-pointer');
-                        courseCardContainer.onclick = () => { window.location.href = 'live-cohort.html'; }; 
-
-                    // Checks for the SELF-PACED Course UUID
-                    } else if (purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06")) {
-                        
-                        courseTitle.textContent = "Self-Paced Mastery";
-                        courseDesc.textContent = "Access your purchased masterclasses, interactive video modules, and step-by-step training.";
-                        actionWrapper.innerHTML = `
-                            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                                Access Self-Led Course &rarr;
-                            </span>
-                        `;
-                        courseCardContainer.classList.add('cursor-pointer');
-                        courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
-
+                    // Populate Purchases Table
+                    const purTbody = document.getElementById('admin-purchases-table');
+                    purTbody.innerHTML = "";
+                    if (purchasesList.length > 0) {
+                        purchasesList.forEach(p => {
+                            let title = p.title || (p.includes && p.includes("42c3") ? "7-Day Live Intensive" : "Course Purchase");
+                            purTbody.innerHTML += `
+                                <tr class="hover:bg-gray-900/50 transition">
+                                    <td class="py-3 px-4 font-bold text-white">${p.title || 'Course Item'}</td>
+                                    <td class="py-3 px-4 text-yellow-400 font-semibold">$${parseFloat(p.price || 0).toFixed(2)}</td>
+                                    <td class="py-3 px-4 text-gray-400 text-xs">${new Date(p.created_at).toLocaleDateString()}</td>
+                                </tr>
+                            `;
+                        });
                     } else {
-                        // Fallback logic
-                        courseTitle.textContent = "Core Curriculum";
-                        courseDesc.textContent = "Access your training materials and administrative resources.";
-                        actionWrapper.innerHTML = `
-                            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
-                                Open Materials &rarr;
-                            </span>
-                        `;
-                        courseCardContainer.classList.add('cursor-pointer');
-                        courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+                        purTbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-500">No purchases recorded yet.</td></tr>`;
                     }
-                } else {
-                    // User has NO purchases on record
-                    courseTitle.textContent = "No Active Enrollment";
-                    courseDesc.textContent = "You do not have an active course purchase on record. Secure your spot to unlock this curriculum.";
-                    actionWrapper.innerHTML = `
-                        <a href="index.html#programs" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">
-                            View Course Options &rarr;
-                        </a>
+
+                    // Populate Students / Unique Enrollees Table from purchases user_id references
+                    const uniqueUsers = [...new Set(purchasesList.map(p => p.user_id))];
+                    document.getElementById('stat-students').textContent = uniqueUsers.length > 0 ? uniqueUsers.length : "1";
+
+                    const studTbody = document.getElementById('admin-students-table');
+                    studTbody.innerHTML = `
+                        <tr class="hover:bg-gray-900/50 transition">
+                            <td class="py-3 px-4 font-bold text-white">${user.email} (You - Admin)</td>
+                            <td class="py-3 px-4 text-gray-400 text-xs">${new Date(user.created_at || Date.now()).toLocaleDateString()}</td>
+                            <td class="py-3 px-4"><span class="bg-green-500/10 text-green-400 border border-green-500/30 px-2.5 py-1 rounded-full text-xs font-bold">Active Admin</span></td>
+                        </tr>
                     `;
-                    courseCardContainer.classList.remove('cursor-pointer');
-                    courseCardContainer.onclick = null;
+                    
+                    uniqueUsers.forEach(uid => {
+                        if (uid !== user.id) {
+                            studTbody.innerHTML += `
+                                <tr class="hover:bg-gray-900/50 transition">
+                                    <td class="py-3 px-4 font-mono text-xs text-gray-300">User ID: ${uid.substring(0, 12)}...</td>
+                                    <td class="py-3 px-4 text-gray-400 text-xs">Verified Enrollee</td>
+                                    <td class="py-3 px-4"><span class="bg-blue-500/10 text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-full text-xs font-bold">Enrolled Student</span></td>
+                                </tr>
+                            `;
+                        }
+                    });
+
+                } else {
+                    // ================= LOAD REGULAR STUDENT DASHBOARD =================
+                    document.getElementById('student-view').style.display = 'block';
+
+                    const courseTitle = document.getElementById('course-title');
+                    const courseDesc = document.getElementById('course-desc');
+                    const actionWrapper = document.getElementById('course-action-wrapper');
+                    const courseCardContainer = document.getElementById('course-card-container');
+                    
+                    let foundPurchase = false;
+                    let purchaseDataString = "";
+
+                    try {
+                        const { data: purchases, error: purchaseError } = await supabaseClient
+                            .from('purchases')
+                            .select('*')
+                            .eq('user_id', user.id);
+
+                        if (purchaseError) {
+                            console.error("Supabase purchases query error:", purchaseError.message);
+                        } else if (purchases && purchases.length > 0) {
+                            foundPurchase = true;
+                            purchaseDataString = JSON.stringify(purchases).toLowerCase();
+                        }
+                    } catch (dbErr) {
+                        console.error("Database query exception:", dbErr);
+                    }
+
+                    if (foundPurchase) {
+                        if (purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23")) {
+                            courseTitle.textContent = "7-Day Live Intensive";
+                            courseDesc.textContent = "Access your live cohort schedule, daily video links, and instructor materials.";
+                            actionWrapper.innerHTML = `
+                                <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                                    Enter Live Portal &rarr;
+                                </span>
+                            `;
+                            courseCardContainer.classList.add('cursor-pointer');
+                            courseCardContainer.onclick = () => { window.location.href = 'live-cohort.html'; }; 
+
+                        } else if (purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06")) {
+                            courseTitle.textContent = "Self-Paced Mastery";
+                            courseDesc.textContent = "Access your purchased masterclasses, interactive video modules, and step-by-step training.";
+                            actionWrapper.innerHTML = `
+                                <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                                    Access Self-Led Course &rarr;
+                                </span>
+                            `;
+                            courseCardContainer.classList.add('cursor-pointer');
+                            courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+
+                        } else {
+                            courseTitle.textContent = "Core Curriculum";
+                            courseDesc.textContent = "Access your training materials and administrative resources.";
+                            actionWrapper.innerHTML = `
+                                <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">
+                                    Open Materials &rarr;
+                                </span>
+                            `;
+                            courseCardContainer.classList.add('cursor-pointer');
+                            courseCardContainer.onclick = () => { window.location.href = 'self.html'; };
+                        }
+                    } else {
+                        courseTitle.textContent = "No Active Enrollment";
+                        courseDesc.textContent = "You do not have an active course purchase on record. Secure your spot to unlock this curriculum.";
+                        actionWrapper.innerHTML = `
+                            <a href="index.html#programs" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">
+                                View Course Options &rarr;
+                            </a>
+                        `;
+                        courseCardContainer.classList.remove('cursor-pointer');
+                        courseCardContainer.onclick = null;
+                    }
                 }
                 
                 document.getElementById('loading-screen').style.display = 'none';
