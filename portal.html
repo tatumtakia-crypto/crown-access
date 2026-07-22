@@ -124,7 +124,6 @@
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your purchased masterclasses, video walk-throughs, and step-by-step training modules.</p>
                     </div>
                     <div id="course-action-container">
-                        <!-- Dynamically injected based on purchase verification -->
                         <span class="text-xs text-gray-500 italic">Verifying purchase status...</span>
                     </div>
                 </div>
@@ -174,11 +173,9 @@
         const SUPABASE_KEY = 'sb_publishable_KmHtN8HHbMOg6P0HetqaFw_uYgz8NN8';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Explicit ID mapping configuration
-        const COURSE_IDS = {
-            SELF: '21d4cd05-7960-4096-9485-7e964b4f7b06',
-            LIVE: '42c3c928-d4ab-4c33-b350-96b8117a3e23'
-        };
+        // Your exact Course UUID mapping
+        const COURSE_SELF_ID = '21d4cd05-7960-4096-9485-7e964b4f7b06';
+        const COURSE_LIVE_ID = '42c3c928-d4ab-4c33-b350-96b8117a3e23';
 
         window.onload = async function() {
             const debugDiv = document.getElementById('debug-error');
@@ -194,7 +191,7 @@
 
                 document.getElementById('user-email').textContent = sessionData.session.user.email;
                 
-                // Fetch the courses the student owns/has access to via RLS
+                // Fetch the courses accessible to this user via RLS
                 const { data: courses, error: coursesError } = await supabaseClient
                     .from('courses')
                     .select('*');
@@ -211,31 +208,39 @@
                         <a href="checkout.html" class="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-yellow-500/30 transition">Purchase Masterclass &rarr;</a>
                     `;
                 } else {
-                    // Match against the exact UUIDs provided
-                    const hasSelf = courses.some(c => c.id === COURSE_IDS.SELF);
-                    const hasLive = courses.some(c => c.id === COURSE_IDS.LIVE);
+                    // Check if the user owns the Self-Led course
+                    const hasSelfCourse = courses.some(c => c.id === COURSE_SELF_ID);
+                    // Check if the user owns the Live Cohort course
+                    const hasLiveCourse = courses.some(c => c.id === COURSE_LIVE_ID);
 
-                    let targetPage = 'live-cohort.html';
-                    let targetId = courses[0].id;
-                    let label = 'Access Course Material';
+                    let htmlOutput = '';
 
-                    if (hasSelf) {
-                        targetPage = 'self-led.html'; // Change to match your exact file name if different
-                        targetId = COURSE_IDS.SELF;
-                        label = 'Access Self-Led Course &rarr;';
-                    } else if (hasLive) {
-                        targetPage = 'live-cohort.html';
-                        targetId = COURSE_IDS.LIVE;
-                        label = 'Access Live Cohort Course &rarr;';
-                    } else {
-                        // Fallback to whichever one they matched or the first item
-                        targetId = courses[0].id;
-                        label = 'Access Course Material &rarr;';
+                    if (hasSelfCourse) {
+                        htmlOutput += `
+                            <a href="self-led.html?course_id=${COURSE_SELF_ID}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition mb-2">
+                                Access Self-Led Course &rarr;
+                            </a>
+                        `;
                     }
 
-                    courseActionContainer.innerHTML = `
-                        <a href="${targetPage}?course_id=${targetId}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">${label}</a>
-                    `;
+                    if (hasLiveCourse) {
+                        htmlOutput += `
+                            <a href="live-cohort.html?course_id=${COURSE_LIVE_ID}" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-purple-500/20 transition mb-2">
+                                Access Live Cohort &rarr;
+                            </a>
+                        `;
+                    }
+
+                    // Fallback if they have a course record that doesn't match either specific ID exactly
+                    if (!hasSelfCourse && !hasLiveCourse && courses.length > 0) {
+                        htmlOutput = `
+                            <a href="live-cohort.html?course_id=${courses[0].id}" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">
+                                Access Course Material &rarr;
+                            </a>
+                        `;
+                    }
+
+                    courseActionContainer.innerHTML = htmlOutput;
                 }
                 
                 document.getElementById('loading-screen').style.display = 'none';
