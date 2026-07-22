@@ -33,15 +33,10 @@
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
         }
         .course-slide {
-            display: none;
+            display: none !important;
         }
-        .course-slide.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+        .course-slide.active-slide {
+            display: block !important;
         }
     </style>
 </head>
@@ -51,9 +46,9 @@
     <div id="loading-screen" class="flex min-h-screen flex-col items-center justify-center">
         <div class="text-center animate-pulse">
             <span class="block text-sm uppercase tracking-widest metallic-blue-text font-bold mb-2">Crown Access</span>
-            <span class="text-gray-400 text-xs font-semibold tracking-widest">LOADING COURSE MODULES...</span>
+            <span class="text-gray-400 text-xs font-semibold tracking-widest">LOADING COURSE ENVIRONMENT...</span>
         </div>
-        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
+        <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center px-4"></div>
     </div>
 
     <!-- Course App Container -->
@@ -69,7 +64,7 @@
                     <div class="h-6 w-[1px] bg-gray-800 hidden sm:block"></div>
                     <div>
                         <span class="text-xs uppercase tracking-widest metallic-blue-text font-bold block">Masterclass</span>
-                        <h1 class="text-sm md:text-base font-black text-white" id="course-title-header">Core Curriculum</h1>
+                        <h1 class="text-sm md:text-base font-black text-white">Core Curriculum</h1>
                     </div>
                 </div>
 
@@ -88,7 +83,7 @@
             <div class="bg-[#121212] border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl relative">
                 
                 <!-- MODULE 1 -->
-                <div class="course-slide active" data-step="1">
+                <div class="course-slide active-slide" id="slide-1">
                     <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 1</span>
                     <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Welcome & Course Orientation</h2>
                     <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
@@ -105,7 +100,7 @@
                 </div>
 
                 <!-- MODULE 2 -->
-                <div class="course-slide" data-step="2">
+                <div class="course-slide" id="slide-2">
                     <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 2</span>
                     <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Core Framework Setup</h2>
                     <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
@@ -122,7 +117,7 @@
                 </div>
 
                 <!-- MODULE 3 -->
-                <div class="course-slide" data-step="3">
+                <div class="course-slide" id="slide-3">
                     <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 3</span>
                     <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Advanced Execution Strategies</h2>
                     <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
@@ -139,7 +134,7 @@
                 </div>
 
                 <!-- MODULE 4 -->
-                <div class="course-slide" data-step="4">
+                <div class="course-slide" id="slide-4">
                     <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Module 4</span>
                     <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Troubleshooting & Edge Cases</h2>
                     <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
@@ -148,7 +143,7 @@
                 </div>
 
                 <!-- MODULE 5 -->
-                <div class="course-slide" data-step="5">
+                <div class="course-slide" id="slide-5">
                     <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-6">Final Module</span>
                     <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Graduation & Next Steps</h2>
                     <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
@@ -163,13 +158,13 @@
 
                 <!-- Navigation Controls Bar Inside Card Bottom -->
                 <div class="flex items-center justify-between mt-10 pt-6 border-t border-gray-800">
-                    <button id="prev-btn" onclick="changeSlide(-1)" class="bg-gray-900 hover:bg-gray-800 text-gray-300 border border-gray-700 font-bold px-5 py-2.5 rounded-xl text-sm transition disabled:opacity-30 disabled:cursor-not-allowed">
+                    <button id="prev-btn" type="button" class="bg-gray-900 hover:bg-gray-800 text-gray-300 border border-gray-700 font-bold px-5 py-2.5 rounded-xl text-sm transition cursor-pointer">
                         &larr; Previous Module
                     </button>
                     
                     <span id="step-counter-text" class="text-xs text-gray-500 font-mono">1 / 5</span>
 
-                    <button id="next-btn" onclick="changeSlide(1)" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-900/20 disabled:opacity-30 disabled:cursor-not-allowed">
+                    <button id="next-btn" type="button" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-900/20 cursor-pointer">
                         Next Module &rarr;
                     </button>
                 </div>
@@ -193,53 +188,76 @@
         let currentSlide = 1;
         const totalSlides = 5;
 
-        window.onload = async function() {
+        window.addEventListener('DOMContentLoaded', async () => {
             const debugDiv = document.getElementById('debug-error');
             try {
                 const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
                 if (sessionError) throw sessionError;
                 
-                if (!sessionData.session) {
+                if (!sessionData || !sessionData.session) {
                     window.location.replace('login.html');
                     return;
                 }
 
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('app-content').style.display = 'flex';
-                updateSlideView();
+                
+                // Initialize button listeners explicitly
+                document.getElementById('prev-btn').addEventListener('click', () => navigateSlides(-1));
+                document.getElementById('next-btn').addEventListener('click', () => navigateSlides(1));
+
+                updateView();
 
             } catch (err) {
                 console.error("Course Auth Error:", err);
-                debugDiv.innerHTML = "Session error. <a href='login.html' class='text-blue-400 underline'>Please login again</a>";
+                debugDiv.innerHTML = "Session error: " + err.message + "<br><a href='login.html' class='text-blue-400 underline mt-2 block'>Please login again</a>";
             }
-        };
+        });
 
-        function changeSlide(direction) {
+        function navigateSlides(direction) {
             currentSlide += direction;
             if (currentSlide < 1) currentSlide = 1;
             if (currentSlide > totalSlides) currentSlide = totalSlides;
-            updateSlideView();
+            updateView();
         }
 
-        function updateSlideView() {
-            // Toggle slide elements
-            document.querySelectorAll('.course-slide').forEach((slide, index) => {
-                if (index + 1 === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
+        function updateView() {
+            // Manage slide display visibility directly via ID
+            for (let i = 1; i <= totalSlides; i++) {
+                const slideEl = document.getElementById(`slide-${i}`);
+                if (slideEl) {
+                    if (i === currentSlide) {
+                        slideEl.classList.add('active-slide');
+                    } else {
+                        slideEl.classList.remove('active-slide');
+                    }
                 }
-            });
+            }
 
-            // Update Header & Footer Indicators
+            // Update text labels
             document.getElementById('page-indicator').textContent = `Module ${currentSlide} of ${totalSlides}`;
             document.getElementById('step-counter-text').textContent = `${currentSlide} / ${totalSlides}`;
 
-            // Handle Button States
-            document.getElementById('prev-btn').disabled = (currentSlide === 1);
-            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
-            
-            // Scroll to top of view on change
+            // Handle button accessibility opacity states
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (currentSlide === 1) {
+                prevBtn.style.opacity = '0.3';
+                prevBtn.style.pointerEvents = 'none';
+            } else {
+                prevBtn.style.opacity = '1';
+                prevBtn.style.pointerEvents = 'auto';
+            }
+
+            if (currentSlide === totalSlides) {
+                nextBtn.style.opacity = '0.3';
+                nextBtn.style.pointerEvents = 'none';
+            } else {
+                nextBtn.style.opacity = '1';
+                nextBtn.style.pointerEvents = 'auto';
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
