@@ -65,10 +65,10 @@
         <div id="debug-error" class="text-red-500 text-sm font-mono mt-6 max-w-md text-center"></div>
     </div>
 
-    <!-- Main Dashboard (Forced hidden until JS clears it) -->
+    <!-- Main Dashboard -->
     <div id="dashboard-content" style="display: none;" class="flex-col justify-between min-h-screen w-full">
         
-        <!-- Navigation Bar -->
+        <!-- Navigation Bar with Top Header Buttons -->
         <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
@@ -82,16 +82,31 @@
                         <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Student Dashboard</span>
                     </div>
                 </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <span id="user-email" class="text-sm font-semibold text-gray-400 hidden md:inline"></span>
-                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3.5 py-2.5 rounded-lg transition">
+
+                <!-- Header Actions: Email, Top Quick Links, and Sign Out -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <span id="user-email" class="text-xs font-semibold text-gray-400 hidden lg:inline mr-2"></span>
+                    
+                    <a href="resources.html" class="border border-yellow-500/40 hover:bg-yellow-500/10 text-yellow-400 text-xs font-bold px-3 py-2 rounded-lg transition">
+                        📁 Resources
+                    </a>
+
+                    <a href="chat.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition">
+                        💬 Chat
+                    </a>
+
+                    <a href="loadboard.html" class="border border-blue-500/40 hover:bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-2 rounded-lg transition">
+                        🚛 Loadboard
+                    </a>
+
+                    <button id="logout-btn" class="border border-red-500/40 hover:bg-red-500/10 text-red-400 text-xs font-bold px-3 py-2 rounded-lg transition">
                         Sign Out
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Dashboard Content -->
+        <!-- Main Dashboard Content (2x2 Grid) -->
         <main class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow">
             <div class="mb-12">
                 <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
@@ -99,7 +114,6 @@
                 <p class="text-gray-400 text-sm md:text-base">Access your masterclasses, resource vault, community chat, and mock loadboard below.</p>
             </div>
 
-            <!-- Unified 2x2 Grid Layout -->
             <div class="grid md:grid-cols-2 gap-8">
                 
                 <!-- Card 1: Course Material -->
@@ -110,7 +124,6 @@
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your enrolled courses, video walk-throughs, and step-by-step training modules.</p>
                     </div>
                     <div id="courses-link-container">
-                        <!-- Populated dynamically via JS or falls back to direct link -->
                         <a href="live-cohort.html" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition">Access Course Material &rarr;</a>
                     </div>
                 </div>
@@ -174,7 +187,6 @@
 
                 document.getElementById('user-email').textContent = sessionData.session.user.email;
                 
-                // Optionally pull dynamic course ID if available to link the masterclass card directly
                 const { data: courses } = await supabaseClient.from('courses').select('id').limit(1);
                 if (courses && courses.length > 0) {
                     document.getElementById('courses-link-container').innerHTML = `
