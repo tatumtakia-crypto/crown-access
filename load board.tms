@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown Dispatch | 50,000 Multi-Platform Feed - Simulation Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#080808',
+                        brandCard: '#121212',
+                        brandBorder: '#222222',
+                    },
+                    backgroundImage: {
+                        'metallic-gold': 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%)',
+                        'metallic-blue': 'linear-gradient(135deg, #1e3a8a 0%, #60a5fa 30%, #1d4ed8 50%, #93c5fd 75%, #1e40af 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .metallic-gold-text {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-blue-text {
+            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-card-gold {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+        }
+        .shine-button-gold {
+            background: linear-gradient(135deg, #bf953f 0%, #e6ca65 50%, #aa771c 100%);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        .shine-button-gold:hover {
+            background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 50%, #d4af37 100%);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-yellow-500 selection:text-black">
+
+    <!-- Header / Navigation matching Crown Access brand -->
+    <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg shadow-blue-900/30 flex items-center justify-center">
+                    <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                        <span class="metallic-blue-text font-serif italic text-2xl">C</span><span class="metallic-gold-text font-serif italic text-2xl">A</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                    <span class="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow">Simulation Lab Feed</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-300">
+                <a href="#" class="hover:text-yellow-400 transition">Simulation Feed</a>
+                <a href="#" class="text-yellow-400 font-bold">Total Available: <span id="headerLoadCount">50,000</span></a>
+                <a href="index.html" class="shine-button-gold text-black px-6 py-3 rounded-lg font-bold transition">Academy Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto p-6 flex-grow w-full">
+        
+        <!-- Section Title Banner -->
+        <div class="text-center my-8">
+            <span class="inline-block py-1.5 px-5 rounded-full bg-yellow-500/10 border border-yellow-500/30 metallic-gold-text text-xs font-bold tracking-widest uppercase mb-3 shadow-inner">
+                DAT & Truckstop Style Multi-Platform Feed
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-2 text-white">Crown Dispatch Matrix</h1>
+            <p class="text-gray-400 text-sm max-w-xl mx-auto">Interactive mock load board simulating live freight execution, rate per mile calculations, and instant booking simulations.</p>
+        </div>
+
+        <!-- Advanced Filters Bar matching brandCard styling -->
+        <div class="bg-brandCard border border-yellow-500/30 p-6 rounded-3xl mb-8 space-y-4 shadow-xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <input type="text" id="originFilter" placeholder="Origin (City, State)" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 text-zinc-200">
+                <input type="text" id="destFilter" placeholder="Destination (City, State)" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 text-zinc-200">
+                <select id="platformFilter" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 text-zinc-200">
+                    <option value="">All Board Sources (DAT & Truckstop)</option>
+                    <option value="DAT One Simulation">DAT One Simulation</option>
+                    <option value="Truckstop Pro Sim">Truckstop Pro Sim</option>
+                </select>
+                <select id="routeTypeFilter" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 text-zinc-200">
+                    <option value="">All Route Types</option>
+                    <option value="Interstate">Interstate (Cross-State)</option>
+                    <option value="Intrastate">Intrastate (In-State)</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-center pt-3 border-t border-gray-800/80">
+                <select id="equipmentFilter" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 text-zinc-200">
+                    <option value="">All Equipment Types</option>
+                    <option value="Dry Van">Dry Van</option>
+                    <option value="Reefer">Reefer</option>
+                    <option value="Flatbed">Flatbed</option>
+                    <option value="Power Only">Power Only</option>
+                    <option value="Step Deck">Step Deck</option>
+                    <option value="Box Truck">Box Truck</option>
+                </select>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs text-gray-400 whitespace-nowrap">Min RPM ($):</span>
+                    <input type="number" id="minRpmFilter" placeholder="e.g. 2.50" step="0.10" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 w-full text-zinc-200">
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs text-gray-400 whitespace-nowrap">Max Weight:</span>
+                    <input type="number" id="maxWeightFilter" placeholder="lbs (e.g. 40000)" class="bg-black/60 border border-gray-800 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-yellow-500 w-full text-zinc-200">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <span id="loadingStatus" class="text-xs metallic-gold-text hidden self-center font-bold">Filtering...</span>
+                    <button onclick="applyFilters()" class="shine-button-gold text-black font-extrabold px-6 py-3 rounded-xl text-sm transition w-full md:w-auto">Search Loads</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Table Card -->
+        <div class="bg-brandCard rounded-3xl border border-gray-800 overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-black/80 text-gray-400 uppercase text-xs tracking-wider border-b border-gray-800">
+                            <th class="p-4">Source Board</th>
+                            <th class="p-4">Origin ➔ Destination</th>
+                            <th class="p-4">Type</th>
+                            <th class="p-4">Equipment</th>
+                            <th class="p-4">Weight / Miles</th>
+                            <th class="p-4">Rate & RPM</th>
+                            <th class="p-4 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loadTableBody" class="divide-y divide-gray-800 text-sm">
+                        <!-- Dynamic Rows Injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-between items-center mt-6 text-sm text-gray-400 px-2">
+            <div>Showing page <span id="currentPage" class="text-white font-semibold">1</span> of <span id="totalPages" class="text-white font-semibold">1</span></div>
+            <div class="space-x-3">
+                <button onclick="changePage(-1)" class="bg-brandCard border border-gray-800 px-5 py-2.5 rounded-xl hover:border-yellow-500/40 text-white transition-colors">Previous</button>
+                <button onclick="changePage(1)" class="bg-brandCard border border-gray-800 px-5 py-2.5 rounded-xl hover:border-yellow-500/40 text-white transition-colors">Next</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Confirmation Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-brandCard border border-yellow-500/40 max-w-lg w-full rounded-3xl p-8 relative shadow-2xl">
+            <h3 class="text-xl font-black metallic-gold-text mb-2">🎉 Load Booked Successfully!</h3>
+            <p class="text-sm text-gray-300 mb-6">You have secured this load simulation via Crown Access Dispatch Matrix. Summary:</p>
+            
+            <div id="modalContent" class="bg-black/60 p-5 rounded-2xl text-xs space-y-2.5 border border-gray-800 font-mono text-gray-300 mb-6">
+                <!-- Dynamic Rate Con Details -->
+            </div>
+
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeModal()" class="shine-button-gold text-black font-extrabold px-6 py-3 rounded-xl text-sm transition">Close / Return</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer matching Crown Access brand -->
+    <footer class="py-12 px-6 border-t border-gray-800 text-center text-sm text-gray-500 bg-brandDark mt-12">
+        <p class="mb-2 font-medium">&copy; 2026 Crown Access • The Black Label Dispatch Academy. All rights reserved.</p>
+        <p class="text-xs text-gray-600">Engineered with metallic styling, 50,000 live-feed simulation logic, and high-performance architecture.</p>
+    </footer>
+
+    <script>
+        const hubCities = [
+            { city: "Atlanta", state: "GA" }, { city: "Savannah", state: "GA" },
+            { city: "Chicago", state: "IL" }, { city: "Peoria", state: "IL" },
+            { city: "Dallas", state: "TX" }, { city: "Houston", state: "TX" }, { city: "El Paso", state: "TX" }, { city: "San Antonio", state: "TX" },
+            { city: "Los Angeles", state: "CA" }, { city: "San Francisco", state: "CA" }, { city: "Fresno", state: "CA" },
+            { city: "Phoenix", state: "AZ" }, { city: "Tucson", state: "AZ" },
+            { city: "Philadelphia", state: "PA" }, { city: "Pittsburgh", state: "PA" },
+            { city: "Denver", state: "CO" }, { city: "Colorado Springs", state: "CO" },
+            { city: "Seattle", state: "WA" }, { city: "Spokane", state: "WA" },
+            { city: "Boston", state: "MA" }, { city: "Worcester", state: "MA" },
+            { city: "Nashville", state: "TN" }, { city: "Memphis", state: "TN" },
+            { city: "Charlotte", state: "NC" }, { city: "Raleigh", state: "NC" },
+            { city: "Detroit", state: "MI" }, { city: "Grand Rapids", state: "MI" },
+            { city: "Portland", state: "OR" }, { city: "Eugene", state: "OR" },
+            { city: "Las Vegas", state: "NV" }, { city: "Reno", state: "NV" },
+            { city: "Louisville", state: "KY" }, { city: "Lexington", state: "KY" },
+            { city: "Kansas City", state: "MO" }, { city: "St. Louis", state: "MO" },
+            { city: "Columbus", state: "OH" }, { city: "Cleveland", state: "OH" },
+            { city: "Indianapolis", state: "IN" }, { city: "Gary", state: "IN" },
+            { city: "Jacksonville", state: "FL" }, { city: "Miami", state: "FL" }, { city: "Orlando", state: "FL" },
+            { city: "Omaha", state: "NE" }, { city: "Lincoln", state: "NE" },
+            { city: "Salt Lake City", state: "UT" }, { city: "Provo", state: "UT" },
+            { city: "Oklahoma City", state: "OK" }, { city: "Tulsa", state: "OK" }
+        ];
+        
+        const equipmentTypes = ["Dry Van", "Reefer", "Flatbed", "Power Only", "Step Deck", "Box Truck"];
+        const platforms = ["DAT One Simulation", "Truckstop Pro Sim"];
+        
+        const brokerNames = [
+            "Crown Access Logistics", "Black Label Freight Solutions", "Apex Logistics Group", 
+            "Sunbelt Freight Solutions", "Ironbound Logistics", "Midwest Haulers Inc.", 
+            "Vanguard Freight Systems", "Coyote Logistics (Sim)", "TQL Simulation", "Swiftboard Brokerage"
+        ];
+
+        let allLoads = [];
+        let filteredLoads = [];
+        let currentPage = 1;
+        const pageSize = 25;
+
+        function generateMassiveDatabase() {
+            const generated = [];
+            for (let i = 1; i <= 50000; i++) {
+                const originObj = hubCities[Math.floor(Math.random() * hubCities.length)];
+                
+                let destObj;
+                const isIntrastate = Math.random() < 0.20;
+                
+                if (isIntrastate) {
+                    const sameStateOptions = hubCities.filter(c => c.state === originObj.state && c.city !== originObj.city);
+                    if (sameStateOptions.length > 0) {
+                        destObj = sameStateOptions[Math.floor(Math.random() * sameStateOptions.length)];
+                    } else {
+                        destObj = hubCities[Math.floor(Math.random() * hubCities.length)];
+                    }
+                } else {
+                    let diffStateOptions = hubCities.filter(c => c.state !== originObj.state);
+                    destObj = diffStateOptions[Math.floor(Math.random() * diffStateOptions.length)];
+                }
+
+                const routeType = (originObj.state === destObj.state) ? "Intrastate" : "Interstate";
+                const originStr = `${originObj.city}, ${originObj.state}`;
+                const destStr = `${destObj.city}, ${destObj.state}`;
+                
+                const equipment = equipmentTypes[Math.floor(Math.random() * equipmentTypes.length)];
+                const platform = platforms[Math.floor(Math.random() * platforms.length)];
+                const miles = routeType === "Intrastate" ? Math.floor(Math.random() * 250) + 50 : Math.floor(Math.random() * 1200) + 200;
+                const ratePerMile = parseFloat((Math.random() * (4.20 - 1.65) + 1.65).toFixed(2));
+                const rate = "$" + Math.round(miles * ratePerMile).toLocaleString();
+                const weightNum = Math.floor(Math.random() * 26) + 15;
+                const weight = weightNum + ",000 lbs";
+                const broker = brokerNames[Math.floor(Math.random() * brokerNames.length)];
+
+                generated.push({ 
+                    id: i, 
+                    platform,
+                    origin: originStr, 
+                    dest: destStr, 
+                    routeType, 
+                    equipment, 
+                    weightRaw: weightNum * 1000,
+                    weight, 
+                    miles, 
+                    rateNum: ratePerMile,
+                    rate, 
+                    broker 
+                });
+            }
+            allLoads = generated;
+            filteredLoads = allLoads;
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('loadTableBody');
+            tbody.innerHTML = '';
+            
+            const totalPages = Math.ceil(filteredLoads.length / pageSize) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            document.getElementById('currentPage').innerText = currentPage;
+            document.getElementById('totalPages').innerText = totalPages;
+            const countFormatted = filteredLoads.length.toLocaleString();
+            document.getElementById('headerLoadCount').innerText = countFormatted;
+
+            const start = (currentPage - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredLoads.slice(start, end);
+
+            if(pageData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-gray-500">No mock loads match your filter criteria across selected Crown Access boards.</td></tr>`;
+                return;
+            }
+
+            pageData.forEach(load => {
+                const routeBadgeColor = load.routeType === "Interstate" ? "bg-yellow-500/10 text-yellow-400 border-yellow-500/30" : "bg-gray-800 text-gray-300 border-gray-700";
+                const platformBadge = load.platform.includes("DAT") ? "bg-blue-600/20 text-blue-400 border-blue-500/30" : "bg-gray-800 text-gray-300 border-gray-700";
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-black/40 transition-colors">
+                        <td class="p-4"><span class="border px-2.5 py-1 rounded-md text-xs font-semibold ${platformBadge}">${load.platform}</span></td>
+                        <td class="p-4 font-medium text-gray-200">${load.origin} <span class="text-gray-500">➔</span> ${load.dest}</td>
+                        <td class="p-4"><span class="border px-2.5 py-1 rounded-md text-xs font-semibold ${routeBadgeColor}">${load.routeType}</span></td>
+                        <td class="p-4"><span class="bg-gray-800 px-2.5 py-1 rounded-md text-xs text-gray-300">${load.equipment}</span></td>
+                        <td class="p-4 text-gray-400 text-xs">${load.weight}<br><span class="text-gray-500">${load.miles} miles</span></td>
+                        <td class="p-4">
+                            <span class="font-bold metallic-gold-text">${load.rate}</span><br>
+                            <span class="text-xs bg-yellow-950/40 text-yellow-300 border border-yellow-800/60 px-1.5 py-0.5 rounded font-mono">$${load.rateNum.toFixed(2)}/mi</span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="bookLoad(${load.id})" class="shine-button-gold text-black px-3.5 py-2 rounded-xl text-xs font-extrabold transition">Book Load</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function applyFilters() {
+            document.getElementById('loadingStatus').classList.remove('hidden');
+            setTimeout(() => {
+                const originVal = document.getElementById('originFilter').value.toLowerCase();
+                const destVal = document.getElementById('destFilter').value.toLowerCase();
+                const platformVal = document.getElementById('platformFilter').value;
+                const routeTypeVal = document.getElementById('routeTypeFilter').value;
+                const equipVal = document.getElementById('equipmentFilter').value;
+                const minRpmVal = parseFloat(document.getElementById('minRpmFilter').value) || 0;
+                const maxWeightVal = parseInt(document.getElementById('maxWeightFilter').value) || Infinity;
+
+                filteredLoads = allLoads.filter(load => {
+                    const matchesOrigin = load.origin.toLowerCase().includes(originVal);
+                    const matchesDest = load.dest.toLowerCase().includes(destVal);
+                    const matchesPlatform = platformVal === "" || load.platform === platformVal;
+                    const matchesRoute = routeTypeVal === "" || load.routeType === routeTypeVal;
+                    const matchesEquip = equipVal === "" || load.equipment === equipVal;
+                    const matchesRpm = load.rateNum >= minRpmVal;
+                    const matchesWeight = load.weightRaw <= maxWeightVal;
+
+                    return matchesOrigin && matchesDest && matchesPlatform && matchesRoute && matchesEquip && matchesRpm && matchesWeight;
+                });
+
+                currentPage = 1;
+                renderTable();
+                document.getElementById('loadingStatus').classList.add('hidden');
+            }, 50);
+        }
+
+        function changePage(direction) {
+            const totalPages = Math.ceil(filteredLoads.length / pageSize) || 1;
+            currentPage += direction;
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            renderTable();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function bookLoad(id) {
+            const load = allLoads.find(l => l.id === id);
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div><strong>Source Simulation:</strong> ${load.platform}</div>
+                <div><strong>Brokerage Partner:</strong> ${load.broker}</div>
+                <div><strong>Route Specification:</strong> ${load.routeType} (${load.origin} ➔ ${load.dest})</div>
+                <div><strong>Equipment & Payload:</strong> ${load.equipment} (${load.weight})</div>
+                <div><strong>Total Linehaul Rate:</strong> ${load.rate} (${load.miles} miles)</div>
+                <div><strong>Calculated RPM:</strong> $${load.rateNum.toFixed(2)} per mile</div>
+            `;
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('bookingModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.getElementById('bookingModal').classList.remove('flex');
+        }
+
+        window.onload = generateMassiveDatabase;
+    </script>
+</body>
+</html>
