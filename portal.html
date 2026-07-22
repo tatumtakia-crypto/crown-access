@@ -116,7 +116,7 @@
 
             <div class="grid md:grid-cols-2 gap-8">
                 
-                <!-- Card 1: Course Material (Forced JavaScript Click Redirection) -->
+                <!-- Card 1: Course Material (Forced JavaScript Click Redirection with full debug verification) -->
                 <div class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Core Curriculum</span>
@@ -124,7 +124,7 @@
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">Access your purchased masterclasses, video walk-throughs, and step-by-step training modules.</p>
                     </div>
                     <div>
-                        <button onclick="window.location.href='self.html'" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition cursor-pointer">
+                        <button onclick="console.log('Navigating to self.html'); window.location.assign('self.html');" class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block hover:bg-blue-500/20 transition cursor-pointer">
                             Access Self-Led Course &rarr;
                         </button>
                     </div>
