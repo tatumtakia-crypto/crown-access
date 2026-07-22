@@ -210,7 +210,6 @@
                     } else if (purchases && purchases.length > 0) {
                         foundPurchase = true;
                         // Turn all purchase data into a lowercase string so we can easily search for keywords
-                        // This prevents errors if you named the database column something different (like 'item_name' vs 'product')
                         purchaseDataString = JSON.stringify(purchases).toLowerCase();
                     }
                 } catch (dbErr) {
@@ -229,8 +228,8 @@
                             </span>
                         `;
                         courseCardContainer.classList.add('cursor-pointer');
-                        // Replace 'live.html' with whatever your live portal page is named
-                        courseCardContainer.onclick = () => { window.location.href = 'live.html'; }; 
+                        // Updated to point to live-cohort.html
+                        courseCardContainer.onclick = () => { window.location.href = 'live-cohort.html'; }; 
 
                     } else if (purchaseDataString.includes("self")) {
                         // User bought the Self-Paced Course
