@@ -115,14 +115,14 @@
                     </a>
                 </div>
 
-                <!-- Full Course -->
+                <!-- Full Course (Dynamically Updated via JS) -->
                 <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Core Curriculum</span>
-                        <h3 class="text-lg font-black text-white mb-2">Full Course Material</h3>
+                        <h3 id="course-card-title" class="text-lg font-black text-white mb-2">Full Course Material</h3>
                         <p class="text-gray-300 text-xs mb-6 leading-relaxed">Review the master training modules, video walk-throughs, and foundational frameworks.</p>
                     </div>
-                    <a href="full course.html" class="text-xs text-yellow-400 border border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
+                    <a id="course-link-btn" href="full course.html" class="text-xs text-yellow-400 border border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20 px-4 py-2.5 rounded-xl font-bold text-center block transition">
                         Access Course &rarr;
                     </a>
                 </div>
@@ -238,8 +238,56 @@
                     return;
                 }
 
-                document.getElementById('user-email').textContent = sessionData.session.user.email;
+                const user = sessionData.session.user;
+                document.getElementById('user-email').textContent = user.email;
                 
+                // Fetch the user's purchases to dynamically adjust the course link
+                const { data: purchases, error: purchaseError } = await supabaseClient
+                    .from('purchases')
+                    .select('*')
+                    .eq('user_id', user.id);
+
+                let purchaseDataString = purchases && purchases.length > 0 ? JSON.stringify(purchases).toLowerCase() : "";
+
+                // Purchase tier UUIDs
+                let hasLive = purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23");
+                let hasSelf = purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06");
+                let hasCarrier = purchaseDataString.includes("c54c173b-cb2f-4831-87b5-7e70f4974e9d");
+
+                // Check Admin Access
+                let isAdmin = false;
+                try {
+                    const { data: profileData } = await supabaseClient
+                        .from('profiles')
+                        .select('role')
+                        .eq('id', user.id)
+                        .single();
+
+                    if (profileData && (profileData.role || '').toLowerCase().includes('admin')) {
+                        isAdmin = true;
+                    }
+                } catch (e) {
+                    console.warn("Could not query profiles table");
+                }
+
+                const courseBtn = document.getElementById('course-link-btn');
+                const courseTitle = document.getElementById('course-card-title');
+
+                // Route the Full Course button based on permissions
+                if (isAdmin || hasLive || hasSelf) {
+                    courseBtn.href = "full course.html";
+                } else if (hasCarrier) {
+                    courseBtn.href = "carrier.html";
+                    if(courseTitle) courseTitle.textContent = "Carrier Acquisition Material";
+                } else {
+                    courseBtn.href = "#";
+                    courseBtn.style.opacity = '0.5';
+                    courseBtn.onclick = (e) => { 
+                        e.preventDefault(); 
+                        alert("You do not have access to this material. Please upgrade."); 
+                    };
+                }
+
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('dashboard-content').style.display = 'flex';
 
