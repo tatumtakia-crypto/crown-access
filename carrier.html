@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrier Acquisition Masterclass | Crown Access Interactive Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#080808',
+                        brandCard: '#121212',
+                        brandBorder: '#222222',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .metallic-gold-text {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-blue-text {
+            background: linear-gradient(135deg, #1d4ed8 0%, #93c5fd 35%, #2563eb 60%, #eff6ff 80%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+        .metallic-card {
+            background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
+        }
+        .shine-button-gold {
+            background: linear-gradient(135deg, #bf953f 0%, #e6ca65 50%, #aa771c 100%);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        .shine-button-gold:hover:not(:disabled) {
+            background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 50%, #d4af37 100%);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+        }
+        .shine-button-gold:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .quiz-radio:checked + div {
+            border-color: #d4af37;
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-gray-100 font-sans antialiased min-h-screen flex flex-col selection:bg-yellow-500 selection:text-black">
+
+    <!-- Header & Progress Bar -->
+    <header class="border-b border-gray-800/80 bg-brandDark/95 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 bg-gradient-to-br from-blue-600 via-gray-900 to-yellow-600 rounded-xl p-[2px] shadow-lg flex items-center justify-center shrink-0">
+                    <div class="w-full h-full bg-brandDark rounded-[10px] flex items-center justify-center font-black text-xl">
+                        <span class="metallic-blue-text font-serif italic">C</span><span class="metallic-gold-text font-serif italic">A</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="block text-[10px] uppercase tracking-widest metallic-gold-text font-bold">Crown Access</span>
+                    <span class="text-sm font-black text-white hidden sm:block">Interactive Masterclass</span>
+                </div>
+            </div>
+            <div class="flex-1 max-w-md mx-8 hidden md:block">
+                <div class="w-full bg-gray-900 rounded-full h-2">
+                    <div id="progress-bar" class="bg-gradient-to-r from-yellow-600 to-yellow-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="text-center text-[10px] text-gray-400 mt-1 uppercase tracking-widest" id="progress-text">Slide 1 of X</div>
+            </div>
+            
+            <!-- EXPLICITLY LINKED EXIT BUTTON TO PORTAL.HTML -->
+            <a href="portal.html" class="flex items-center space-x-1 border border-gray-700 bg-black hover:bg-gray-900 text-gray-300 hover:text-white text-xs font-bold py-1.5 px-3 rounded-lg transition cursor-pointer">
+                <span>Exit Course</span>
+                <span class="text-lg leading-none">&times;</span>
+            </a>
+        </div>
+        <!-- Mobile Progress -->
+        <div class="w-full bg-gray-900 h-1 md:hidden">
+            <div id="progress-bar-mobile" class="bg-gradient-to-r from-yellow-600 to-yellow-400 h-1 transition-all duration-300" style="width: 0%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-8">
+        <div class="w-full max-w-5xl metallic-card rounded-3xl p-6 sm:p-12 relative overflow-hidden min-h-[500px] flex flex-col justify-between">
+            
+            <div id="slide-container" class="flex-grow">
+
+                <!-- INTRO SLIDE (1) -->
+                <div class="slide active" data-slide="1">
+                    <div class="text-center py-10">
+                        <span class="inline-block py-1.5 px-5 rounded-full bg-blue-500/10 border border-blue-500/30 metallic-blue-text text-xs font-bold tracking-widest uppercase mb-6">
+                            Welcome to the Masterclass
+                        </span>
+                        <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-6 text-white leading-tight">
+                            Carrier Acquisition <br><span class="metallic-gold-text">Mastery</span>
+                        </h1>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
+                            This interactive 3-Day curriculum is designed to teach you how to build a scalable inbound machine, close high-value owner-operators, and secure dedicated freight. 
+                        </p>
+                        <p class="text-yellow-500/80 text-sm font-semibold">Each day's module contains approximately 45 minutes of deep-dive strategic content. Click "Next" to begin.</p>
+                    </div>
+                </div>
+
+                <!-- COURSE OVERVIEW SLIDE (2) -->
+                <div class="slide" data-slide="2">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Roadmap</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Course Overview</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>Over the next three days, we will cover the exact blueprint for building a profitable, scalable logistics agency. Here is what to expect in each module:</p>
+                        <div class="grid sm:grid-cols-1 gap-4 mt-6">
+                            <div class="bg-black/50 p-5 rounded-xl border border-gray-800 flex items-start space-x-4">
+                                <div class="bg-blue-900/30 text-blue-400 font-black text-xl rounded-lg w-12 h-12 flex items-center justify-center shrink-0">1</div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Day 1: Brand Positioning & The Freight Triangle</h4>
+                                    <p class="text-xs text-gray-400 leading-relaxed">Understand the psychology of carriers, brokers, and shippers. Learn how to craft "Pain Point Marketing" that sets you apart from amateur dispatchers and builds a digital storefront that establishes immediate trust.</p>
+                                </div>
+                            </div>
+                            <div class="bg-black/50 p-5 rounded-xl border border-gray-800 flex items-start space-x-4">
+                                <div class="bg-yellow-900/30 text-yellow-400 font-black text-xl rounded-lg w-12 h-12 flex items-center justify-center shrink-0">2</div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Day 2: Automated Attraction & Lead Magnets</h4>
+                                    <p class="text-xs text-gray-400 leading-relaxed">Transition from cold-calling to inbound generation. Learn to create high-value Lead Magnets, leverage social media authority, and actively source dedicated lanes from direct shippers.</p>
+                                </div>
+                            </div>
+                            <div class="bg-black/50 p-5 rounded-xl border border-gray-800 flex items-start space-x-4">
+                                <div class="bg-gray-800 text-gray-300 font-black text-xl rounded-lg w-12 h-12 flex items-center justify-center shrink-0">3</div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Day 3: Inbound Conversion & Compliance</h4>
+                                    <p class="text-xs text-gray-400 leading-relaxed">Master the "Discovery Call" to consult and close inbound carrier leads. Secure your business with proper compliance documents (Dispatch Agreements, POA, W-9s) and learn how to manage daily expectations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 1: SLIDE 1 (3) -->
+                <div class="slide" data-slide="3">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 1 • Module 1</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">The Freight Triangle Ecosystem</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>To attract the best carriers, you must first understand the complete ecosystem. Successful dispatchers don't just "find loads." They manage the friction between the three pillars of the supply chain.</p>
+                        <div class="grid sm:grid-cols-3 gap-4 mt-6">
+                            <div class="bg-black/50 p-5 rounded-xl border border-gray-800">
+                                <h4 class="font-bold text-white mb-2">1. Carriers (Owner-Operators)</h4>
+                                <p class="text-xs"><strong>Goal:</strong> Maximum profitability and drive time.<br><strong>Pain Points:</strong> Deadheading, waiting at docks unpaid, dealing with broker setups, invoicing, and rate fluctuations.</p>
+                            </div>
+                            <div class="bg-black/50 p-5 rounded-xl border border-gray-800">
+                                <h4 class="font-bold text-white mb-2">2. Brokers</h4>
+                                <p class="text-xs"><strong>Goal:</strong> Reliable capacity for their shippers.<br><strong>Pain Points:</strong> Trucks falling off loads, lack of communication in transit, missed appointments, and carrier fraud.</p>
+                            </div>
+                            <div class="bg-black/50 p-5 rounded-xl border border-gray-800">
+                                <h4 class="font-bold text-white mb-2">3. Direct Shippers</h4>
+                                <p class="text-xs"><strong>Goal:</strong> Consistent, predictable supply chain.<br><strong>Pain Points:</strong> Spot market volatility, damaged freight, inability to forecast logistics spend.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 1: SLIDE 2 (4) -->
+                <div class="slide" data-slide="4">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 1 • Module 2</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Pain Point Marketing (The Hook)</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>Stop sounding like every other beginner dispatcher on Facebook. If your pitch is "I charge 8% and will book your loads," you are competing on price (a race to the bottom).</p>
+                        <p><strong>You must pivot to Pain Point Marketing.</strong> Address the specific headaches you learned in Module 1.</p>
+                        <div class="bg-gray-900/50 p-6 rounded-xl border-l-4 border-red-500 mt-4">
+                            <h4 class="text-red-400 font-bold mb-2">❌ The Amateur Pitch</h4>
+                            <p class="text-sm italic">"Need a dispatcher? We have the best rates. PM me. 8% fee."</p>
+                        </div>
+                        <div class="bg-yellow-900/20 p-6 rounded-xl border-l-4 border-yellow-500 mt-4">
+                            <h4 class="text-yellow-400 font-bold mb-2">✅ The Crown Access Pitch</h4>
+                            <p class="text-sm italic">"Tired of eating deadhead miles out of the Midwest? I specialize in keeping flatbeds moving at $3.00+/mile on continuous triangle routes, and I handle 100% of your broker packets and invoicing so you just drive."</p>
+                        </div>
+                        <p class="mt-4 text-sm font-semibold">Notice the difference? The second pitch identifies a target (Flatbeds in the Midwest), states a solution ($3.00+ on triangle routes), and relieves an administrative headache (packets/invoicing).</p>
+                    </div>
+                </div>
+
+                <!-- DAY 1: SLIDE 3 (5) -->
+                <div class="slide" data-slide="5">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 1 • Module 3</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Building Your Digital Storefront</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>When a carrier or broker hears your pitch, the very next thing they do is Google you. If you only have a Gmail address and no website, you instantly lose trust.</p>
+                        <h4 class="text-white font-bold mt-4">The Non-Negotiable Setup:</h4>
+                        <ul class="list-disc pl-5 space-y-3 text-sm">
+                            <li><strong>Professional Website:</strong> Must clearly list your services, target equipment types, and include a contact form. It proves you are a legitimate agency.</li>
+                            <li><strong>Custom Domain Email:</strong> You must use `name@youragency.com`, not `youragency@gmail.com`. Brokers are heavily vetting for fraud; custom emails are a basic requirement.</li>
+                            <li><strong>Google Business Profile:</strong> Register your business locally. This captures local owner-operators searching for "truck dispatching near me" and allows you to collect public reviews.</li>
+                            <li><strong>Trust Signals:</strong> Clearly display your business phone number, operating hours, and standard operating procedures (SOPs).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- DAY 1: QUIZ (6) -->
+                <div class="slide" data-slide="6">
+                    <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Day 1 • Knowledge Check</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Test Your Understanding</h2>
+                    <form id="quiz-1" class="space-y-4" onsubmit="gradeQuiz(event, 1, 'a')">
+                        <p class="text-base font-semibold text-gray-200 mb-4">What is the core principle of Pain Point Marketing?</p>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q1" value="a" class="quiz-radio sr-only" required>
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                A) Pitching targeted solutions to a carrier's specific operational headaches (like deadhead or invoicing) rather than just offering a low fee.
+                            </div>
+                        </label>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q1" value="b" class="quiz-radio sr-only">
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                B) Posting your 8% dispatch fee in as many Facebook groups as possible to attract volume.
+                            </div>
+                        </label>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q1" value="c" class="quiz-radio sr-only">
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                C) Only calling brokers and ignoring the carriers completely.
+                            </div>
+                        </label>
+
+                        <div id="result-1" class="hidden p-4 rounded-xl text-sm font-bold text-center mt-4"></div>
+                        <button type="submit" class="mt-4 bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg text-sm transition">Submit Answer</button>
+                    </form>
+                </div>
+
+                <!-- DAY 2: SLIDE 1 (7) -->
+                <div class="slide" data-slide="7">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 2 • Module 1</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Automated Attraction & Lead Magnets</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>Today is about generating traffic. Outbound cold-calling is exhausting. We want to build systems that bring owner-operators to you.</p>
+                        <h4 class="text-white font-bold mt-4">The Lead Magnet Strategy:</h4>
+                        <p>A Lead Magnet is a free, highly valuable digital resource you give away in exchange for a carrier's name, email, and phone number.</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-black/40 p-4 rounded-lg border border-gray-800">
+                                <h5 class="text-yellow-400 font-bold mb-1">Example 1: The Lane Calculator</h5>
+                                <p class="text-xs text-gray-400">A simple Google Sheet that helps carriers calculate their exact cost-per-mile so they stop taking losing loads.</p>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-lg border border-gray-800">
+                                <h5 class="text-yellow-400 font-bold mb-1">Example 2: Compliance Checklist</h5>
+                                <p class="text-xs text-gray-400">A PDF checklist of everything a new owner-operator needs to pass their new entrant safety audit.</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-4">Once they download your free guide, they enter your automated email sequence, positioning you as an expert until they are ready to hire a dispatcher.</p>
+                    </div>
+                </div>
+
+                <!-- DAY 2: SLIDE 2 (8) -->
+                <div class="slide" data-slide="8">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 2 • Module 2</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Social Media Authority</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>To promote your Lead Magnets, you need to establish authority on social channels where your targets hang out.</p>
+                        <ul class="list-disc pl-5 space-y-3 text-sm">
+                            <li><strong>YouTube / TikTok:</strong> Create short, educational videos analyzing weekly freight rates, showing how to negotiate with brokers, or demonstrating how to use load boards. Owner-operators constantly search for this data.</li>
+                            <li><strong>Facebook Groups:</strong> Don't spam your services. Answer driver's questions. When someone complains about a bad broker, offer constructive advice. Your profile should link back to your website and Lead Magnet.</li>
+                            <li><strong>LinkedIn:</strong> Essential for connecting with Brokers and Direct Shippers. Post updates about your agency's reliability, on-time delivery percentages, and capacity availability.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- DAY 2: SLIDE 3 (9) -->
+                <div class="slide" data-slide="9">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 2 • Module 3</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Securing Direct Shipper Freight</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>To retain the carriers you acquire, you must feed them excellent freight. Bypassing load boards to work directly with shippers is the ultimate goal.</p>
+                        <div class="bg-gradient-to-r from-gray-900 to-black p-6 rounded-xl border border-gray-800 mt-4">
+                            <h4 class="text-white font-bold mb-2">The Shipper Pitch Workflow:</h4>
+                            <ol class="list-decimal pl-5 space-y-2 text-sm text-gray-300">
+                                <li><strong>Identify:</strong> Use Google Maps or local directories to find manufacturers, distributors, or agricultural hubs in your carrier's preferred outbound lanes.</li>
+                                <li><strong>Research:</strong> Use LinkedIn to find the "Supply Chain Manager" or "Logistics Coordinator" at that facility.</li>
+                                <li><strong>Outreach:</strong> Send a targeted email stating: <br><span class="italic text-gray-400">"We have 5 dedicated flatbeds emptying out near your facility every Tuesday. Are you looking for guaranteed asset-based capacity to avoid spot market volatility?"</span></li>
+                                <li><strong>Deliver:</strong> Be prepared to immediately send a professional Carrier Packet, MC Authority, and W-9.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 2: QUIZ (10) -->
+                <div class="slide" data-slide="10">
+                    <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Day 2 • Knowledge Check</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Test Your Understanding</h2>
+                    <form id="quiz-2" class="space-y-4" onsubmit="gradeQuiz(event, 2, 'b')">
+                        <p class="text-base font-semibold text-gray-200 mb-4">What is the strategic purpose of offering a Lead Magnet?</p>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q2" value="a" class="quiz-radio sr-only" required>
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                A) To generate immediate, upfront revenue by selling the digital PDF to carriers.
+                            </div>
+                        </label>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q2" value="b" class="quiz-radio sr-only">
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                B) To capture a carrier's contact information by providing free value, allowing you to nurture the lead over time via email.
+                            </div>
+                        </label>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q2" value="c" class="quiz-radio sr-only">
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                C) To trick brokers into giving you dedicated freight lanes.
+                            </div>
+                        </label>
+
+                        <div id="result-2" class="hidden p-4 rounded-xl text-sm font-bold text-center mt-4"></div>
+                        <button type="submit" class="mt-4 bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg text-sm transition">Submit Answer</button>
+                    </form>
+                </div>
+
+                <!-- DAY 3: SLIDE 1 (11) -->
+                <div class="slide" data-slide="11">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 3 • Module 1</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Consultative Selling (The Discovery Call)</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>When your inbound marketing works and a carrier calls you, the dynamic shifts. You are no longer begging for business; you are consulting to see if they are a fit for your agency.</p>
+                        <h4 class="text-white font-bold mt-4">The Discovery Framework:</h4>
+                        <ul class="list-disc pl-5 space-y-3 text-sm">
+                            <li><strong>Do not pitch immediately:</strong> Start by asking questions. <em>"How long have you had your authority?" "What lanes do you hate running?"</em></li>
+                            <li><strong>Find the Pain:</strong> <em>"What is your biggest headache right now—is it finding rates, or dealing with the broker paperwork at the end of the day?"</em></li>
+                            <li><strong>Present the Custom Solution:</strong> <em>"Based on what you told me, you need a dispatcher who will strictly keep you out of the Northeast and handles 100% of the invoicing so you can get paid faster. That is exactly what our agency does."</em></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- DAY 3: SLIDE 2 (12) -->
+                <div class="slide" data-slide="12">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 3 • Module 2</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Professional Onboarding & Compliance</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <p>Once they say "yes," your onboarding process must be flawless. Sloppy paperwork scares away good carriers.</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-black/40 p-5 rounded-xl border border-gray-800">
+                                <h4 class="text-yellow-400 font-bold mb-2">Required Legal Documents</h4>
+                                <ul class="list-disc pl-4 text-xs space-y-1">
+                                    <li><strong>Dispatch Agreement:</strong> Outlines your % fee and duties.</li>
+                                    <li><strong>Limited POA:</strong> Legally authorizes you to sign rate cons.</li>
+                                    <li><strong>W-9 & NOA:</strong> Required for broker setups.</li>
+                                    <li><strong>Insurance Certs:</strong> Kept on file to send to brokers.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-black/40 p-5 rounded-xl border border-gray-800">
+                                <h4 class="text-yellow-400 font-bold mb-2">The Carrier Profile</h4>
+                                <p class="text-xs mb-2">A vital intake form where you define the boundaries of the partnership:</p>
+                                <ul class="list-disc pl-4 text-xs space-y-1">
+                                    <li>Hard minimum rate per mile.</li>
+                                    <li>Max gross weight limits.</li>
+                                    <li>Preferred regions / regions to avoid.</li>
+                                    <li>Home-time requirements.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 3: SLIDE 3 (13) -->
+                <div class="slide" data-slide="13">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Day 3 • Module 3</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Expectations & The Daily Grind</h2>
+                    <div class="prose prose-invert max-w-none text-gray-300 space-y-4">
+                        <div class="bg-red-900/20 border-2 border-red-500/50 rounded-2xl p-6 sm:p-8 mt-4 shadow-lg shadow-red-900/20">
+                            <h3 class="text-2xl font-black text-red-400 mb-4 flex items-center space-x-3">
+                                <span>⚠️</span>
+                                <span>Crucial Reality Check</span>
+                            </h3>
+                            <p class="text-red-200 text-lg leading-relaxed font-medium">
+                                As a Crown Access student, you have now been given the exact, proven blueprint for building a highly profitable logistics agency. However, you must understand this absolute reality:
+                            </p>
+                            <p class="text-white text-xl font-black mt-4 uppercase tracking-wide">
+                                You will NOT have live or active carriers guaranteed to you immediately at the end of this course.
+                            </p>
+                            <p class="text-red-200 mt-4 leading-relaxed">
+                                We provide the strategies, the marketing hooks, the documents, and the framework. <strong class="text-white">You</strong> are responsible for executing the system, doing the daily outreach, and closing your own clients. Success requires consistent, daily execution of the inbound marketing and B2B networking strategies taught in this masterclass.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 3: QUIZ (14) -->
+                <div class="slide" data-slide="14">
+                    <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Day 3 • Knowledge Check</span>
+                    <h2 class="text-3xl font-black text-white mt-2 mb-6">Test Your Understanding</h2>
+                    <form id="quiz-3" class="space-y-4" onsubmit="gradeQuiz(event, 3, 'b')">
+                        <p class="text-base font-semibold text-gray-200 mb-4">What is guaranteed regarding your client base upon finishing this course?</p>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q3" value="a" class="quiz-radio sr-only" required>
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                A) Crown Access guarantees I will be assigned active carriers to dispatch on day one.
+                            </div>
+                        </label>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q3" value="b" class="quiz-radio sr-only">
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                B) No live carriers are guaranteed; I am provided the exact blueprint, but I must execute the daily work to acquire my own clients.
+                            </div>
+                        </label>
+                        
+                        <label class="block relative cursor-pointer">
+                            <input type="radio" name="q3" value="c" class="quiz-radio sr-only">
+                            <div class="border border-gray-700 bg-brandDark rounded-xl p-4 text-sm text-gray-300 hover:border-gray-500 transition">
+                                C) I will automatically be contracted with a direct shipper based on course completion.
+                            </div>
+                        </label>
+
+                        <div id="result-3" class="hidden p-4 rounded-xl text-sm font-bold text-center mt-4"></div>
+                        <button type="submit" class="mt-4 bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg text-sm transition">Submit Answer</button>
+                    </form>
+                </div>
+
+                <!-- COMPLETION SLIDE (15) -->
+                <div class="slide" data-slide="15">
+                    <div class="text-center py-16">
+                        <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h2 class="text-4xl font-black tracking-tight mb-4 text-white">Masterclass <span class="metallic-gold-text">Completed</span></h2>
+                        <p class="text-gray-400 text-lg max-w-xl mx-auto mb-10">
+                            You have successfully completed all modules of the Carrier Acquisition Mastery course. You now have the blueprint to build a scalable, inbound dispatching agency.
+                        </p>
+                        
+                        <!-- FINAL EXPLICITLY LINKED EXIT BUTTON TO PORTAL.HTML -->
+                        <a href="portal.html" class="inline-block shine-button-gold text-black font-extrabold px-8 py-4 rounded-xl transition text-base text-center">
+                            Return to Student Dashboard
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slide Navigation Controls -->
+            <div class="mt-12 pt-6 border-t border-gray-800 flex justify-between items-center">
+                <button type="button" id="prev-btn" onclick="prevSlide()" class="text-gray-400 hover:text-white font-bold text-sm px-4 py-2 rounded-lg border border-gray-800 hover:bg-gray-800 transition disabled:opacity-30 disabled:cursor-not-allowed" disabled>
+                    &larr; Previous
+                </button>
+                <button type="button" id="next-btn" onclick="nextSlide()" class="shine-button-gold text-black font-bold text-sm px-8 py-2.5 rounded-lg transition">
+                    Next &rarr;
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-6 px-6 text-center text-xs text-gray-600 bg-brandDark">
+        <p>&copy; 2026 Crown Access. Internal Training Portal.</p>
+    </footer>
+
+    <!-- Presentation Logic -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 15; 
+        
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progBar = document.getElementById('progress-bar');
+        const progBarMobile = document.getElementById('progress-bar-mobile');
+        const progText = document.getElementById('progress-text');
+
+        function updateUI() {
+            // Hide all slides, show current
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.querySelector(`.slide[data-slide="${currentSlide}"]`).classList.add('active');
+
+            // Update Progress Bar
+            const progressPct = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+            progBar.style.width = `${progressPct}%`;
+            progBarMobile.style.width = `${progressPct}%`;
+            progText.innerText = `Slide ${currentSlide} of ${totalSlides}`;
+
+            // Update Button States
+            prevBtn.disabled = currentSlide === 1;
+            
+            if (currentSlide === totalSlides) {
+                nextBtn.classList.add('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function gradeQuiz(event, quizNum, correctAnswer) {
+            event.preventDefault();
+            const form = event.target;
+            const selected = form.querySelector(`input[name="q${quizNum}"]:checked`);
+            const resultDiv = document.getElementById(`result-${quizNum}`);
+
+            resultDiv.classList.remove('hidden', 'bg-green-500/20', 'text-green-400', 'border-green-500/30', 'bg-red-500/20', 'text-red-400', 'border-red-500/30');
+
+            if (!selected) return;
+
+            if (selected.value === correctAnswer) {
+                resultDiv.classList.add('bg-green-500/20', 'text-green-400', 'border', 'border-green-500/30');
+                resultDiv.innerText = '✓ Correct! You may proceed to the next module.';
+            } else {
+                resultDiv.classList.add('bg-red-500/20', 'text-red-400', 'border', 'border-red-500/30');
+                resultDiv.innerText = '✗ Incorrect. Please review the material and try again.';
+            }
+        }
+
+        // Initialize UI on load
+        updateUI();
+    </script>
+</body>
+</html>
