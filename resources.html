@@ -128,7 +128,7 @@
                 </div>
 
                 <!-- Knowledge Check 1 -->
-                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 1</h3>
@@ -140,7 +140,7 @@
                 </div>
 
                 <!-- Knowledge Check 2 -->
-                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 2</h3>
@@ -152,7 +152,7 @@
                 </div>
 
                 <!-- Knowledge Check 3 -->
-                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 3</h3>
@@ -164,7 +164,7 @@
                 </div>
 
                 <!-- Knowledge Check 4 -->
-                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 4</h3>
@@ -176,7 +176,7 @@
                 </div>
 
                 <!-- Knowledge Check 5 -->
-                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 5</h3>
@@ -188,7 +188,7 @@
                 </div>
 
                 <!-- Knowledge Check 6 -->
-                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-gold rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 6</h3>
@@ -200,7 +200,7 @@
                 </div>
 
                 <!-- Knowledge Check 7 -->
-                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between">
+                <div class="metallic-card-blue rounded-2xl p-6 flex flex-col justify-between kc-card">
                     <div>
                         <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Assessment</span>
                         <h3 class="text-lg font-black text-white mb-2">Knowledge Check 7</h3>
@@ -273,8 +273,11 @@
                 const courseBtn = document.getElementById('course-link-btn');
                 const courseTitle = document.getElementById('course-card-title');
 
+                // Check if user has full dispatching course access
+                const hasFullCourseAccess = isAdmin || hasLive || hasSelf;
+
                 // Route the Full Course button based on permissions
-                if (isAdmin || hasLive || hasSelf) {
+                if (hasFullCourseAccess) {
                     courseBtn.href = "full course.html";
                 } else if (hasCarrier) {
                     courseBtn.href = "carrier.html";
@@ -286,6 +289,22 @@
                         e.preventDefault(); 
                         alert("You do not have access to this material. Please upgrade."); 
                     };
+                }
+
+                // Lock the Knowledge Checks if they don't have Full Course Access
+                if (!hasFullCourseAccess) {
+                    const kcCards = document.querySelectorAll('.kc-card');
+                    kcCards.forEach(card => {
+                        card.style.opacity = '0.4';
+                        const btn = card.querySelector('a');
+                        if (btn) {
+                            btn.href = "#";
+                            btn.onclick = (e) => {
+                                e.preventDefault();
+                                alert("You do not have access to the Knowledge Checks. Please upgrade to the full Live or Self-Paced program to unlock assessments.");
+                            };
+                        }
+                    });
                 }
 
                 document.getElementById('loading-screen').style.display = 'none';
