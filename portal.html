@@ -402,42 +402,32 @@
                         .select('*')
                         .eq('user_id', user.id);
 
-                    let foundPurchase = purchases && purchases.length > 0;
-                    let purchaseDataString = foundPurchase ? JSON.stringify(purchases).toLowerCase() : "";
+                    // Convert purchase array into a single lowercase string for easy ID scanning
+                    let purchaseDataString = purchases && purchases.length > 0 ? JSON.stringify(purchases).toLowerCase() : "";
+
+                    // STRICT VERIFICATION CHECK
+                    let hasLive = purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23");
+                    let hasSelf = purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06");
+                    let hasCarrier = purchaseDataString.includes("c54c173b-cb2f-4831-87b5-7e70f4974e9d");
 
                     const liveCard = document.getElementById('live-card-container');
                     const selfCard = document.getElementById('self-card-container');
                     const carrierCard = document.getElementById('carrier-card-container');
 
-                    if (foundPurchase) {
-                        // Check for specific courses
-                        let hasLive = purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23");
-                        let hasSelf = purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06");
-                        let hasCarrier = purchaseDataString.includes("carrier");
-
-                        if (hasLive && !hasSelf) {
-                            selfCard.style.opacity = '0.4';
-                            selfCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in the Live Intensive program. Upgrade to access Self-Paced Mastery.'); };
-                        } else if (hasSelf && !hasLive) {
-                            liveCard.style.opacity = '0.4';
-                            liveCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in Self-Paced Mastery. Upgrade to access the Live Intensive program.'); };
-                        }
-
-                        // Lock Carrier Course if they bought ONLY a different product (like just documents) and not a course
-                        if (!hasLive && !hasSelf && !hasCarrier) {
-                            carrierCard.style.opacity = '0.4';
-                            carrierCard.onclick = (e) => { e.preventDefault(); alert('Active course enrollment required to access the Carrier Acquisition Masterclass.'); };
-                        }
-                    } else {
-                        // If a regular student has no purchase, restrict all course access
+                    // If they don't have the explicit ID, lock the card down.
+                    if (!hasLive) {
                         liveCard.style.opacity = '0.4';
-                        liveCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access the Live Intensive portal.'); };
-                        
+                        liveCard.onclick = (e) => { e.preventDefault(); alert('You are not enrolled in the Live Intensive program. Upgrade to access.'); };
+                    }
+                    
+                    if (!hasSelf) {
                         selfCard.style.opacity = '0.4';
-                        selfCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access Self-Paced Mastery.'); };
+                        selfCard.onclick = (e) => { e.preventDefault(); alert('You are not enrolled in Self-Paced Mastery. Upgrade to access.'); };
+                    }
 
+                    if (!hasCarrier) {
                         carrierCard.style.opacity = '0.4';
-                        carrierCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access the Carrier Acquisition Masterclass.'); };
+                        carrierCard.onclick = (e) => { e.preventDefault(); alert('You are not enrolled in the Carrier Acquisition Masterclass. Upgrade to access.'); };
                     }
                 }
                 
