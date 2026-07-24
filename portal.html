@@ -107,7 +107,7 @@
         </header>
 
         <!-- ================= STUDENT VIEW (With Admin Override Access) ================= -->
-        <main id="student-view" class="max-w-6xl mx-auto px-6 py-16 w-full flex-grow" style="display: none;">
+        <main id="student-view" class="max-w-7xl mx-auto px-6 py-16 w-full flex-grow" style="display: none;">
             <div id="view-header-msg" class="mb-12">
                 <span class="text-xs uppercase tracking-widest metallic-gold-text font-bold mb-2 block">Member Environment</span>
                 <h1 class="text-3xl md:text-5xl font-black text-white mb-3">Welcome to Your Training Portal</h1>
@@ -122,7 +122,8 @@
                 </button>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
+            <!-- 3-Column Grid Layout for Courses -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                 <!-- Card 1: 7-Day Live Intensive -->
                 <div id="live-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group cursor-pointer" onclick="window.location.href='live-cohort.html'">
                     <div>
@@ -143,7 +144,20 @@
                     <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-yellow-500/30 transition">Access Self-Led Course &rarr;</span>
                 </div>
 
-                <!-- Card 3: Resources -->
+                <!-- Card 3: Carrier Acquisition Masterclass -->
+                <div id="carrier-card-container" class="metallic-card-blue rounded-3xl p-8 flex flex-col justify-between group cursor-pointer" onclick="window.location.href='carrier.html'">
+                    <div>
+                        <span class="bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Masterclass</span>
+                        <h3 class="text-2xl font-black text-white mb-2 group-hover:text-blue-400 transition">Carrier Acquisition</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Interactive 3-Day curriculum to build a scalable inbound machine and close high-value carriers.</p>
+                    </div>
+                    <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-blue-500/30 transition">Start Course &rarr;</span>
+                </div>
+            </div>
+
+            <!-- Resources & Chat Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Card 4: Resources -->
                 <a href="resources.html" class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Downloadable Vault</span>
@@ -153,7 +167,7 @@
                     <span class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 px-4 py-2 rounded-full font-bold text-center w-max block group-hover:bg-yellow-500/30 transition">Open Resource Library &rarr;</span>
                 </a>
 
-                <!-- Card 4: Support Chat Room -->
+                <!-- Card 5: Support Chat Room -->
                 <a href="chat.html" class="metallic-card-gold rounded-3xl p-8 flex flex-col justify-between group cursor-pointer block">
                     <div>
                         <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block mb-4">Community Support</span>
@@ -197,7 +211,7 @@
                 </div>
                 <div class="metallic-card-blue rounded-2xl p-6">
                     <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold block mb-1">Active Courses</span>
-                    <span class="text-3xl font-black text-blue-400">2 Programs</span>
+                    <span class="text-3xl font-black text-blue-400">3 Programs</span>
                 </div>
             </div>
 
@@ -393,21 +407,37 @@
 
                     const liveCard = document.getElementById('live-card-container');
                     const selfCard = document.getElementById('self-card-container');
+                    const carrierCard = document.getElementById('carrier-card-container');
 
                     if (foundPurchase) {
-                        if (purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23")) {
+                        // Check for specific courses
+                        let hasLive = purchaseDataString.includes("42c3c928-d4ab-4c33-b350-96b8117a3e23");
+                        let hasSelf = purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06");
+                        let hasCarrier = purchaseDataString.includes("carrier");
+
+                        if (hasLive && !hasSelf) {
                             selfCard.style.opacity = '0.4';
                             selfCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in the Live Intensive program. Upgrade to access Self-Paced Mastery.'); };
-                        } else if (purchaseDataString.includes("21d4cd05-7960-4096-9485-7e964b4f7b06")) {
+                        } else if (hasSelf && !hasLive) {
                             liveCard.style.opacity = '0.4';
                             liveCard.onclick = (e) => { e.preventDefault(); alert('You are enrolled in Self-Paced Mastery. Upgrade to access the Live Intensive program.'); };
                         }
+
+                        // Lock Carrier Course if they bought ONLY a different product (like just documents) and not a course
+                        if (!hasLive && !hasSelf && !hasCarrier) {
+                            carrierCard.style.opacity = '0.4';
+                            carrierCard.onclick = (e) => { e.preventDefault(); alert('Active course enrollment required to access the Carrier Acquisition Masterclass.'); };
+                        }
                     } else {
-                        // If a regular student has no purchase, restrict both or show message
+                        // If a regular student has no purchase, restrict all course access
                         liveCard.style.opacity = '0.4';
                         liveCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access the Live Intensive portal.'); };
+                        
                         selfCard.style.opacity = '0.4';
                         selfCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access Self-Paced Mastery.'); };
+
+                        carrierCard.style.opacity = '0.4';
+                        carrierCard.onclick = (e) => { e.preventDefault(); alert('Active enrollment required to access the Carrier Acquisition Masterclass.'); };
                     }
                 }
                 
