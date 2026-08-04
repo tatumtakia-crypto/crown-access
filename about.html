@@ -183,14 +183,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            padding: 0;
             text-align: center;
             border-radius: 4px;
+            overflow: hidden;
         }
 
         .about-visual-box img {
-            max-width: 220px;
-            opacity: 0.9;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.95;
+            filter: drop-shadow(0 20px 30px rgba(11,27,61,0.15));
         }
 
         /* --- Core Values Grid --- */
@@ -309,6 +313,7 @@
             .values-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 100px; }
             .page-title { font-size: 3rem; }
             .about-text h2, .values-header h2 { font-size: 2.6rem; }
+            .about-visual-box { min-height: 350px; }
         }
 
         @media (max-width: 480px) {
