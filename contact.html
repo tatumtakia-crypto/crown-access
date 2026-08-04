@@ -10,11 +10,16 @@
             --color-bg: #F8F3E8; 
             --color-bg-texture: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36z8gAFkNfwxhgzDDG/wyMDMUAAFg7C/9uOop+AAAAAElFTkSuQmCC');
             
-            --color-gold-metallic: linear-gradient(145deg, #C5A059 0%, #E4C988 50%, #B8934D 100%);
+            /* Realistic Multi-Stop Metallic Gold Gradients */
+            --color-gold-metallic: linear-gradient(135deg, #A8833C 0%, #E2CA84 25%, #8C6A29 50%, #F5E2AC 75%, #9E7932 100%);
             --color-gold-solid: #C5A059;
             
+            /* Sophisticated Deep Navy Accents */
+            --color-navy-deep: #0B1B3D;
+            --color-navy-muted: #1E2D4A;
+            
             --color-text-main: #010101;
-            --color-text-muted: #555555;
+            --color-text-muted: #333333; 
             --color-border: #DCD5C6; 
             
             --font-headline: "Didot", "Bodoni MT", "Times New Roman", serif;
@@ -29,17 +34,20 @@
             background-image: var(--color-bg-texture);
             color: var(--color-text-main);
             font-family: var(--font-body);
-            line-height: 1.7;
+            font-size: 1.15rem; 
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
         }
 
         h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
         
+        /* True Metallic Gold Text with Depth Shadow */
         .gold-text {
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.15));
         }
 
         .container {
@@ -51,9 +59,10 @@
         /* --- Header & Navigation --- */
         site-header {
             display: block;
-            padding: 30px 0;
+            padding: 35px 0;
             border-bottom: 1px solid var(--color-border);
             margin-bottom: 60px;
+            background: linear-gradient(to bottom, rgba(11, 27, 61, 0.03), transparent);
         }
 
         .nav-content {
@@ -63,34 +72,35 @@
         }
 
         .masthead-title {
-            font-size: 1.8rem;
-            letter-spacing: 0.2em;
+            font-size: 2.2rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             line-height: 1;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .masthead-tagline {
             font-family: var(--font-ui);
-            font-size: 0.6rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: var(--color-text-muted);
-            font-weight: 300;
+            letter-spacing: 0.3em;
+            color: var(--color-navy-muted);
+            font-weight: 600;
         }
 
         site-nav ul {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 35px;
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
+            font-weight: 600;
         }
 
         site-nav a {
-            color: var(--color-text-main);
+            color: var(--color-navy-deep);
             text-decoration: none;
             position: relative;
             padding-bottom: 5px;
@@ -102,8 +112,8 @@
             left: 0;
             bottom: 0;
             width: 0;
-            height: 1px;
-            background-color: var(--color-gold-solid);
+            height: 2px;
+            background: var(--color-gold-metallic);
             transition: width 0.4s ease;
         }
 
@@ -121,39 +131,45 @@
         }
 
         .contact-info h2 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             line-height: 1.1;
             margin-bottom: 25px;
+            color: var(--color-navy-deep);
         }
 
         .contact-info p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--color-text-muted);
             margin-bottom: 40px;
-            max-width: 450px;
+            max-width: 480px;
         }
 
         .contact-details {
             font-family: var(--font-ui);
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--color-text-main);
-            line-height: 2.2;
+            color: var(--color-navy-deep);
+            line-height: 2.4;
+            font-weight: 600;
         }
 
         .contact-details span {
-            color: var(--color-gold-solid);
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: inline-block;
-            width: 90px;
+            width: 95px;
+            font-weight: 700;
         }
 
         /* --- Form Styling --- */
         .contact-form-wrapper {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--color-border);
-            padding: 50px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
+            padding: 55px;
+            box-shadow: 0 15px 30px rgba(11, 27, 61, 0.04);
+            border-radius: 4px;
         }
 
         .form-group {
@@ -163,76 +179,79 @@
         .form-label {
             display: block;
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: var(--color-text-main);
+            color: var(--color-navy-deep);
             margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .form-input, .form-textarea, .form-select {
             width: 100%;
-            padding: 15px;
-            background-color: transparent;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid var(--color-border);
             color: var(--color-text-main);
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: border-color 0.3s ease;
         }
 
         .form-input:focus, .form-textarea:focus, .form-select:focus {
             outline: none;
-            border-color: var(--color-gold-solid);
+            border-color: #A8833C;
         }
 
         .form-textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 140px;
         }
 
         .btn {
             display: inline-block;
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.25em;
             text-decoration: none;
-            padding: 16px 32px;
+            padding: 18px 36px;
             transition: all 0.5s ease;
             cursor: pointer;
             text-align: center;
             width: 100%;
             border: none;
+            font-weight: 600;
         }
 
+        /* True Metallic Gold Button with Deep Navy Contrast Hover */
         .btn-primary {
-            background-color: var(--color-gold-solid);
-            color: #FFFFFF; 
-            border: 1px solid var(--color-gold-solid);
-            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+            background: var(--color-gold-metallic);
+            color: var(--color-navy-deep); 
+            border: 1px solid #A8833C;
+            box-shadow: 0 4px 15px rgba(168, 131, 60, 0.35);
         }
 
         .btn-primary:hover {
-            background-color: transparent;
-            color: var(--color-text-main);
-            border-color: var(--color-text-main);
-            box-shadow: none;
+            background: var(--color-navy-deep);
+            color: #E2CA84;
+            border-color: var(--color-navy-deep);
+            box-shadow: 0 6px 20px rgba(11, 27, 61, 0.25);
         }
 
         /* --- Footer --- */
         .main-footer {
             text-align: center;
-            padding: 60px 0;
+            padding: 70px 0;
             border-top: 1px solid var(--color-border);
-            background-color: #F0EBDD;
+            background-color: #EFE8D8;
         }
 
         .footer-crest-wrapper {
-            width: 50px;
+            width: 65px;
             height: auto;
-            margin: 0 auto 25px auto;
-            opacity: 0.6;
+            margin: 0 auto 30px auto;
+            opacity: 0.7;
         }
         .footer-crest-wrapper img {
             width: 100%;
@@ -240,46 +259,49 @@
         }
 
         .footer-links {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-family: var(--font-ui);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--color-text-muted);
+            letter-spacing: 0.25em;
+            color: var(--color-navy-muted);
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
+            font-weight: 600;
         }
         .footer-links a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--color-gold-solid); }
+        .footer-links a:hover { background: var(--color-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .footer-text {
             font-family: var(--font-ui);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.3em;
             color: var(--color-text-muted);
+            font-weight: 500;
         }
 
         /* --- Mobile & Responsive Media Queries --- */
         @media (max-width: 1024px) {
             .container { padding: 0 20px; }
             .nav-content { flex-direction: column; gap: 20px; text-align: center; }
-            site-nav ul { justify-content: center; gap: 20px; flex-wrap: wrap; }
+            site-nav ul { justify-content: center; gap: 25px; flex-wrap: wrap; }
             
             .contact-section { grid-template-columns: 1fr; gap: 50px; margin-bottom: 100px; }
             .contact-info { text-align: center; }
             .contact-info p { margin-left: auto; margin-right: auto; }
             .contact-details { display: inline-block; text-align: left; }
-            .contact-form-wrapper { padding: 30px 20px; }
+            .contact-form-wrapper { padding: 35px 25px; }
+            .contact-info h2 { font-size: 3rem; }
         }
 
         @media (max-width: 480px) {
-            .masthead-title { font-size: 1.4rem; }
+            .masthead-title { font-size: 1.6rem; }
             .contact-info h2 { font-size: 2.4rem; }
-            site-header { padding: 20px 0; margin-bottom: 40px; }
-            site-nav ul { gap: 15px; font-size: 0.65rem; }
+            site-header { padding: 25px 0; margin-bottom: 40px; }
+            site-nav ul { gap: 18px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -295,7 +317,7 @@
                 </div>
                 <site-nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/index.html">Home</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html" class="active">Inquire</a></li>
@@ -309,7 +331,7 @@
     <div class="container">
         <section class="contact-section">
             <div class="contact-info">
-                <span class="hero-eyebrow" style="font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--color-gold-solid); margin-bottom: 20px; display: block; font-weight: 600;">Direct Inquiry</span>
+                <span class="hero-eyebrow" style="font-family: var(--font-ui); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.25em; background: var(--color-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; display: block; font-weight: 700;">Direct Inquiry</span>
                 <h2>Request Your <br>Consultation</h2>
                 <p>We work selectively with visionary leaders and expanding enterprises. Submit your project requirements below, and our studio executive team will review your objectives.</p>
                 
@@ -362,7 +384,7 @@
             </div>
             
             <div class="footer-links">
-                <a href="index.html">Home</a>
+                <a href="/index.html">Home</a>
                 <a href="services.html">Services</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Inquire</a>
