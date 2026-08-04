@@ -34,7 +34,7 @@
             background-image: var(--color-bg-texture);
             color: var(--color-text-main);
             font-family: var(--font-body);
-            font-size: 1.15rem; 
+            font-size: 1.15rem;
             line-height: 1.8;
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
@@ -42,7 +42,6 @@
 
         h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
         
-        /* True Metallic Gold Text with Depth Shadow */
         .gold-text {
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
@@ -177,7 +176,6 @@
             font-weight: 600;
         }
 
-        /* True Metallic Gold Button with Deep Navy Contrast Hover */
         .btn-primary {
             background: var(--color-gold-metallic);
             color: var(--color-navy-deep); 
@@ -192,7 +190,7 @@
             box-shadow: 0 6px 20px rgba(11, 27, 61, 0.25);
         }
 
-        /* --- Hero Visual: 4D Floating Logo --- */
+        /* --- Hero Visual --- */
         .hero-visual {
             height: 100%;
             min-height: 400px;
@@ -370,7 +368,7 @@
             font-weight: 500;
         }
 
-        /* --- Mobile & Responsive Media Queries --- */
+        /* --- Mobile Media Queries --- */
         @media (max-width: 1024px) {
             .container { padding: 0 20px; }
             .nav-content { flex-direction: column; gap: 20px; text-align: center; }
@@ -403,7 +401,7 @@
 </head>
 <body>
 
-    <!-- Masthead Header with Responsive Navigation -->
+    <!-- Masthead Header with Fixed Navigation Paths -->
     <site-header>
         <div class="container">
             <div class="nav-content">
@@ -433,9 +431,9 @@
                 <a href="services.html" class="btn btn-primary">Explore The Studio</a>
             </div>
             <div class="hero-visual">
-                <!-- Mobile & Desktop Optimized 4D Floating Logo -->
+                <!-- Optimized Hero Image -->
                 <div class="logo-img-wrapper">
-                    <img src="logo.png" alt="Crown Access 4D Metallic Logo" loading="eager" fetchpriority="high">
+                    <img src="logo.png" alt="Crown Access 4D Metallic Logo" width="480" height="480" loading="eager" fetchpriority="high">
                 </div>
             </div>
         </section>
@@ -445,7 +443,7 @@
     <div class="container">
         <section class="value-section">
             <div class="value-visual">
-                <img src="blueprint.png" alt="Crown Access Architectural Blueprint" loading="lazy">
+                <img src="blueprint.png" alt="Crown Access Architectural Blueprint" width="600" height="500" loading="lazy">
             </div>
             <div class="value-content">
                 <span class="hero-eyebrow">Our Philosophy</span>
@@ -471,7 +469,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="main-footer">
+    <main-footer class="main-footer">
         <div class="container">
             <div class="footer-action">
                 <h3 class="masthead-title">Ready for the Black Label?</h3>
@@ -479,7 +477,7 @@
             </div>
 
             <div class="footer-crest-wrapper">
-                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
+                <img src="logo.png" alt="Crown Access Crest" width="65" height="65" loading="lazy">
             </div>
             
             <div class="footer-links">
@@ -493,7 +491,7 @@
                 &copy; 2026 Crown Access &mdash; The Black Label. All Rights Reserved.
             </div>
         </div>
-    </footer>
+    </main-footer>
 
 </body>
 </html>
