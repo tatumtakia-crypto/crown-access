@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Crown Access | The Black Label</title>
+    <style>
+        /* --- 01. Reset & Basics --- */
+        :root {
+            --color-bg: #F8F3E8; 
+            --color-bg-texture: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36z8gAFkNfwxhgzDDG/wyMDMUAAFg7C/9uOop+AAAAAElFTkSuQmCC');
+            
+            --color-gold-metallic: linear-gradient(145deg, #C5A059 0%, #E4C988 50%, #B8934D 100%);
+            --color-gold-solid: #C5A059;
+            
+            --color-text-main: #010101;
+            --color-text-muted: #555555;
+            --color-border: #DCD5C6; 
+            
+            --font-headline: "Didot", "Bodoni MT", "Times New Roman", serif;
+            --font-body: "Baskerville", "Palatino Linotype", "Garamond", serif;
+            --font-ui: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-bg);
+            background-image: var(--color-bg-texture);
+            color: var(--color-text-main);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
+        
+        .gold-text {
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* --- Header & Navigation --- */
+        site-header {
+            display: block;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 60px;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .masthead-title {
+            font-size: 1.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .masthead-tagline {
+            font-family: var(--font-ui);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+        site-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            font-family: var(--font-ui);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        site-nav a {
+            color: var(--color-text-main);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        site-nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-gold-solid);
+            transition: width 0.4s ease;
+        }
+
+        site-nav a:hover::after, site-nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- About Page Hero --- */
+        .page-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px auto;
+        }
+
+        .page-eyebrow {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-gold-solid);
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .page-subtitle {
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+        /* --- Story / Mission Section --- */
+        .about-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 140px;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            margin-bottom: 25px;
+        }
+
+        .about-visual-box {
+            background-color: #F0EBDD;
+            border: 1px solid var(--color-border);
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .about-visual-box img {
+            max-width: 200px;
+            opacity: 0.85;
+        }
+
+        /* --- Core Values Grid --- */
+        .values-section {
+            margin-bottom: 140px;
+        }
+
+        .values-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .values-header h2 {
+            font-size: 2.8rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .value-card {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--color-border);
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .value-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid var(--color-border);
+            background-color: #F0EBDD;
+        }
+
+        .footer-crest-wrapper {
+            width: 50px;
+            height: auto;
+            margin: 0 auto 25px auto;
+            opacity: 0.6;
+        }
+        .footer-crest-wrapper img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer-links {
+            margin-bottom: 25px;
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-text-muted);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .footer-links a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--color-gold-solid); }
+
+        .footer-text {
+            font-family: var(--font-ui);
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--color-text-muted);
+        }
+
+        /* --- Mobile & Responsive Media Queries --- */
+        @media (max-width: 1024px) {
+            .container { padding: 0 20px; }
+            .nav-content { flex-direction: column; gap: 20px; text-align: center; }
+            site-nav ul { justify-content: center; gap: 20px; flex-wrap: wrap; }
+            
+            .about-split { grid-template-columns: 1fr; gap: 50px; margin-bottom: 100px; }
+            .values-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 100px; }
+            .page-title { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            .masthead-title { font-size: 1.4rem; }
+            .page-title { font-size: 2.2rem; }
+            site-header { padding: 20px 0; margin-bottom: 40px; }
+            site-nav ul { gap: 15px; font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Masthead Header with Responsive Navigation -->
+    <site-header>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo-area">
+                    <h1 class="masthead-title gold-text">CROWN ACCESS</h1>
+                    <div class="masthead-tagline">The Black Label Edition</div>
+                </div>
+                <site-nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html" class="active">About</a></li>
+                        <li><a href="contact.html">Inquire</a></li>
+                    </ul>
+                </site-nav>
+            </div>
+        </div>
+    </site-header>
+
+    <!-- About Page Header -->
+    <div class="container">
+        <div class="page-header">
+            <span class="page-eyebrow">The Atelier Heritage</span>
+            <h1 class="page-title">Engineered for Absolute Prestige</h1>
+            <p class="page-subtitle">Crown Access was built on a singular premise: elite leaders and expanding enterprises deserve digital ecosystems that match their ambition.</p>
+        </div>
+
+        <!-- Split Content: Our Mission -->
+        <section class="about-split">
+            <div class="about-text">
+                <span class="page-eyebrow" style="margin-bottom: 15px;">Our Philosophy</span>
+                <h2>Refusing to Blend In</h2>
+                <p>In a digital landscape crowded with templates and commoditized design, Crown Access stands apart through a strict adherence to uncompromising luxury aesthetics and rigorous technical performance.</p>
+                <p>From bespoke front-end web architecture and customized system tools to high-end brand identity design, every asset we curate is engineered to position your enterprise at the top of its category.</p>
+            </div>
+            <div class="about-visual-box">
+                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
+            </div>
+        </section>
+
+        <!-- Core Values Section -->
+        <section class="values-section">
+            <div class="values-header">
+                <span class="page-eyebrow">The Black Label Standard</span>
+                <h2>Core Principles</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>01. Precision</h3>
+                    <p>Every line of code and visual gradient is meticulously crafted. We leave zero room for error or mediocrity.</p>
+                </div>
+                <div class="value-card">
+                    <h3>02. Distinction</h3>
+                    <p>We refuse the ordinary. Our custom solutions ensure your brand commands authority and stands entirely alone.</p>
+                </div>
+                <div class="value-card">
+                    <h3>03. Execution</h3>
+                    <p>Speed meets luxury. We deploy high-performance operational systems designed to scale seamlessly from day one.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-crest-wrapper">
+                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
+            </div>
+            
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Inquire</a>
+            </div>
+
+            <div class="footer-text">
+                &copy; 2026 Crown Access &mdash; The Black Label. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
