@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Crown Access | The Black Label</title>
-    <!-- Preload critical images for maximum loading speed -->
+    <title>Crown Access | The Black Label</title>
+    <!-- Preload critical above-the-fold image for instant loading -->
     <link rel="preload" as="image" href="logo.png" fetchpriority="high">
     <style>
         /* --- 01. Reset & Basics --- */
@@ -123,14 +123,21 @@
             width: 100%;
         }
 
-        /* --- About Page Header --- */
-        .page-header {
-            text-align: center;
-            max-width: 850px;
-            margin: 0 auto 80px auto;
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 65vh;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 140px;
         }
 
-        .page-eyebrow {
+        .hero-content {
+            padding-left: 10px; 
+        }
+
+        .hero-eyebrow {
             font-family: var(--font-ui);
             font-size: 0.95rem;
             text-transform: uppercase;
@@ -139,25 +146,90 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            display: block;
+            display: inline-block;
             font-weight: 700;
         }
 
-        .page-title {
-            font-size: 4rem;
+        .hero-headline {
+            font-size: 4.2rem;
             line-height: 1.1;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             color: var(--color-navy-deep);
         }
 
-        .page-subtitle {
+        .hero-subheadline {
             font-size: 1.35rem;
             color: var(--color-text-muted);
             font-weight: 400;
+            margin-bottom: 40px;
+            max-width: 520px;
         }
 
-        /* --- Story / Mission Section --- */
-        .about-split {
+        .btn {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            text-decoration: none;
+            padding: 18px 36px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* True Metallic Gold Button with Deep Navy Contrast Hover */
+        .btn-primary {
+            background: var(--color-gold-metallic);
+            color: var(--color-navy-deep); 
+            border: 1px solid #A8833C;
+            box-shadow: 0 4px 15px rgba(168, 131, 60, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-navy-deep);
+            color: #E2CA84;
+            border-color: var(--color-navy-deep);
+            box-shadow: 0 6px 20px rgba(11, 27, 61, 0.25);
+        }
+
+        /* --- Hero Visual: 4D Floating Logo --- */
+        .hero-visual {
+            height: 100%;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .logo-img-wrapper {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 25px 35px rgba(11,27,61,0.15)); 
+            animation: float3d 6s ease-in-out infinite;
+        }
+
+        .logo-img-wrapper img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        @keyframes float3d {
+            0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translateY(-12px) rotateX(3deg) rotateY(-3deg); }
+            100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+        }
+
+        /* --- Value Section --- */
+        .value-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
@@ -165,77 +237,88 @@
             margin-bottom: 140px;
         }
 
-        .about-text h2 {
+        .value-visual {
+            background-color: #EAE3D2;
+            border: 1px solid var(--color-border);
+            width: 100%;
+            min-height: 500px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .value-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .value-content h2 {
             font-size: 3.2rem;
             line-height: 1.1;
             margin-bottom: 25px;
             color: var(--color-navy-deep);
         }
 
-        .about-text p {
+        .value-content p {
             font-size: 1.2rem;
             color: var(--color-text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 40px;
+            max-width: 520px;
         }
 
-        .about-visual-box {
-            background-color: #EAE3D2;
-            border: 1px solid var(--color-border);
-            width: 100%;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .about-visual-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* --- Core Values Grid --- */
-        .values-section {
+        /* --- Testimonial Section --- */
+        .testimonial-section {
             margin-bottom: 140px;
-        }
-
-        .values-header {
             text-align: center;
-            margin-bottom: 60px;
         }
 
-        .values-header h2 {
-            font-size: 3.2rem;
-            color: var(--color-navy-deep);
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .value-card {
-            background-color: rgba(255, 255, 255, 0.5);
+        .testimonial-block {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 40px;
             border: 1px solid var(--color-border);
-            padding: 50px 35px;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 10px 30px rgba(11, 27, 61, 0.03);
-            border-radius: 4px;
         }
 
-        .value-card h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        .testimonial-block::before, 
+        .testimonial-block::after {
+            font-family: var(--font-headline);
+            font-size: 5rem;
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.4;
+            position: absolute;
+        }
+        .testimonial-block::before { content: '“'; top: -15px; left: 20px; }
+        .testimonial-block::after { content: '”'; bottom: -50px; right: 20px; }
+
+        .blockquote-text {
+            font-family: var(--font-headline);
+            font-size: 2.1rem;
+            line-height: 1.4;
+            font-style: italic;
             color: var(--color-navy-deep);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
 
-        .value-card p {
-            font-size: 1.1rem;
-            color: var(--color-text-muted);
+        .cite-text {
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-navy-muted);
+            font-style: normal;
+            font-weight: 600;
         }
 
         /* --- Footer --- */
@@ -244,6 +327,16 @@
             padding: 70px 0;
             border-top: 1px solid var(--color-border);
             background-color: #EFE8D8;
+        }
+
+        .footer-action {
+            margin-bottom: 40px;
+        }
+        
+        .footer-action h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--color-navy-deep);
         }
 
         .footer-crest-wrapper {
@@ -312,16 +405,26 @@
             .nav-content { flex-direction: column; gap: 20px; text-align: center; }
             site-nav ul { justify-content: center; gap: 25px; flex-wrap: wrap; }
             
-            .about-split { grid-template-columns: 1fr; gap: 50px; margin-bottom: 100px; }
-            .values-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 100px; }
-            .page-title { font-size: 3rem; }
-            .about-text h2, .values-header h2 { font-size: 2.6rem; }
-            .about-visual-box { min-height: 350px; }
+            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; margin-bottom: 100px; min-height: auto;}
+            .hero-content { padding-left: 0; }
+            .hero-headline { font-size: 3rem; }
+            .hero-subheadline { margin-left: auto; margin-right: auto; font-size: 1.15rem; }
+            .hero-visual { min-height: 300px; }
+            .logo-img-wrapper { max-width: 320px; margin: 0 auto; }
+
+            .value-section { grid-template-columns: 1fr; gap: 40px; margin-bottom: 100px; }
+            .value-visual { min-height: 300px; }
+            .value-content { text-align: center; }
+            .value-content h2 { font-size: 2.6rem; }
+            .value-content p { margin-left: auto; margin-right: auto; }
+
+            .testimonial-section { margin-bottom: 100px; }
+            .blockquote-text { font-size: 1.6rem; }
         }
 
         @media (max-width: 480px) {
             .masthead-title { font-size: 1.6rem; }
-            .page-title { font-size: 2.4rem; }
+            .hero-headline { font-size: 2.4rem; }
             site-header { padding: 25px 0; margin-bottom: 40px; }
             site-nav ul { gap: 18px; font-size: 0.8rem; }
         }
@@ -339,9 +442,9 @@
                 </div>
                 <site-nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html" class="active">Home</a></li>
                         <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html" class="active">About</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Inquire</a></li>
                     </ul>
                 </site-nav>
@@ -349,47 +452,49 @@
         </div>
     </site-header>
 
-    <!-- About Page Header -->
+    <!-- Hero / Cover Story -->
     <div class="container">
-        <div class="page-header">
-            <span class="page-eyebrow">The Atelier Heritage</span>
-            <h1 class="page-title">Engineered for Absolute Prestige</h1>
-            <p class="page-subtitle">Crown Access was built on a singular premise: elite leaders and expanding enterprises deserve digital ecosystems that match their ambition.</p>
-        </div>
-
-        <!-- Split Content: Our Mission -->
-        <section class="about-split">
-            <div class="about-text">
-                <span class="page-eyebrow" style="margin-bottom: 15px;">Our Philosophy</span>
-                <h2>Refusing to Blend In</h2>
-                <p>In a digital landscape crowded with templates and commoditized design, Crown Access stands apart through a strict adherence to uncompromising luxury aesthetics and rigorous technical performance.</p>
-                <p>From bespoke front-end web architecture and customized system tools to high-end brand identity design, every asset we curate is engineered to position your enterprise at the top of its category.</p>
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-eyebrow">Digital Atelier</span>
+                <h1 class="hero-headline">Access the Business <br>of Your Dreams</h1>
+                <p class="hero-subheadline">Elite digital architecture, brand identity, and operational systems for visionary leaders.</p>
+                <a href="services.html" class="btn btn-primary">Explore The Studio</a>
             </div>
-            <div class="about-visual-box">
-                <!-- Using explicit loading hints and object-fit cover to fill block space instantly -->
-                <img src="logo.png" alt="Crown Access Crest" fetchpriority="high" width="500" height="500">
+            <div class="hero-visual">
+                <!-- Mobile & Desktop Optimized 4D Floating Logo -->
+                <div class="logo-img-wrapper">
+                    <img src="logo.png" alt="Crown Access 4D Metallic Logo" fetchpriority="high">
+                </div>
             </div>
         </section>
+    </div>
 
-        <!-- Core Values Section -->
-        <section class="values-section">
-            <div class="values-header">
-                <span class="page-eyebrow">The Black Label Standard</span>
-                <h2>Core Principles</h2>
+    <!-- The Blueprint Section -->
+    <div class="container">
+        <section class="value-section">
+            <div class="value-visual">
+                <img src="blueprint.png" alt="Crown Access Architectural Blueprint" loading="lazy">
             </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <h3>01. Precision</h3>
-                    <p>Every line of code and visual gradient is meticulously crafted. We leave zero room for error or mediocrity.</p>
-                </div>
-                <div class="value-card">
-                    <h3>02. Distinction</h3>
-                    <p>We refuse the ordinary. Our custom solutions ensure your brand commands authority and stands entirely alone.</p>
-                </div>
-                <div class="value-card">
-                    <h3>03. Execution</h3>
-                    <p>Speed meets luxury. We deploy high-performance operational systems designed to scale seamlessly from day one.</p>
-                </div>
+            <div class="value-content">
+                <span class="hero-eyebrow">Our Philosophy</span>
+                <h2>The Blueprint <br>of Distinction</h2>
+                <p>We curate digital ecosystems for visionary leaders who refuse to blend in. Our obsession with precision, luxury aesthetic, and technical execution ensures your brand doesn't just exist—it dominates its category.</p>
+                <a href="services.html" class="btn btn-primary">Our Capabilities</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonial Section -->
+    <div class="container">
+        <section class="testimonial-section">
+            <div class="testimonial-block">
+                <blockquote class="blockquote-text">
+                    "Honestly, I was tired of websites that looked cheap or took forever to load. Working with Crown Access gave my business an immediate look of authority. Clients take us seriously right out of the gate now."
+                </blockquote>
+                <cite class="cite-text">
+                    &mdash; Marcus Vance, Managing Partner
+                </cite>
             </div>
         </section>
     </div>
@@ -397,8 +502,13 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
+            <div class="footer-action">
+                <h3 class="masthead-title">Ready for the Black Label?</h3>
+                <a href="contact.html" class="btn btn-primary" style="padding: 16px 32px; font-size: 0.85rem;">Request a Consultation</a>
+            </div>
+
             <div class="footer-crest-wrapper">
-                <img src="logo.png" alt="Crown Access Crest" loading="lazy" width="65" height="65">
+                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
             </div>
             
             <div class="footer-links">
