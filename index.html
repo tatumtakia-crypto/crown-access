@@ -139,7 +139,7 @@
             box-shadow: none;
         }
 
-        /* --- Hero Visual: LOGO.PNG INTEGRATION --- */
+        /* --- Hero Visual: 4D FLOATING LOGO.PNG --- */
         .hero-visual {
             height: 100%;
             min-height: 500px;
@@ -147,6 +147,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            perspective: 1000px; /* Enables 3D space */
         }
 
         .logo-img-wrapper {
@@ -155,13 +156,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); 
+            /* Combines a deep shadow with the 4D floating animation */
+            filter: drop-shadow(0 25px 35px rgba(0,0,0,0.2)); 
+            animation: float3d 6s ease-in-out infinite;
         }
 
         .logo-img-wrapper img {
             width: 100%;
             height: auto;
             object-fit: contain;
+        }
+
+        /* 4D Floating & Subtle Rotation Keyframes */
+        @keyframes float3d {
+            0% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotateX(4deg) rotateY(-4deg);
+            }
+            100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+            }
         }
 
         /* --- Value Section --- */
@@ -332,9 +348,9 @@
                 <a href="services.html" class="btn btn-primary">Explore The Studio</a>
             </div>
             <div class="hero-visual">
-                <!-- LINKED TO LOGO.PNG -->
+                <!-- 4D FLOATING LOGO.PNG INTEGRATION -->
                 <div class="logo-img-wrapper">
-                    <img src="logo.png" alt="Crown Access Metallic Logo">
+                    <img src="logo.png" alt="Crown Access 4D Metallic Logo">
                 </div>
             </div>
         </section>
