@@ -10,12 +10,16 @@
             --color-bg: #F8F3E8; 
             --color-bg-texture: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36z8gAFkNfwxhgzDDG/wyMDMUAAFg7C/9uOop+AAAAAElFTkSuQmCC');
             
-            /* Realistic Metallic Gold Gradients and Textures */
-            --color-gold-metallic: linear-gradient(135deg, #B8934D 0%, #E4C988 25%, #9B7832 50%, #F3E0AC 75%, #A6803A 100%);
+            /* Realistic Multi-Stop Metallic Gold Gradients */
+            --color-gold-metallic: linear-gradient(135deg, #A8833C 0%, #E2CA84 25%, #8C6A29 50%, #F5E2AC 75%, #9E7932 100%);
             --color-gold-solid: #C5A059;
             
+            /* Sophisticated Deep Navy Accents */
+            --color-navy-deep: #0B1B3D;
+            --color-navy-muted: #1E2D4A;
+            
             --color-text-main: #010101;
-            --color-text-muted: #555555;
+            --color-text-muted: #333333; 
             --color-border: #DCD5C6; 
             
             --font-headline: "Didot", "Bodoni MT", "Times New Roman", serif;
@@ -30,14 +34,15 @@
             background-image: var(--color-bg-texture);
             color: var(--color-text-main);
             font-family: var(--font-body);
-            line-height: 1.7;
+            font-size: 1.15rem; 
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
         }
 
         h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
         
-        /* Realistic Metallic Gold Text with Specular Highlight and Depth */
+        /* True Metallic Gold Text with Depth Shadow */
         .gold-text {
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
@@ -54,9 +59,10 @@
         /* --- Header & Navigation --- */
         site-header {
             display: block;
-            padding: 30px 0;
+            padding: 35px 0;
             border-bottom: 1px solid var(--color-border);
             margin-bottom: 60px;
+            background: linear-gradient(to bottom, rgba(11, 27, 61, 0.03), transparent);
         }
 
         .nav-content {
@@ -66,34 +72,35 @@
         }
 
         .masthead-title {
-            font-size: 1.8rem;
-            letter-spacing: 0.2em;
+            font-size: 2.2rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             line-height: 1;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .masthead-tagline {
             font-family: var(--font-ui);
-            font-size: 0.6rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: var(--color-text-muted);
-            font-weight: 300;
+            letter-spacing: 0.3em;
+            color: var(--color-navy-muted);
+            font-weight: 600;
         }
 
         site-nav ul {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 35px;
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
+            font-weight: 600;
         }
 
         site-nav a {
-            color: var(--color-text-main);
+            color: var(--color-navy-deep);
             text-decoration: none;
             position: relative;
             padding-bottom: 5px;
@@ -105,7 +112,7 @@
             left: 0;
             bottom: 0;
             width: 0;
-            height: 1px;
+            height: 2px;
             background: var(--color-gold-metallic);
             transition: width 0.4s ease;
         }
@@ -117,33 +124,34 @@
         /* --- Services Page Header --- */
         .page-header {
             text-align: center;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto 80px auto;
         }
 
         .page-eyebrow {
             font-family: var(--font-ui);
-            font-size: 0.75rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.25em;
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            display: inline-block;
-            font-weight: 600;
+            display: block;
+            font-weight: 700;
         }
 
         .page-title {
-            font-size: 3.5rem;
+            font-size: 4rem;
             line-height: 1.1;
             margin-bottom: 25px;
+            color: var(--color-navy-deep);
         }
 
         .page-subtitle {
-            font-size: 1.15rem;
+            font-size: 1.35rem;
             color: var(--color-text-muted);
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* --- 3-Card Umbrella Services Grid --- */
@@ -155,20 +163,21 @@
         }
 
         .service-card {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--color-border);
-            padding: 50px 40px;
+            padding: 50px 35px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            box-shadow: 0 10px 30px rgba(11, 27, 61, 0.03);
+            border-radius: 4px;
         }
 
         .service-card:hover {
-            border-color: #B8934D;
+            border-color: #A8833C;
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(184, 147, 77, 0.15);
+            box-shadow: 0 20px 40px rgba(168, 131, 60, 0.15);
         }
 
         .service-card-header {
@@ -177,25 +186,26 @@
 
         .service-number {
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.25em;
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
             display: block;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .service-card-title {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             line-height: 1.2;
             margin-bottom: 20px;
+            color: var(--color-navy-deep);
         }
 
         .service-card-desc {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--color-text-muted);
             margin-bottom: 30px;
         }
@@ -209,13 +219,14 @@
         }
 
         .sub-service-item {
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid rgba(220, 213, 198, 0.4);
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-text-main);
+            letter-spacing: 0.15em;
+            color: var(--color-navy-deep);
+            font-weight: 600;
         }
 
         .sub-service-item::before {
@@ -223,53 +234,53 @@
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-right: 8px;
+            margin-right: 10px;
             font-weight: bold;
         }
 
         .btn {
             display: inline-block;
             font-family: var(--font-ui);
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.25em;
             text-decoration: none;
-            padding: 14px 28px;
+            padding: 18px 36px;
             transition: all 0.5s ease;
             cursor: pointer;
             text-align: center;
-            border: 1px solid #B8934D;
+            border: 1px solid #A8833C;
             width: 100%;
+            font-weight: 600;
         }
 
-        /* True Metallic Gold Button with 3D Depth */
+        /* True Metallic Gold Button with Deep Navy Contrast Hover */
         .btn-primary {
             background: var(--color-gold-metallic);
-            color: #1A1A1A; 
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(184, 147, 77, 0.35);
+            color: var(--color-navy-deep); 
+            box-shadow: 0 4px 15px rgba(168, 131, 60, 0.35);
         }
 
         .btn-primary:hover {
-            background: transparent;
-            color: var(--color-text-main);
-            border-color: var(--color-text-main);
-            box-shadow: none;
+            background: var(--color-navy-deep);
+            color: #E2CA84;
+            border-color: var(--color-navy-deep);
+            box-shadow: 0 6px 20px rgba(11, 27, 61, 0.25);
         }
 
         /* --- Footer --- */
         .main-footer {
             text-align: center;
-            padding: 60px 0;
+            padding: 70px 0;
             border-top: 1px solid var(--color-border);
-            background-color: #F0EBDD;
+            background-color: #EFE8D8;
         }
 
         .footer-crest-wrapper {
-            width: 50px;
+            width: 65px;
             height: auto;
-            margin: 0 auto 25px auto;
-            opacity: 0.6;
+            margin: 0 auto 30px auto;
+            opacity: 0.7;
         }
         .footer-crest-wrapper img {
             width: 100%;
@@ -277,44 +288,46 @@
         }
 
         .footer-links {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-family: var(--font-ui);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--color-text-muted);
+            letter-spacing: 0.25em;
+            color: var(--color-navy-muted);
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
+            font-weight: 600;
         }
         .footer-links a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
         .footer-links a:hover { background: var(--color-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .footer-text {
             font-family: var(--font-ui);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.3em;
             color: var(--color-text-muted);
+            font-weight: 500;
         }
 
         /* --- Mobile & Responsive Media Queries --- */
         @media (max-width: 1024px) {
             .container { padding: 0 20px; }
             .nav-content { flex-direction: column; gap: 20px; text-align: center; }
-            site-nav ul { justify-content: center; gap: 20px; flex-wrap: wrap; }
+            site-nav ul { justify-content: center; gap: 25px; flex-wrap: wrap; }
             
-            .services-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 100px; }
-            .page-title { font-size: 2.8rem; }
+            .services-grid { grid-template-columns: 1fr; gap: 35px; margin-bottom: 100px; }
+            .page-title { font-size: 3rem; }
         }
 
         @media (max-width: 480px) {
-            .masthead-title { font-size: 1.4rem; }
-            .page-title { font-size: 2.2rem; }
-            site-header { padding: 20px 0; margin-bottom: 40px; }
-            site-nav ul { gap: 15px; font-size: 0.65rem; }
-            .service-card { padding: 30px 20px; }
+            .masthead-title { font-size: 1.6rem; }
+            .page-title { font-size: 2.4rem; }
+            site-header { padding: 25px 0; margin-bottom: 40px; }
+            site-nav ul { gap: 18px; font-size: 0.8rem; }
+            .service-card { padding: 35px 25px; }
         }
     </style>
 </head>
