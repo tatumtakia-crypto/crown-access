@@ -193,31 +193,56 @@
             margin-bottom: 30px;
         }
 
-        /* Individual Sub-services list inside each card */
+        /* Individual Sub-services list with linked pricing buttons */
         .sub-services-list {
             list-style: none;
             border-top: 1px solid var(--color-border);
-            padding-top: 25px;
+            padding-top: 20px;
             margin-bottom: 40px;
         }
 
-        .sub-services-list li {
-            font-family: var(--font-ui);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--color-text-main);
-            padding: 10px 0;
+        .sub-service-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            padding: 12px 0;
             border-bottom: 1px solid rgba(220, 213, 198, 0.4);
         }
 
-        .sub-services-list li::before {
+        .sub-service-name {
+            font-family: var(--font-ui);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-main);
+            padding-right: 15px;
+        }
+
+        .sub-service-name::before {
             content: "—";
             color: var(--color-gold-solid);
-            margin-right: 12px;
+            margin-right: 8px;
             font-weight: bold;
+        }
+
+        .btn-sub {
+            font-family: var(--font-ui);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            padding: 6px 12px;
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-sub:hover {
+            border-color: var(--color-gold-solid);
+            color: var(--color-text-main);
+            background-color: rgba(197, 160, 89, 0.05);
         }
 
         .btn {
@@ -349,13 +374,25 @@
                     <p class="service-card-desc">High-performance digital web applications, custom platforms, and robust system integrations built for speed and precision.</p>
                     
                     <ul class="sub-services-list">
-                        <li>Custom Web Portals &amp; TMS Apps</li>
-                        <li>Supabase &amp; GitHub Integration</li>
-                        <li>Role-Based Access Systems</li>
-                        <li>Front-End UI/UX Engineering</li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Custom Web Portals &amp; TMS Apps</span>
+                            <a href="digital.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Supabase &amp; GitHub Integration</span>
+                            <a href="digital.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Role-Based Access Systems</span>
+                            <a href="digital.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Front-End UI/UX Engineering</span>
+                            <a href="digital.html" class="btn-sub">View Prices</a>
+                        </li>
                     </ul>
                 </div>
-                <a href="contact.html" class="btn btn-primary">Inquire About Pillar 01</a>
+                <a href="digital.html" class="btn btn-primary">Inquire About Pillar 01</a>
             </div>
 
             <!-- Umbrella Card 2: Brand Identity -->
@@ -366,13 +403,25 @@
                     <p class="service-card-desc">Exquisite visual design, multi-dimensional asset creation, and sophisticated brand systems that command immediate prestige.</p>
                     
                     <ul class="sub-services-list">
-                        <li>3D &amp; 4D Motion Asset Design</li>
-                        <li>Editorial Collateral &amp; Curated Layouts</li>
-                        <li>High-End Print &amp; Digital Materials</li>
-                        <li>Corporate Aesthetic Engineering</li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">3D &amp; 4D Motion Asset Design</span>
+                            <a href="brand.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Editorial Collateral &amp; Layouts</span>
+                            <a href="brand.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">High-End Print &amp; Digital Materials</span>
+                            <a href="brand.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Corporate Aesthetic Engineering</span>
+                            <a href="brand.html" class="btn-sub">View Prices</a>
+                        </li>
                     </ul>
                 </div>
-                <a href="contact.html" class="btn btn-primary">Inquire About Pillar 02</a>
+                <a href="brand.html" class="btn btn-primary">Inquire About Pillar 02</a>
             </div>
 
             <!-- Umbrella Card 3: Business Infrastructure -->
@@ -383,13 +432,25 @@
                     <p class="service-card-desc">Comprehensive operational setup, curriculum design, and organizational frameworks tailored for rapid market dominance.</p>
                     
                     <ul class="sub-services-list">
-                        <li>Enterprise Training &amp; Curriculum Design</li>
-                        <li>Logistics &amp; Dispatch Systems Setup</li>
-                        <li>Corporate Structuring Guidance</li>
-                        <li>Executive Workflow Optimization</li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Enterprise Training &amp; Curriculum</span>
+                            <a href="business.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Logistics &amp; Dispatch Systems</span>
+                            <a href="business.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Corporate Structuring Guidance</span>
+                            <a href="business.html" class="btn-sub">View Prices</a>
+                        </li>
+                        <li class="sub-service-item">
+                            <span class="sub-service-name">Executive Workflow Optimization</span>
+                            <a href="business.html" class="btn-sub">View Prices</a>
+                        </li>
                     </ul>
                 </div>
-                <a href="contact.html" class="btn btn-primary">Inquire About Pillar 03</a>
+                <a href="business.html" class="btn btn-primary">Inquire About Pillar 03</a>
             </div>
 
         </div>
