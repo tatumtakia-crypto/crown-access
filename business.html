@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Infrastructure Pricing | Crown Access | The Black Label</title>
+    <style>
+        /* --- 01. Reset & Basics --- */
+        :root {
+            --color-bg: #F8F3E8; 
+            --color-bg-texture: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36z8gAFkNfwxhgzDDG/wyMDMUAAFg7C/9uOop+AAAAAElFTkSuQmCC');
+            
+            /* Realistic Multi-Stop Metallic Gold Gradients */
+            --color-gold-metallic: linear-gradient(135deg, #A8833C 0%, #E2CA84 25%, #8C6A29 50%, #F5E2AC 75%, #9E7932 100%);
+            --color-gold-solid: #C5A059;
+            
+            /* Sophisticated Deep Navy Accents */
+            --color-navy-deep: #0B1B3D;
+            --color-navy-muted: #1E2D4A;
+            
+            --color-text-main: #010101;
+            --color-text-muted: #333333; 
+            --color-border: #DCD5C6; 
+            
+            --font-headline: "Didot", "Bodoni MT", "Times New Roman", serif;
+            --font-body: "Baskerville", "Palatino Linotype", "Garamond", serif;
+            --font-ui: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-bg);
+            background-image: var(--color-bg-texture);
+            color: var(--color-text-main);
+            font-family: var(--font-body);
+            font-size: 1.15rem; 
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
+        
+        /* True Metallic Gold Text with Depth Shadow */
+        .gold-text {
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.15));
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* --- Header & Navigation --- */
+        site-header {
+            display: block;
+            padding: 35px 0;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 60px;
+            background: linear-gradient(to bottom, rgba(11, 27, 61, 0.03), transparent);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .masthead-title {
+            font-size: 2.2rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .masthead-tagline {
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-navy-muted);
+            font-weight: 600;
+        }
+
+        site-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+        }
+
+        site-nav a {
+            color: var(--color-navy-deep);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        site-nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-gold-metallic);
+            transition: width 0.4s ease;
+        }
+
+        site-nav a:hover::after, site-nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- Page Header --- */
+        .page-header {
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto 80px auto;
+        }
+
+        .page-eyebrow {
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 700;
+        }
+
+        .page-title {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--color-navy-deep);
+        }
+
+        .page-subtitle {
+            font-size: 1.35rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+        }
+
+        /* --- Pricing Grid --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 140px;
+        }
+
+        .pricing-card {
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--color-border);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(11, 27, 61, 0.03);
+            border-radius: 4px;
+        }
+
+        .pricing-card:hover {
+            border-color: #A8833C;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(168, 131, 60, 0.15);
+        }
+
+        .pricing-card-header {
+            margin-bottom: 30px;
+        }
+
+        .service-tier {
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 700;
+        }
+
+        .pricing-title {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--color-navy-deep);
+        }
+
+        .pricing-amount {
+            font-family: var(--font-headline);
+            font-size: 2.8rem;
+            color: var(--color-navy-deep);
+            margin-bottom: 20px;
+        }
+
+        .pricing-desc {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 30px;
+        }
+
+        .features-list {
+            list-style: none;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(220, 213, 198, 0.4);
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-navy-deep);
+            font-weight: 600;
+        }
+
+        .feature-item::before {
+            content: "—";
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            text-decoration: none;
+            padding: 18px 36px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid #A8833C;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--color-gold-metallic);
+            color: var(--color-navy-deep); 
+            box-shadow: 0 4px 15px rgba(168, 131, 60, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-navy-deep);
+            color: #E2CA84;
+            border-color: var(--color-navy-deep);
+            box-shadow: 0 6px 20px rgba(11, 27, 61, 0.25);
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            text-align: center;
+            padding: 70px 0;
+            border-top: 1px solid var(--color-border);
+            background-color: #EFE8D8;
+        }
+
+        .footer-crest-wrapper {
+            width: 65px;
+            height: auto;
+            margin: 0 auto 30px auto;
+            opacity: 0.7;
+        }
+        .footer-crest-wrapper img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer-links {
+            margin-bottom: 30px;
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--color-navy-muted);
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+        .footer-links a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+        .footer-links a:hover { background: var(--color-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .footer-text {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        /* --- Mobile & Responsive Media Queries --- */
+        @media (max-width: 1024px) {
+            .container { padding: 0 20px; }
+            .nav-content { flex-direction: column; gap: 20px; text-align: center; }
+            site-nav ul { justify-content: center; gap: 25px; flex-wrap: wrap; }
+            
+            .pricing-grid { grid-template-columns: 1fr; gap: 35px; margin-bottom: 100px; }
+            .page-title { font-size: 3rem; }
+        }
+
+        @media (max-width: 480px) {
+            .masthead-title { font-size: 1.6rem; }
+            .page-title { font-size: 2.4rem; }
+            site-header { padding: 25px 0; margin-bottom: 40px; }
+            site-nav ul { gap: 18px; font-size: 0.8rem; }
+            .pricing-card { padding: 35px 25px; }
+        }
+    </style>
+
+    <!-- Square Sandbox Web Payments SDK Script -->
+    <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+</head>
+<body>
+
+    <!-- Masthead Header with Responsive Navigation -->
+    <site-header>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo-area">
+                    <h1 class="masthead-title gold-text">CROWN ACCESS</h1>
+                    <div class="masthead-tagline">The Black Label Edition</div>
+                </div>
+                <site-nav>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="services.html" class="active">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Inquire</a></li>
+                    </ul>
+                </site-nav>
+            </div>
+        </div>
+    </site-header>
+
+    <!-- Page Header -->
+    <div class="container">
+        <div class="page-header">
+            <span class="page-eyebrow">Pillar 03 Pricing</span>
+            <h1 class="page-title">Business Infrastructure Investment</h1>
+            <p class="page-subtitle">Comprehensive operational setup, domain configurations, and organizational frameworks tailored for rapid market dominance.</p>
+        </div>
+
+        <!-- Pricing Grid with Direct Square Sandbox Integration -->
+        <div class="pricing-grid">
+            
+            <!-- Service 1: Domain Setup -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <span class="service-tier">Capability 01</span>
+                    <h2 class="pricing-title">Domain Setup</h2>
+                    <div class="pricing-amount">$50</div>
+                    <p class="pricing-desc">Professional domain acquisition and secure connection to your hosting or landing page.</p>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">Domain Acquisition Guidance</li>
+                        <li class="feature-item">DNS Record Configuration</li>
+                        <li class="feature-item">Secure SSL Connection</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-primary square-checkout-btn" data-name="Domain Setup" data-amount="5000">Secure &amp; Reserve ($50)</button>
+            </div>
+
+            <!-- Service 2: Professional Email -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <span class="service-tier">Capability 02</span>
+                    <h2 class="pricing-title">Professional Email</h2>
+                    <div class="pricing-amount">$40</div>
+                    <p class="pricing-desc">Configuration of domain-based email addresses to ensure your brand communications are professional and trustworthy.</p>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">Custom Domain Email Setup</li>
+                        <li class="feature-item">Inbox &amp; Mail Client Integration</li>
+                        <li class="feature-item">Security &amp; SPF Record Routing</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-primary square-checkout-btn" data-name="Professional Email" data-amount="4000">Secure &amp; Reserve ($40)</button>
+            </div>
+
+            <!-- Service 3: Linktree Setup -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <span class="service-tier">Capability 03</span>
+                    <h2 class="pricing-title">Linktree Setup</h2>
+                    <div class="pricing-amount">$30</div>
+                    <p class="pricing-desc">Customized centralized hub for your links and social identity.</p>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">Branded Profile &amp; Bio</li>
+                        <li class="feature-item">Up to 10 Destination Links</li>
+                        <li class="feature-item">Social Media Integrations &amp; Color Customization</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-primary square-checkout-btn" data-name="Linktree Setup" data-amount="3000">Secure &amp; Reserve ($30)</button>
+            </div>
+
+            <!-- Service 4: QR Code Design & Setup -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <span class="service-tier">Capability 04</span>
+                    <h2 class="pricing-title">QR Code Design &amp; Setup</h2>
+                    <div class="pricing-amount">$20</div>
+                    <p class="pricing-desc">Functional and branded QR codes set up to seamlessly connect your audience to your digital assets.</p>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">Custom Branded Code Styling</li>
+                        <li class="feature-item">High-Resolution Vector Export</li>
+                        <li class="feature-item">Destination Link Routing</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-primary square-checkout-btn" data-name="QR Code Design & Setup" data-amount="2000">Secure &amp; Reserve ($20)</button>
+            </div>
+
+            <!-- Service 5: Document Formatting -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <span class="service-tier">Capability 05</span>
+                    <h2 class="pricing-title">Document Formatting</h2>
+                    <div class="pricing-amount">$80</div>
+                    <p class="pricing-desc">Professional document layout and formatting to ensure your content is clean, structured, and legible.</p>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">Executive Layout Styling</li>
+                        <li class="feature-item">Typography &amp; Structure Polish</li>
+                        <li class="feature-item">Print &amp; Digital PDF Delivery</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-primary square-checkout-btn" data-name="Document Formatting" data-amount="8000">Secure &amp; Reserve ($80)</button>
+            </div>
+
+            <!-- Service 6: Enterprise Training & Logistics Setup (Added Business Infrastructure Service) -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <span class="service-tier">Capability 06</span>
+                    <h2 class="pricing-title">Enterprise Training &amp; Logistics Setup</h2>
+                    <div class="pricing-amount">$750</div>
+                    <p class="pricing-desc">Comprehensive operational curriculum design and workflow frameworking tailored for logistics and executive scaling.</p>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">Custom Operational Curriculum</li>
+                        <li class="feature-item">Dispatch &amp; Workflow Architecture</li>
+                        <li class="feature-item">Executive Implementation Guide</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-primary square-checkout-btn" data-name="Enterprise Training & Logistics Setup" data-amount="75000">Secure &amp; Reserve ($750)</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-crest-wrapper">
+                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
+            </div>
+            
+            <div class="footer-links">
+                <a href="/index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Inquire</a>
+            </div>
+
+            <div class="footer-text">
+                &copy; 2026 Crown Access &mdash; The Black Label. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Direct Square Sandbox Integration Script -->
+    <script>
+        document.querySelectorAll('.square-checkout-btn').forEach(button => {
+            button.addEventListener('click', async function() {
+                const itemName = this.getAttribute('data-name');
+                const itemAmount = this.getAttribute('data-amount');
+                const locationId = 'L4WMCTRKB38B7';
+                const accessToken = 'EAAAl-j_P53fAvR0T_YCjjvZTInANsyAjT2xrsaJGDbTBYzv6WIhZoJcDWCUxKgr';
+
+                this.innerText = 'Connecting to Square...';
+                this.style.opacity = '0.7';
+
+                try {
+                    const response = await fetch('https://connect.squareupsandbox.com/v2/online-checkout/payment-links', {
+                        method: 'POST',
+                        headers: {
+                            'Square-Version': '2026-01-16',
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idempotency_key: crypto.randomUUID(),
+                            quick_pay: {
+                                name: itemName,
+                                price_money: {
+                                    amount: parseInt(itemAmount),
+                                    currency: 'USD'
+                                },
+                                location_id: locationId
+                            },
+                            checkout_options: {
+                                redirect_url: window.location.origin + '/contact.html'
+                            }
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.payment_link && data.payment_link.url) {
+                        window.location.href = data.payment_link.url;
+                    } else {
+                        throw new Error(data.errors ? data.errors[0].detail : 'Checkout configuration error.');
+                    }
+                } catch (error) {
+                    console.error('Square Sandbox API Error:', error);
+                    alert('Unable to initiate secure checkout directly. Redirecting to standard inquiry page.');
+                    window.location.href = 'contact.html';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
