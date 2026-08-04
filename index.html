@@ -7,20 +7,16 @@
     <style>
         /* --- 01. Reset & Basics --- */
         :root {
-            /* Background: Light, luxurious champagne texture */
             --color-bg: #F8F3E8; 
             --color-bg-texture: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36z8gAFkNfwxhgzDDG/wyMDMUAAFg7C/9uOop+AAAAAElFTkSuQmCC');
             
-            /* Gold: Rich metallic gradient */
             --color-gold-metallic: linear-gradient(145deg, #C5A059 0%, #E4C988 50%, #B8934D 100%);
             --color-gold-solid: #C5A059;
             
-            /* Text & Borders: Adjusted for light background */
-            --color-text-main: #010101; /* Deep Charcoal */
+            --color-text-main: #010101;
             --color-text-muted: #555555;
             --color-border: #DCD5C6; 
             
-            /* Editorial Font Stack */
             --font-headline: "Didot", "Bodoni MT", "Times New Roman", serif;
             --font-body: "Baskerville", "Palatino Linotype", "Garamond", serif;
             --font-ui: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -33,28 +29,26 @@
             background-image: var(--color-bg-texture);
             color: var(--color-text-main);
             font-family: var(--font-body);
-            line-height: 1.7; /* Slightly increased line height for readability */
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
         }
 
         h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
         
-        /* Helper class for Metallic Gold Text */
         .gold-text {
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- 03. Layout & Spacing --- */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 40px;
         }
 
-        /* --- 04. Header: The Masthead --- */
+        /* --- Header --- */
         site-header {
             display: block;
             padding: 40px 0;
@@ -80,14 +74,14 @@
             font-weight: 300;
         }
 
-        /* --- 05. Hero Section: The Feature Spread --- */
+        /* --- Hero Section --- */
         .hero {
             min-height: 70vh;
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 60px;
             align-items: center;
-            margin-bottom: 200px; /* Large margin before next section */
+            margin-bottom: 200px;
         }
 
         .hero-content {
@@ -145,35 +139,32 @@
             box-shadow: none;
         }
 
-        /* --- 06. Hero Visual: THE LOGO.HTML IFRAME --- */
+        /* --- Hero Visual: LOGO.PNG INTEGRATION --- */
         .hero-visual {
             height: 100%;
-            min-height: 500px; /* Ensure space for rotation */
+            min-height: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
-        .logo-iframe-wrapper {
+        .logo-img-wrapper {
             width: 100%;
-            height: 100%;
+            max-width: 550px;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Filter applies shadow to the content inside iframe */
             filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); 
         }
 
-        .logo-iframe-wrapper iframe {
-            border: none;
-            width: 550px;
-            height: 550px;
-            /* Ensure content inside iframe is centered */
-            background: transparent; 
+        .logo-img-wrapper img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
 
-        /* --- 09. ADDITION A: Curated Value Section --- */
+        /* --- Value Section --- */
         .value-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -183,9 +174,8 @@
         }
 
         .value-visual {
-            background-color: #F0EBDD; /* Subtle contrast block */
+            background-color: #F0EBDD;
             min-height: 600px;
-            /* Optional: Place lifestyle image here via background-image */
         }
 
         .value-content h2 {
@@ -201,7 +191,7 @@
             max-width: 500px;
         }
 
-        /* --- 10. ADDITION B: Testimonial Section --- */
+        /* --- Testimonial Section --- */
         .testimonial-section {
             margin-bottom: 200px;
             text-align: center;
@@ -215,7 +205,6 @@
             position: relative;
         }
 
-        /* Decorative quote marks using gold */
         .testimonial-block::before, 
         .testimonial-block::after {
             font-family: var(--font-headline);
@@ -247,7 +236,7 @@
             font-style: normal;
         }
 
-        /* --- 07. Footer (Revised) --- */
+        /* --- Footer --- */
         .main-footer {
             text-align: center;
             padding: 80px 0;
@@ -297,15 +286,14 @@
             color: var(--color-text-muted);
         }
 
-        /* --- 08. Mobile Adaptation --- */
+        /* --- Mobile Adaptation --- */
         @media (max-width: 1024px) {
             .hero { grid-template-columns: 1fr; text-align: center; gap: 60px; padding: 0 20px; margin-bottom: 100px;}
             .hero-content { padding-left: 0; }
             .hero-headline { font-size: 3.5rem; }
             .hero-subheadline { margin-left: auto; margin-right: auto; }
             
-            /* Adjust Iframe size for mobile */
-            .logo-iframe-wrapper iframe { width: 350px; height: 350px; }
+            .logo-img-wrapper { max-width: 350px; margin: 0 auto; }
             .hero-visual { min-height: 350px; }
 
             .value-section { grid-template-columns: 1fr; gap: 60px; padding: 0 20px; margin-bottom: 100px; }
@@ -344,20 +332,18 @@
                 <a href="services.html" class="btn btn-primary">Explore The Studio</a>
             </div>
             <div class="hero-visual">
-                <!-- THE LOGO.HTML IFRAME INTEGRATION -->
-                <div class="logo-iframe-wrapper">
-                    <iframe src="logo.html" title="Crown Access Animated Logo" scrolling="no"></iframe>
+                <!-- LINKED TO LOGO.PNG -->
+                <div class="logo-img-wrapper">
+                    <img src="logo.png" alt="Crown Access Metallic Logo">
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- ADDITION A: The Blueprint Section (Context) -->
+    <!-- The Blueprint Section -->
     <div class="container">
         <section class="value-section">
-            <div class="value-visual">
-                <!-- Optional Image Area -->
-            </div>
+            <div class="value-visual"></div>
             <div class="value-content">
                 <span class="hero-eyebrow">Our Philosophy</span>
                 <h2>The Blueprint <br>of Distinction</h2>
@@ -367,7 +353,7 @@
         </section>
     </div>
 
-    <!-- ADDITION B: Testimonial Section (Proof) -->
+    <!-- Testimonial Section -->
     <div class="container">
         <section class="testimonial-section">
             <div class="testimonial-block">
@@ -381,22 +367,30 @@
         </section>
     </div>
 
-    <!-- Revised Footer (Utility) -->
+    <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <!-- Secondary CTA -->
             <div class="footer-action">
                 <h3 class="masthead-title">Ready for the Black Label?</h3>
                 <a href="contact.html" class="btn btn-primary" style="padding: 15px 30px; font-size: 0.7rem;">Request a Consultation</a>
             </div>
 
-            <!-- Crest (Assuming you have a version of the logo for the footer) -->
             <div class="footer-crest-wrapper">
-                <img src="path/to/your/footer-crest.png" alt="Crown Access Crest">
+                <img src="logo.png" alt="Crown Access Crest">
             </div>
             
-            <!-- Nav Links -->
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="services.html">Services</a>
-                <
+                <a href="about.html">About</a>
+                <a href="contact.html">Inquire</a>
+            </div>
+
+            <div class="footer-text">
+                &copy; 2026 Crown Access &mdash; The Black Label. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
