@@ -364,12 +364,15 @@
                 </div>
             </div>
 
-            <!-- Consultation Form -->
+            <!-- Consultation Form Connected to Web3Forms -->
             <div class="contact-form-wrapper">
-                <form action="#" method="POST">
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="4fa8e0cf-4447-4f44-808d-ade24a965651">
+
                     <div class="form-group">
                         <label class="form-label" for="fullname">Full Name</label>
-                        <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Marcus Vance" required>
+                        <input type="text" id="fullname" name="name" class="form-input" placeholder="Marcus Vance" required>
                     </div>
 
                     <div class="form-group">
