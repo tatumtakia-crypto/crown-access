@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Crown Access | The Black Label</title>
+    <title>Inquire | Crown Access | The Black Label</title>
     <style>
         /* --- 01. Reset & Basics --- */
         :root {
@@ -121,120 +121,152 @@
             width: 100%;
         }
 
-        /* --- About Page Header --- */
-        .page-header {
-            text-align: center;
-            max-width: 850px;
-            margin: 0 auto 80px auto;
+        /* --- Contact Layout --- */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+            margin-bottom: 140px;
         }
 
-        .page-eyebrow {
+        .contact-info h2 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--color-navy-deep);
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 40px;
+            max-width: 480px;
+        }
+
+        .contact-details {
             font-family: var(--font-ui);
             font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.15em;
+            color: var(--color-navy-deep);
+            line-height: 2.4;
+            font-weight: 600;
+        }
+
+        .contact-details span {
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            display: block;
+            display: inline-block;
+            width: 95px;
             font-weight: 700;
         }
 
-        .page-title {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            color: var(--color-navy-deep);
-        }
-
-        .page-subtitle {
-            font-size: 1.35rem;
-            color: var(--color-text-muted);
-            font-weight: 400;
-        }
-
-        /* --- Story / Mission Section --- */
-        .about-split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
+        /* --- Click-to-Call Button Customization --- */
+        .btn-call {
+            display: inline-flex;
             align-items: center;
-            margin-bottom: 140px;
-        }
-
-        .about-text h2 {
-            font-size: 3.2rem;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            color: var(--color-navy-deep);
-        }
-
-        .about-text p {
-            font-size: 1.2rem;
-            color: var(--color-text-muted);
-            margin-bottom: 25px;
-        }
-
-        .about-visual-box {
-            background-color: #EAE3D2;
-            border: 1px solid var(--color-border);
-            min-height: 500px;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 0;
-            text-align: center;
+            gap: 12px;
+            margin-top: 30px;
+            padding: 16px 28px;
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            background: var(--color-navy-deep);
+            color: #E2CA84;
+            border: 1px solid var(--color-navy-deep);
             border-radius: 4px;
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(11, 27, 61, 0.15);
+            transition: all 0.4s ease;
+            font-weight: 600;
         }
 
-        .about-visual-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.95;
-            filter: drop-shadow(0 20px 30px rgba(11,27,61,0.15));
-        }
-
-        /* --- Core Values Grid --- */
-        .values-section {
-            margin-bottom: 140px;
-        }
-
-        .values-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .values-header h2 {
-            font-size: 3.2rem;
+        .btn-call:hover {
+            background: var(--color-gold-metallic);
             color: var(--color-navy-deep);
+            border-color: #A8833C;
+            box-shadow: 0 6px 20px rgba(168, 131, 60, 0.3);
+            transform: translateY(-2px);
         }
 
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .value-card {
-            background-color: rgba(255, 255, 255, 0.5);
+        /* --- Form Styling --- */
+        .contact-form-wrapper {
+            background-color: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--color-border);
-            padding: 50px 35px;
-            box-shadow: 0 10px 30px rgba(11, 27, 61, 0.03);
+            padding: 55px;
+            box-shadow: 0 15px 30px rgba(11, 27, 61, 0.04);
             border-radius: 4px;
         }
 
-        .value-card h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--color-navy-deep);
+        .form-group {
+            margin-bottom: 25px;
         }
 
-        .value-card p {
+        .form-label {
+            display: block;
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-navy-deep);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            font-family: var(--font-body);
             font-size: 1.1rem;
-            color: var(--color-text-muted);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #A8833C;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            text-decoration: none;
+            padding: 18px 36px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            border: none;
+            font-weight: 600;
+        }
+
+        /* True Metallic Gold Button with Deep Navy Contrast Hover */
+        .btn-primary {
+            background: var(--color-gold-metallic);
+            color: var(--color-navy-deep); 
+            border: 1px solid #A8833C;
+            box-shadow: 0 4px 15px rgba(168, 131, 60, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-navy-deep);
+            color: #E2CA84;
+            border-color: var(--color-navy-deep);
+            box-shadow: 0 6px 20px rgba(11, 27, 61, 0.25);
         }
 
         /* --- Footer --- */
@@ -309,16 +341,17 @@
             .nav-content { flex-direction: column; gap: 20px; text-align: center; }
             site-nav ul { justify-content: center; gap: 25px; flex-wrap: wrap; }
             
-            .about-split { grid-template-columns: 1fr; gap: 50px; margin-bottom: 100px; }
-            .values-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 100px; }
-            .page-title { font-size: 3rem; }
-            .about-text h2, .values-header h2 { font-size: 2.6rem; }
-            .about-visual-box { min-height: 350px; }
+            .contact-section { grid-template-columns: 1fr; gap: 50px; margin-bottom: 100px; }
+            .contact-info { text-align: center; }
+            .contact-info p { margin-left: auto; margin-right: auto; }
+            .contact-details { display: inline-block; text-align: left; }
+            .contact-form-wrapper { padding: 35px 25px; }
+            .contact-info h2 { font-size: 3rem; }
         }
 
         @media (max-width: 480px) {
             .masthead-title { font-size: 1.6rem; }
-            .page-title { font-size: 2.4rem; }
+            .contact-info h2 { font-size: 2.4rem; }
             site-header { padding: 25px 0; margin-bottom: 40px; }
             site-nav ul { gap: 18px; font-size: 0.8rem; }
         }
@@ -326,7 +359,7 @@
 </head>
 <body>
 
-    <!-- Masthead Header with Responsive Navigation -->
+    <!-- Masthead Header with Navigation -->
     <site-header>
         <div class="container">
             <div class="nav-content">
@@ -338,54 +371,70 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html" class="active">About</a></li>
-                        <li><a href="contact.html">Inquire</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html" class="active">Inquire</a></li>
                     </ul>
                 </site-nav>
             </div>
         </div>
     </site-header>
 
-    <!-- About Page Header -->
+    <!-- Contact Content Section -->
     <div class="container">
-        <div class="page-header">
-            <span class="page-eyebrow">The Atelier Heritage</span>
-            <h1 class="page-title">Engineered for Absolute Prestige</h1>
-            <p class="page-subtitle">Crown Access was built on a singular premise: elite leaders and expanding enterprises deserve digital ecosystems that match their ambition.</p>
-        </div>
+        <section class="contact-section">
+            <div class="contact-info">
+                <span class="hero-eyebrow" style="font-family: var(--font-ui); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.25em; background: var(--color-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; display: block; font-weight: 700;">Direct Inquiry</span>
+                <h2>Request Your <br>Consultation</h2>
+                <p>We work selectively with visionary leaders and expanding enterprises. Submit your project requirements below, or speak directly with our team immediately.</p>
+                
+                <div class="contact-details">
+                    <div><span>Studio:</span> The Black Label Atelier</div>
+                    <div><span>Direct:</span> compliance@crownaccesstbl.com</div>
+                    <div><span>Hours:</span> 24 / 7</div>
+                </div>
 
-        <!-- Split Content: Our Mission -->
-        <section class="about-split">
-            <div class="about-text">
-                <span class="page-eyebrow" style="margin-bottom: 15px;">Our Philosophy</span>
-                <h2>Refusing to Blend In</h2>
-                <p>In a digital landscape crowded with templates and commoditized design, Crown Access stands apart through a strict adherence to uncompromising luxury aesthetics and rigorous technical performance.</p>
-                <p>From bespoke front-end web architecture and customized system tools to high-end brand identity design, every asset we curate is engineered to position your enterprise at the top of its category.</p>
+                <!-- Click-to-Call Button Added Here -->
+                <div>
+                    <a href="tel:2053836124" class="btn-call">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        Call 205-383-6124
+                    </a>
+                </div>
             </div>
-            <div class="about-visual-box">
-                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
-            </div>
-        </section>
 
-        <!-- Core Values Section -->
-        <section class="values-section">
-            <div class="values-header">
-                <span class="page-eyebrow">The Black Label Standard</span>
-                <h2>Core Principles</h2>
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <h3>01. Precision</h3>
-                    <p>Every line of code and visual gradient is meticulously crafted. We leave zero room for error or mediocrity.</p>
-                </div>
-                <div class="value-card">
-                    <h3>02. Distinction</h3>
-                    <p>We refuse the ordinary. Our custom solutions ensure your brand commands authority and stands entirely alone.</p>
-                </div>
-                <div class="value-card">
-                    <h3>03. Execution</h3>
-                    <p>Speed meets luxury. We deploy high-performance operational systems designed to scale seamlessly from day one.</p>
-                </div>
+            <!-- Consultation Form Connected to Web3Forms -->
+            <div class="contact-form-wrapper">
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="4fa8e0cf-4447-4f44-808d-ade24a965651">
+
+                    <div class="form-group">
+                        <label class="form-label" for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="name" class="form-input" placeholder="Marcus Vance" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="marcus@enterprise.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="service">Area of Focus</label>
+                        <select id="service" name="service" class="form-select">
+                            <option value="digital-architecture">Digital Architecture & Web Development</option>
+                            <option value="branding">Visual Identity & Branding</option>
+                            <option value="business-setup">Business Setup & Infrastructure</option>
+                            <option value="comprehensive">Comprehensive Black Label Package</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="message">Project Scope & Objectives</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Describe your vision, current bottlenecks, and goals..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
             </div>
         </section>
     </div>
@@ -394,7 +443,8 @@
     <footer class="main-footer">
         <div class="container">
             <div class="footer-crest-wrapper">
-                <img src="logo.png" alt="Crown Access Crest" loading="lazy">
+                <!-- Optimized Footer Image for Immediate Loading -->
+                <img src="logo.png" alt="Crown Access Crest" width="65" height="65" loading="eager" fetchpriority="high">
             </div>
             
             <div class="footer-links">
