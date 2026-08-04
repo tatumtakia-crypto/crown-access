@@ -10,7 +10,8 @@
             --color-bg: #F8F3E8; 
             --color-bg-texture: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36z8gAFkNfwxhgzDDG/wyMDMUAAFg7C/9uOop+AAAAAElFTkSuQmCC');
             
-            --color-gold-metallic: linear-gradient(145deg, #C5A059 0%, #E4C988 50%, #B8934D 100%);
+            /* Realistic Metallic Gold Gradients and Textures */
+            --color-gold-metallic: linear-gradient(135deg, #B8934D 0%, #E4C988 25%, #9B7832 50%, #F3E0AC 75%, #A6803A 100%);
             --color-gold-solid: #C5A059;
             
             --color-text-main: #010101;
@@ -36,10 +37,12 @@
 
         h1, h2, h3 { font-family: var(--font-headline); font-weight: 400; }
         
+        /* Realistic Metallic Gold Text with Specular Highlight and Depth */
         .gold-text {
             background: var(--color-gold-metallic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.15));
         }
 
         .container {
@@ -103,7 +106,7 @@
             bottom: 0;
             width: 0;
             height: 1px;
-            background-color: var(--color-gold-solid);
+            background: var(--color-gold-metallic);
             transition: width 0.4s ease;
         }
 
@@ -123,9 +126,11 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.3em;
-            color: var(--color-gold-solid);
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            display: block;
+            display: inline-block;
             font-weight: 600;
         }
 
@@ -161,9 +166,9 @@
         }
 
         .service-card:hover {
-            border-color: var(--color-gold-solid);
+            border-color: #B8934D;
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.1);
+            box-shadow: 0 20px 40px rgba(184, 147, 77, 0.15);
         }
 
         .service-card-header {
@@ -175,7 +180,9 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.3em;
-            color: var(--color-gold-solid);
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
             display: block;
             font-weight: 600;
@@ -193,7 +200,7 @@
             margin-bottom: 30px;
         }
 
-        /* Individual Sub-services list with linked pricing buttons */
+        /* Individual Sub-services list (plain text items) */
         .sub-services-list {
             list-style: none;
             border-top: 1px solid var(--color-border);
@@ -202,47 +209,22 @@
         }
 
         .sub-service-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(220, 213, 198, 0.4);
-        }
-
-        .sub-service-name {
             font-family: var(--font-ui);
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--color-text-main);
-            padding-right: 15px;
         }
 
-        .sub-service-name::before {
+        .sub-service-item::before {
             content: "—";
-            color: var(--color-gold-solid);
+            background: var(--color-gold-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-right: 8px;
             font-weight: bold;
-        }
-
-        .btn-sub {
-            font-family: var(--font-ui);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            text-decoration: none;
-            padding: 6px 12px;
-            background-color: transparent;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-muted);
-            white-space: nowrap;
-            transition: all 0.3s ease;
-        }
-
-        .btn-sub:hover {
-            border-color: var(--color-gold-solid);
-            color: var(--color-text-main);
-            background-color: rgba(197, 160, 89, 0.05);
         }
 
         .btn {
@@ -256,17 +238,20 @@
             transition: all 0.5s ease;
             cursor: pointer;
             text-align: center;
-            border: 1px solid var(--color-gold-solid);
+            border: 1px solid #B8934D;
+            width: 100%;
         }
 
+        /* True Metallic Gold Button with 3D Depth */
         .btn-primary {
-            background-color: var(--color-gold-solid);
-            color: #FFFFFF; 
-            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+            background: var(--color-gold-metallic);
+            color: #1A1A1A; 
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(184, 147, 77, 0.35);
         }
 
         .btn-primary:hover {
-            background-color: transparent;
+            background: transparent;
             color: var(--color-text-main);
             border-color: var(--color-text-main);
             box-shadow: none;
@@ -304,7 +289,7 @@
             flex-wrap: wrap;
         }
         .footer-links a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--color-gold-solid); }
+        .footer-links a:hover { background: var(--color-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .footer-text {
             font-family: var(--font-ui);
@@ -345,7 +330,7 @@
                 </div>
                 <site-nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/index.html">Home</a></li>
                         <li><a href="services.html" class="active">Services</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Inquire</a></li>
@@ -374,25 +359,13 @@
                     <p class="service-card-desc">High-performance digital web applications, custom platforms, and robust system integrations built for speed and precision.</p>
                     
                     <ul class="sub-services-list">
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Custom Web Portals &amp; TMS Apps</span>
-                            <a href="digital.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Supabase &amp; GitHub Integration</span>
-                            <a href="digital.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Role-Based Access Systems</span>
-                            <a href="digital.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Front-End UI/UX Engineering</span>
-                            <a href="digital.html" class="btn-sub">View Prices</a>
-                        </li>
+                        <li class="sub-service-item">Custom Web Portals &amp; TMS Apps</li>
+                        <li class="sub-service-item">Supabase &amp; GitHub Integration</li>
+                        <li class="sub-service-item">Role-Based Access Systems</li>
+                        <li class="sub-service-item">Front-End UI/UX Engineering</li>
                     </ul>
                 </div>
-                <a href="digital.html" class="btn btn-primary">Inquire About Pillar 01</a>
+                <a href="digital.html" class="btn btn-primary">View Prices</a>
             </div>
 
             <!-- Umbrella Card 2: Brand Identity -->
@@ -403,25 +376,13 @@
                     <p class="service-card-desc">Exquisite visual design, multi-dimensional asset creation, and sophisticated brand systems that command immediate prestige.</p>
                     
                     <ul class="sub-services-list">
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">3D &amp; 4D Motion Asset Design</span>
-                            <a href="brand.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Editorial Collateral &amp; Layouts</span>
-                            <a href="brand.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">High-End Print &amp; Digital Materials</span>
-                            <a href="brand.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Corporate Aesthetic Engineering</span>
-                            <a href="brand.html" class="btn-sub">View Prices</a>
-                        </li>
+                        <li class="sub-service-item">3D &amp; 4D Motion Asset Design</li>
+                        <li class="sub-service-item">Editorial Collateral &amp; Layouts</li>
+                        <li class="sub-service-item">High-End Print &amp; Digital Materials</li>
+                        <li class="sub-service-item">Corporate Aesthetic Engineering</li>
                     </ul>
                 </div>
-                <a href="brand.html" class="btn btn-primary">Inquire About Pillar 02</a>
+                <a href="brand.html" class="btn btn-primary">View Prices</a>
             </div>
 
             <!-- Umbrella Card 3: Business Infrastructure -->
@@ -432,25 +393,13 @@
                     <p class="service-card-desc">Comprehensive operational setup, curriculum design, and organizational frameworks tailored for rapid market dominance.</p>
                     
                     <ul class="sub-services-list">
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Enterprise Training &amp; Curriculum</span>
-                            <a href="business.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Logistics &amp; Dispatch Systems</span>
-                            <a href="business.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Corporate Structuring Guidance</span>
-                            <a href="business.html" class="btn-sub">View Prices</a>
-                        </li>
-                        <li class="sub-service-item">
-                            <span class="sub-service-name">Executive Workflow Optimization</span>
-                            <a href="business.html" class="btn-sub">View Prices</a>
-                        </li>
+                        <li class="sub-service-item">Enterprise Training &amp; Curriculum</li>
+                        <li class="sub-service-item">Logistics &amp; Dispatch Systems</li>
+                        <li class="sub-service-item">Corporate Structuring Guidance</li>
+                        <li class="sub-service-item">Executive Workflow Optimization</li>
                     </ul>
                 </div>
-                <a href="business.html" class="btn btn-primary">Inquire About Pillar 03</a>
+                <a href="business.html" class="btn btn-primary">View Prices</a>
             </div>
 
         </div>
@@ -464,7 +413,7 @@
             </div>
             
             <div class="footer-links">
-                <a href="index.html">Home</a>
+                <a href="/index.html">Home</a>
                 <a href="services.html">Services</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Inquire</a>
